@@ -16,3 +16,16 @@ export interface VerificationEmailContent {
   text: string;
   html: string;
 }
+
+export interface PasswordResetTokenPayload {
+  sub: string;
+  purpose: 'password_reset';
+}
+
+export interface PasswordResetEmailContent {
+  to: string;
+  subject: string;
+  text: string;
+  html: string;
+}
+

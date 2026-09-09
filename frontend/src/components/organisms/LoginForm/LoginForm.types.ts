@@ -10,4 +10,9 @@ export interface LoginFormProps {
   onSubmit: (e: React.FormEvent) => void;
   loading: boolean;
   error: string | null;
+  isInactive?: boolean;
+  onResendVerification?: () => void;
+  resending?: boolean;
+  resendSuccess?: boolean;
+  onForgotPassword?: () => void;
 }

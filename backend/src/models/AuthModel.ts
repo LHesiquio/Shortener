@@ -307,3 +307,61 @@ async function assertNicknameIsFree(nickname: string): Promise<void> {
     throw new ApiError(409, 'Nickname already taken', 'NICKNAME_TAKEN');
   }
 }
+
+// ---------------------------------------------------------------------------
+// 5. FORGOT PASSWORD MODEL
+// ---------------------------------------------------------------------------
+
+const forgotPasswordSchema = z.object({
+  email: z.string().email('Valid email is required').max(120).transform((v) => v.toLowerCase().trim()),
+});
+
+export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
+
+export class ForgotPasswordModel {
+  public extractFromRequest(req: Request): ForgotPasswordInput {
+    return {
+      email: req.body?.email,
+    };
+  }
+
+  public validate(input: ForgotPasswordInput): ForgotPasswordInput {
+    const result = forgotPasswordSchema.safeParse(input);
+    if (!result.success) {
+      throw new ApiError(400, 'Valid email is required', 'VALIDATION_ERROR');
+    }
+    return result.data;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 6. RESET PASSWORD MODEL
+// ---------------------------------------------------------------------------
+
+const resetPasswordSchema = z.object({
+  token: z.string().min(1, 'Reset token is required'),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .max(128, 'Password must be at most 128 characters'),
+});
+
+export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
+
+export class ResetPasswordModel {
+  public extractFromRequest(req: Request): ResetPasswordInput {
+    return {
+      token: req.body?.token,
+      password: req.body?.password,
+    };
+  }
+
+  public validate(input: ResetPasswordInput): ResetPasswordInput {
+    const result = resetPasswordSchema.safeParse(input);
+    if (!result.success) {
+      const issue = result.error.issues[0];
+      throw new ApiError(400, issue?.message ?? 'Invalid password reset payload', 'VALIDATION_ERROR');
+    }
+    return result.data;
+  }
+}

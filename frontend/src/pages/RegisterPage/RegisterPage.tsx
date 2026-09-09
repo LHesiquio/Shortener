@@ -37,11 +37,32 @@ function SuccessView({ onEnter }: { onEnter: () => void }) {
   );
 }
 
-function PendingVerificationView({ email, message }: { email: string; message: string }) {
+function PendingVerificationView({
+  email,
+  message,
+  onResend,
+  resending,
+  resendSuccess,
+  resendError,
+}: {
+  email: string;
+  message: string;
+  onResend: () => void;
+  resending: boolean;
+  resendSuccess: boolean;
+  resendError: string | null;
+}) {
   return (
     <div className="register-page">
       <main className="register-main">
-        <EmailSentNotice email={email} message={message} />
+        <EmailSentNotice
+          email={email}
+          message={message}
+          onResend={onResend}
+          resending={resending}
+          resendSuccess={resendSuccess}
+          resendError={resendError}
+        />
         <p className="register-login-link" style={{ marginTop: '1.5rem' }}>
           Back to <Link to="/login" className="link-accent">Sign in</Link>
         </p>
@@ -55,7 +76,16 @@ export function RegisterPage() {
   const navigate = useNavigate();
 
   if (reg.isPendingVerification) {
-    return <PendingVerificationView email={reg.email} message={reg.verificationMessage} />;
+    return (
+      <PendingVerificationView
+        email={reg.email}
+        message={reg.verificationMessage}
+        onResend={reg.handleResend}
+        resending={reg.resending}
+        resendSuccess={reg.resendSuccess}
+        resendError={reg.resendError}
+      />
+    );
   }
   if (reg.isSuccess) {
     return <SuccessView onEnter={() => navigate('/')} />;

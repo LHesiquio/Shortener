@@ -36,3 +36,16 @@ export function getRegistrationValidationError(
   }
   return null;
 }
+
+export function getResetPasswordValidationError(pass: string, confirmPass: string): string | null {
+  if (!isMinPasswordLength(pass, 8)) {
+    return 'Password must be at least 8 characters long.';
+  }
+  if (!hasSpecialCharacter(pass)) {
+    return 'Password must include at least one special character.';
+  }
+  if (!doPasswordsMatch(pass, confirmPass)) {
+    return 'Passwords do not match.';
+  }
+  return null;
+}

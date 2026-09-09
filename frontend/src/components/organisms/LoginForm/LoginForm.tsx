@@ -18,10 +18,55 @@ function RememberCheckbox({ checked, onChange }: { checked: boolean; onChange: (
   );
 }
 
+function LoginErrorDisplay({
+  error,
+  isInactive,
+  onResend,
+  resending,
+  resendSuccess,
+}: {
+  error: string;
+  isInactive?: boolean;
+  onResend?: () => void;
+  resending?: boolean;
+  resendSuccess?: boolean;
+}) {
+  return (
+    <div className="login-error-container">
+      <div className="error-message">{error}</div>
+      {isInactive && onResend ? (
+        <div className="resend-unverified-row">
+          <button
+            type="button"
+            className="resend-unverified-btn"
+            onClick={onResend}
+            disabled={resending || resendSuccess}
+          >
+            <Icon name={resendSuccess ? 'check' : 'mark_email_read'} size={18} />
+            {resendSuccess
+              ? 'Verification email sent!'
+              : resending
+              ? 'Sending…'
+              : 'Resend Verification Email'}
+          </button>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 export function LoginForm(props: LoginFormProps) {
   return (
     <form className="login-form" onSubmit={props.onSubmit}>
-      {props.error && <div className="error-message">{props.error}</div>}
+      {props.error && (
+        <LoginErrorDisplay
+          error={props.error}
+          isInactive={props.isInactive}
+          onResend={props.onResendVerification}
+          resending={props.resending}
+          resendSuccess={props.resendSuccess}
+        />
+      )}
 
       <FormField
         label="Email Address"
@@ -37,7 +82,13 @@ export function LoginForm(props: LoginFormProps) {
       <div className="password-section">
         <div className="password-header">
           <span className="form-label">Password</span>
-          <a href="#" className="forgot-link">Forgot?</a>
+          <button
+            type="button"
+            className="forgot-link-btn"
+            onClick={props.onForgotPassword}
+          >
+            Forgot?
+          </button>
         </div>
         <FormField
           label=""

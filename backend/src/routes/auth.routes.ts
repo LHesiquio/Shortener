@@ -6,6 +6,8 @@ import { LogoutController } from '@controllers/auth/LogoutController';
 import { MeController } from '@controllers/auth/MeController';
 import { VerifyEmailController } from '@controllers/auth/VerifyEmailController';
 import { ResendVerificationController } from '@controllers/auth/ResendVerificationController';
+import { ForgotPasswordController } from '@controllers/auth/ForgotPasswordController';
+import { ResetPasswordController } from '@controllers/auth/ResetPasswordController';
 import { ProfileController } from '@controllers/auth/ProfileController';
 import { ChangePasswordController } from '@controllers/auth/ChangePasswordController';
 import { DeactivateAccountController } from '@controllers/auth/DeactivateAccountController';
@@ -23,6 +25,8 @@ const changePasswordController = new ChangePasswordController();
 const deactivateAccountController = new DeactivateAccountController();
 const verifyEmailController = new VerifyEmailController();
 const resendController = new ResendVerificationController();
+const forgotPasswordController = new ForgotPasswordController();
+const resetPasswordController = new ResetPasswordController();
 
 /**
  * The login / resend rate limits are factories so tests can pass
@@ -37,9 +41,11 @@ router.post('/login', loginRateLimit, loginController.login);
 router.post('/refresh', refreshController.refresh);
 router.post('/logout', logoutController.logout);
 
-// Public — email verification
+// Public — email verification & recovery
 router.post('/verify-email', verifyEmailController.verify);
 router.post('/resend-verification', resendRateLimit, resendController.resend);
+router.post('/forgot-password', resendRateLimit, forgotPasswordController.forgotPassword);
+router.post('/reset-password', resendRateLimit, resetPasswordController.resetPassword);
 
 // Protected
 router.get('/me', authMiddleware, meController.me);

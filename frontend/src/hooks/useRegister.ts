@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { apiClient, ApiError } from '@/lib/apiClient';
+import { authService } from '@/services/authService';
 import type { RegisterResponsePayload } from '@/types/auth.types';
 import { getRegistrationValidationError } from '@/utils/authValidation.utils';
 
@@ -47,9 +48,33 @@ function useRegisterStatus() {
   };
 }
 
+function useRegisterResend(email: string) {
+  const [resending, setResending] = useState(false);
+  const [resendSuccess, setResendSuccess] = useState(false);
+  const [resendError, setResendError] = useState<string | null>(null);
+
+  const handleResend = async () => {
+    if (!email) return;
+    setResending(true);
+    setResendSuccess(false);
+    setResendError(null);
+    try {
+      await authService.resendVerification(email);
+      setResendSuccess(true);
+    } catch (err: unknown) {
+      setResendError(err instanceof ApiError ? err.message : 'Failed to resend verification email.');
+    } finally {
+      setResending(false);
+    }
+  };
+
+  return { resending, resendSuccess, resendError, handleResend };
+}
+
 export function useRegister() {
   const f = useRegisterFields();
   const st = useRegisterStatus();
+  const resend = useRegisterResend(f.email);
   const queryClient = useQueryClient();
 
   const executeApiCall = async () => {
@@ -83,6 +108,8 @@ export function useRegister() {
     currentStep: st.currentStep, totalSteps: 3, isSuccess: st.isSuccess, isPendingVerification: st.isPendingVerification,
     verificationMessage: st.verificationMessage, email: f.email, loading: st.loading, error: st.fieldErrors.general ?? null,
     fieldErrors: st.fieldErrors, formData: f,
+    resending: resend.resending, resendSuccess: resend.resendSuccess, resendError: resend.resendError,
+    handleResend: resend.handleResend,
     handleNext: () => { st.setFieldErrors({}); if (st.currentStep < 3) st.setCurrentStep(st.currentStep + 1); else void submitRegistration(); },
     handleBack: () => { st.setFieldErrors({}); if (st.currentStep > 1) st.setCurrentStep(st.currentStep - 1); },
   };

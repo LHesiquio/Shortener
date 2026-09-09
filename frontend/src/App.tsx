@@ -16,6 +16,7 @@ import { OfflineBanner } from '@/components/organisms/OfflineBanner';
 const LoginPage = lazy(() => import('@/pages/LoginPage/LoginPage').then((m) => ({ default: m.LoginPage })));
 const RegisterPage = lazy(() => import('@/pages/RegisterPage/RegisterPage').then((m) => ({ default: m.RegisterPage })));
 const VerifyEmailPage = lazy(() => import('@/pages/VerifyEmailPage/VerifyEmailPage').then((m) => ({ default: m.VerifyEmailPage })));
+const ResetPasswordPage = lazy(() => import('@/pages/ResetPasswordPage/ResetPasswordPage').then((m) => ({ default: m.ResetPasswordPage })));
 const DashboardPage = lazy(() => import('@/pages/DashboardPage/DashboardPage').then((m) => ({ default: m.DashboardPage })));
 const ProjectsPage = lazy(() => import('@/pages/ProjectsPage/ProjectsPage').then((m) => ({ default: m.ProjectsPage })));
 const ProjectDetailPage = lazy(() => import('@/pages/ProjectDetailPage/ProjectDetailPage').then((m) => ({ default: m.ProjectDetailPage })));
@@ -43,6 +44,7 @@ function AppRoutes() {
         <Route path="/login" element={<PublicOnlyRoute><LoginPage /></PublicOnlyRoute>} />
         <Route path="/register" element={<PublicOnlyRoute><RegisterPage /></PublicOnlyRoute>} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
+        <Route path="/reset-password" element={<PublicOnlyRoute><ResetPasswordPage /></PublicOnlyRoute>} />
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
         <Route path="/projects" element={<ProtectedRoute><ProjectsPage /></ProtectedRoute>} />

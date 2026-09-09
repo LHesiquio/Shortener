@@ -5,7 +5,7 @@ import { env } from '@config/env';
 import { collection, Collections } from '@config/db';
 import { ApiError } from '@utils/ApiError';
 import { AccessTokenPayload, RefreshTokenRecord } from '@appTypes/jwt';
-import { VerificationTokenPayload } from '@appTypes/email';
+import { VerificationTokenPayload, PasswordResetTokenPayload } from '@appTypes/email';
 
 /**
  * Token management.
@@ -213,6 +213,31 @@ export const TokenService = {
     assertVerificationPayload(decoded);
     return new ObjectId(decoded.sub);
   },
+
+  /**
+   * Signs a short-lived JWT for the password reset flow. Tagged with
+   * `purpose: 'password_reset'` and expires in 1h.
+   */
+  issuePasswordResetToken(userId: ObjectId): string {
+    const payload: PasswordResetTokenPayload = {
+      sub: userId.toHexString(),
+      purpose: 'password_reset',
+    };
+    const options: SignOptions = {
+      expiresIn: '1h',
+    };
+    return jwt.sign(payload, env.JWT_ACCESS_SECRET, options);
+  },
+
+  /**
+   * Verifies a password-reset token and returns the userId. Throws
+   * 400 on malformed/expired/wrong-purpose tokens.
+   */
+  verifyPasswordResetToken(rawToken: string): ObjectId {
+    const decoded = decodePasswordReset(rawToken);
+    assertPasswordResetPayload(decoded);
+    return new ObjectId(decoded.sub);
+  },
 };
 
 // Re-export for unit tests so they can introspect internal helpers.
@@ -289,5 +314,27 @@ function assertVerificationPayload(payload: VerificationTokenPayload): void {
   }
   if (typeof payload.sub !== 'string' || !ObjectId.isValid(payload.sub)) {
     throw new ApiError(400, 'Malformed verification token', 'INVALID_VERIFICATION');
+  }
+}
+
+function decodePasswordReset(rawToken: string): PasswordResetTokenPayload {
+  let decoded: unknown;
+  try {
+    decoded = jwt.verify(rawToken, env.JWT_ACCESS_SECRET);
+  } catch {
+    throw new ApiError(400, 'Invalid or expired password reset link', 'INVALID_RESET_TOKEN');
+  }
+  if (typeof decoded !== 'object' || decoded === null) {
+    throw new ApiError(400, 'Malformed password reset token', 'INVALID_RESET_TOKEN');
+  }
+  return decoded as PasswordResetTokenPayload;
+}
+
+function assertPasswordResetPayload(payload: PasswordResetTokenPayload): void {
+  if (payload.purpose !== 'password_reset') {
+    throw new ApiError(400, 'Token is not for password reset', 'INVALID_RESET_TOKEN');
+  }
+  if (typeof payload.sub !== 'string' || !ObjectId.isValid(payload.sub)) {
+    throw new ApiError(400, 'Malformed password reset token', 'INVALID_RESET_TOKEN');
   }
 }

@@ -1,6 +1,6 @@
 import nodemailer, { type Transporter } from 'nodemailer';
 import { env } from '@config/env';
-import { VerificationEmailContent } from '@appTypes/email';
+import { VerificationEmailContent, PasswordResetEmailContent } from '@appTypes/email';
 import { ObjectId } from 'mongodb';
 
 /**
@@ -13,6 +13,7 @@ import { ObjectId } from 'mongodb';
  */
 export interface EmailService {
   sendVerificationEmail(to: string, token: string): Promise<void>;
+  sendPasswordResetEmail(to: string, token: string): Promise<void>;
 }
 
 const consoleTransport: EmailService = {
@@ -21,6 +22,19 @@ const consoleTransport: EmailService = {
     const body = renderVerificationEmail(to, link);
     // eslint-disable-next-line no-console
     console.log('\n📧 [EmailService/console] verification email:');
+    // eslint-disable-next-line no-console
+    console.log(`   to:      ${body.to}`);
+    // eslint-disable-next-line no-console
+    console.log(`   subject: ${body.subject}`);
+    // eslint-disable-next-line no-console
+    console.log(`   link:    ${link}\n`);
+  },
+
+  async sendPasswordResetEmail(to, token) {
+    const link = buildPasswordResetLink(token);
+    const body = renderPasswordResetEmail(to, link);
+    // eslint-disable-next-line no-console
+    console.log('\n🔑 [EmailService/console] password reset email:');
     // eslint-disable-next-line no-console
     console.log(`   to:      ${body.to}`);
     // eslint-disable-next-line no-console
@@ -59,6 +73,19 @@ const smtpTransport: EmailService = {
       html: body.html,
     });
   },
+
+  async sendPasswordResetEmail(to, token) {
+    const link = buildPasswordResetLink(token);
+    const body = renderPasswordResetEmail(to, link);
+    const transporter = getTransporter();
+    await transporter.sendMail({
+      from: env.MAIL_FROM,
+      to: body.to,
+      subject: body.subject,
+      text: body.text,
+      html: body.html,
+    });
+  },
 };
 
 function buildVerificationLink(token: string): string {
@@ -78,6 +105,26 @@ function renderVerificationEmail(to: string, link: string): VerificationEmailCon
   };
 }
 
+function buildPasswordResetLink(token: string): string {
+  const base = env.FRONTEND_BASE_URL.replace(/\/$/, '');
+  return `${base}/reset-password?token=${encodeURIComponent(token)}`;
+}
+
+function renderPasswordResetEmail(to: string, link: string): PasswordResetEmailContent {
+  return {
+    to,
+    subject: 'Reset your Shortlinks password',
+    text: `You requested to reset your password. Open this link to set a new password:\n\n${link}\n\nThis link expires in 1 hour. If you did not request this, please ignore this email.`,
+    html: `<p>Hello,</p>
+<p>You recently requested to reset your password for your <b>Shortlinks</b> account.</p>
+<p>Click the link below to set a new password:</p>
+<p><a href="${link}">Reset Password</a></p>
+<p>Or copy and paste this URL into your browser:</p>
+<p>${link}</p>
+<p>This link expires in 1 hour. If you did not request this password reset, please ignore this email.</p>`,
+  };
+}
+
 /**
  * Singleton picked at boot based on `MAIL_TRANSPORT`. Exposed as a
  * plain object so callers do `EmailService.sendVerificationEmail(...)`.
@@ -86,7 +133,7 @@ export const EmailService: EmailService =
   env.MAIL_TRANSPORT === 'smtp' ? smtpTransport : consoleTransport;
 
 // Re-exported for tests that want to assert the link.
-export const __testing = { buildVerificationLink };
+export const __testing = { buildVerificationLink, buildPasswordResetLink };
 
 // Helps the linter ignore the unused import warning when we re-export
 // ObjectId (it is exposed for future email templates that may need it).

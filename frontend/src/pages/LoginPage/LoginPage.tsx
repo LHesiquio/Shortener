@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { LoginForm } from '@/components/organisms/LoginForm/LoginForm';
+import { ForgotPasswordModal } from '@/components/organisms/ForgotPasswordModal/ForgotPasswordModal';
 import { Icon } from '@/components/atoms/Icon/Icon';
 import { ReleaseBadge } from '@/components/atoms/ReleaseBadge/ReleaseBadge';
 import { useLogin } from '@/hooks/useLogin';
@@ -41,7 +42,12 @@ export function LoginPage() {
       <main className="login-main">
         <div className="login-card">
           <BrandHeader />
-          <LoginForm {...login} onSubmit={login.handleLogin} />
+          <LoginForm
+            {...login}
+            onSubmit={login.handleLogin}
+            onResendVerification={login.handleResendVerification}
+            onForgotPassword={() => login.setIsForgotPasswordOpen(true)}
+          />
           <div className="login-footer-actions">
             <p className="login-register-link">
               New to the garden?{' '}
@@ -51,6 +57,12 @@ export function LoginPage() {
         </div>
         <LegalFooter />
       </main>
+
+      <ForgotPasswordModal
+        isOpen={login.isForgotPasswordOpen}
+        onClose={() => login.setIsForgotPasswordOpen(false)}
+        initialEmail={login.email}
+      />
     </div>
   );
 }

@@ -31,4 +31,16 @@ export const authService = {
   async deactivateAccount(): Promise<{ ok: boolean; message: string }> {
     return apiClient.post<{ ok: boolean; message: string }>('/api/auth/deactivate', {});
   },
+
+  async resendVerification(email: string): Promise<{ message: string }> {
+    return apiClient.post<{ message: string }>('/api/auth/resend-verification', { email });
+  },
+
+  async forgotPassword(email: string): Promise<{ message: string }> {
+    return apiClient.post<{ message: string }>('/api/auth/forgot-password', { email });
+  },
+
+  async resetPassword(token: string, password: string): Promise<{ message: string }> {
+    return apiClient.post<{ message: string }>('/api/auth/reset-password', { token, password });
+  },
 };
