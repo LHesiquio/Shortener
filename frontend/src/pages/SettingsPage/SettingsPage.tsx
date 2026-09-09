@@ -164,7 +164,8 @@ export function SettingsPage() {
                           className="settings-btn-secondary settings-autodetect-btn"
                           onClick={handleAutoDetectTimezone}
                         >
-                          Auto-Detect
+                          <Icon name="refresh" size={16} />
+                          <span>Auto-Detect</span>
                         </button>
                       )}
                     </div>

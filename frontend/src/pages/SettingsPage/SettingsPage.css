@@ -195,10 +195,24 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.settings-row-inline .select-input-wrapper {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
 }
 
 /* Auto-detect button pop in */
 .settings-autodetect-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
   animation: settings-btn-pop-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -210,6 +224,19 @@
   to {
     opacity: 1;
     transform: scale(1) translateX(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .settings-row-inline {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .settings-autodetect-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 
