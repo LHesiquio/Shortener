@@ -3,8 +3,10 @@
   flex-direction: column;
   gap: 1.5rem;
   max-width: 900px;
+  width: 100%;
   margin: 0 auto;
   padding-bottom: 3rem;
+  box-sizing: border-box;
 }
 
 .settings-header {
@@ -33,6 +35,15 @@
   padding: 1.75rem;
   box-shadow: 0 4px 16px rgba(99, 96, 55, 0.04);
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .settings-section-card {
+    padding: 1.25rem 1rem;
+    border-radius: 1.25rem;
+  }
 }
 
 .settings-section-card.is-editing {
@@ -98,13 +109,17 @@
 /* Grid & Inputs */
 .settings-grid-2col {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .settings-grid-2col {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
   }
 }
 
@@ -112,6 +127,10 @@
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .settings-label {
@@ -124,7 +143,10 @@
 
 .settings-input,
 .settings-select {
+  display: block;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   height: 48px;
   box-sizing: border-box;
   background: var(--color-surface-container-lowest, #ffffff);
@@ -430,6 +452,9 @@
   gap: 1rem;
   margin-top: 1rem;
   padding: 1.25rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   background-color: var(--color-surface-container-lowest, #ffffff);
   border: 1px solid var(--color-outline-variant, #cac6b8);
   border-radius: 1.25rem;

@@ -52,8 +52,7 @@
 .app-canvas,
 .projects-page-canvas,
 .clicks-page-canvas,
-.project-detail-canvas,
-.settings-page-container {
+.project-detail-canvas {
   padding: 2rem;
   max-width: 1360px;
   width: 100%;
@@ -87,10 +86,18 @@
   .app-canvas,
   .projects-page-canvas,
   .clicks-page-canvas,
-  .project-detail-canvas,
-  .settings-page-container {
+  .project-detail-canvas {
     padding: 1.25rem 1rem;
     padding-bottom: 7rem !important; /* Reserves clearance for MobileBottomNav */
     gap: 1.25rem;
   }
+}
+
+/* ── 5. Universal Form Controls & Replaced Elements Reset ───────────────── */
+input,
+select,
+textarea,
+button {
+  box-sizing: border-box;
+  max-width: 100%;
 }

@@ -12,7 +12,6 @@ import { PalettePicker } from '@/components/molecules/PalettePicker/PalettePicke
 import { APP_CONFIG } from '@/config/app.config';
 import { useSettingsPage } from './useSettingsPage';
 import { TIMEZONE_OPTIONS } from './SettingsPage.types';
-import '@/pages/DashboardPage/DashboardPage.css';
 import './SettingsPage.css';
 
 export function SettingsPage() {
