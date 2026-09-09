@@ -9,13 +9,11 @@
   top: 0;
   z-index: 30;
   box-sizing: border-box;
-  border-bottom: 1px solid var(--color-outline-variant, #cac6b8);
   transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 :root[data-theme='dark'] .topbar-root {
   background-color: var(--color-surface-container-low, #1c1c1c);
-  border-bottom-color: var(--color-outline-variant, #444444);
 }
 
 /* ── Search ──────────────────────────────────────────────────────────── */
