@@ -1,3 +1,4 @@
+import nodemailer, { type Transporter } from 'nodemailer';
 import { env } from '@config/env';
 import { VerificationEmailContent } from '@appTypes/email';
 import { ObjectId } from 'mongodb';
@@ -8,9 +9,7 @@ import { ObjectId } from 'mongodb';
  * Two transports are wired today:
  *  - 'console' (default in dev): logs the email to stdout. Great for
  *    local development and for the smoke tests — no SMTP required.
- *  - 'smtp' (prod): a stub. When you wire Nodemailer/Resend/etc., the
- *    only change is inside the smtp transport below; the rest of the
- *    codebase keeps calling `EmailService.send()`.
+ *  - 'smtp' (prod/mailtrap): sends real emails using nodemailer.
  */
 export interface EmailService {
   sendVerificationEmail(to: string, token: string): Promise<void>;
@@ -31,17 +30,34 @@ const consoleTransport: EmailService = {
   },
 };
 
+let cachedTransporter: Transporter | null = null;
+
+function getTransporter(): Transporter {
+  if (!cachedTransporter) {
+    cachedTransporter = nodemailer.createTransport({
+      host: env.SMTP_HOST,
+      port: env.SMTP_PORT ?? 2525,
+      auth: {
+        user: env.SMTP_USER,
+        pass: env.SMTP_PASS,
+      },
+    });
+  }
+  return cachedTransporter;
+}
+
 const smtpTransport: EmailService = {
   async sendVerificationEmail(to, token) {
-    // Stub: when you wire Nodemailer, replace this body with a real
-    // transporter.sendMail call. The interface stays the same.
     const link = buildVerificationLink(token);
     const body = renderVerificationEmail(to, link);
-    // eslint-disable-next-line no-console
-    console.warn(
-      `[EmailService/smtp] STUB — would send to ${body.to} with subject "${body.subject}". ` +
-        `Configure SMTP_HOST/SMTP_USER/SMTP_PASS and replace this stub. Link: ${link}`
-    );
+    const transporter = getTransporter();
+    await transporter.sendMail({
+      from: env.MAIL_FROM,
+      to: body.to,
+      subject: body.subject,
+      text: body.text,
+      html: body.html,
+    });
   },
 };
 
