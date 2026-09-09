@@ -44,7 +44,7 @@
   min-height: 100dvh;
   box-sizing: border-box;
   position: relative;
-  overflow-x: hidden;
+  /* CRITICAL: Keep overflow visible so position: sticky on .topbar-root functions perfectly on scroll */
 }
 
 /* ── 3. The Content Canvas ──────────────────────────────────────────────── */
