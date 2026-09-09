@@ -95,6 +95,21 @@
 }
 
 /* Card */
+@keyframes cardStepPulse {
+  0% {
+    transform: scale(0.985);
+    box-shadow: 0 1px 4px rgba(99, 96, 55, 0.04);
+  }
+  60% {
+    transform: scale(1.006);
+    box-shadow: 0 12px 32px rgba(99, 96, 55, 0.12);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(99, 96, 55, 0.06);
+  }
+}
+
 .register-card {
   width: 100%;
   background-color: var(--surface-container-lowest);
@@ -105,6 +120,8 @@
   min-height: 400px;
   display: flex;
   flex-direction: column;
+  animation: cardStepPulse 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, box-shadow;
 }
 
 .register-card .step-indicator-container {

@@ -6,6 +6,47 @@
 
 .step-container {
   flex-grow: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.step-animated-wrapper {
+  width: 100%;
+  will-change: transform, opacity, filter;
+}
+
+.step-animated-wrapper.forward {
+  animation: stepSlideInForward 0.36s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.step-animated-wrapper.backward {
+  animation: stepSlideInBackward 0.36s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes stepSlideInForward {
+  0% {
+    opacity: 0;
+    transform: translate3d(36px, 0, 0) scale(0.97);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes stepSlideInBackward {
+  0% {
+    opacity: 0;
+    transform: translate3d(-36px, 0, 0) scale(0.97);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
 }
 
 .step-content {
@@ -100,6 +141,17 @@
   justify-content: space-between;
 }
 
+@keyframes backBtnFadeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(-10px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 .back-btn {
   font-family: var(--font-label-lg);
   font-size: 14px;
@@ -107,10 +159,11 @@
   color: var(--on-surface-variant);
   padding: 12px 24px;
   border-radius: var(--rounded-full);
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
   cursor: pointer;
   background: none;
   border: none;
+  animation: backBtnFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .back-btn:hover {

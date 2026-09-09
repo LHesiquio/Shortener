@@ -1,5 +1,7 @@
 import type { RegisterFormData } from '@/types/register';
 
+export type StepDirection = 'forward' | 'backward' | 'none';
+
 export interface RegisterFormProps {
   currentStep: number;
   totalSteps: number;

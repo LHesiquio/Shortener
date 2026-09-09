@@ -68,7 +68,7 @@ export function RegisterPage() {
       <main className="register-main">
         <RegisterBrand />
         <StepIndicator currentStep={reg.currentStep} totalSteps={reg.totalSteps} labels={STEP_LABELS} />
-        <div className="register-card">
+        <div className="register-card" key={reg.currentStep}>
           <RegisterForm
             currentStep={reg.currentStep}
             totalSteps={reg.totalSteps}
