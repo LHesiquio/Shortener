@@ -1,0 +1,58 @@
+.release-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  border-radius: 9999px;
+  user-select: none;
+  vertical-align: middle;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Sizes */
+.release-badge--xs {
+  font-size: 9px;
+  padding: 2px 5px;
+}
+
+.release-badge--sm {
+  font-size: 10px;
+  padding: 2.5px 7px;
+}
+
+.release-badge--md {
+  font-size: 11px;
+  padding: 3.5px 9px;
+}
+
+/* Variants */
+.release-badge--default {
+  background-color: var(--color-secondary-container, #e0eb78);
+  color: var(--color-on-secondary-container, #404a00);
+  border: 1px solid rgba(97, 106, 0, 0.2);
+  box-shadow: 0 1px 3px rgba(97, 106, 0, 0.08);
+}
+
+.release-badge--subtle {
+  background-color: var(--color-surface-container-high, #efeee7);
+  color: var(--color-on-surface-variant, #49473c);
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+}
+
+/* Dark Mode Tokens */
+:root[data-theme='dark'] .release-badge--default {
+  background-color: rgba(224, 235, 120, 0.15);
+  color: #e0eb78;
+  border-color: rgba(224, 235, 120, 0.35);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+:root[data-theme='dark'] .release-badge--subtle {
+  background-color: var(--color-surface-container-high, #2b2c28);
+  color: var(--color-on-surface-variant, #cac6b8);
+  border-color: var(--color-outline-variant, #49473c);
+}

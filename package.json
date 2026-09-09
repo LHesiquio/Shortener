@@ -1,0 +1,17 @@
+{
+  "name": "shortlinks-monorepo",
+  "private": true,
+  "scripts": {
+    "mongo": "mongod --dbpath C:\\Users\\luis_\\.tools\\mongodb\\data --port 27017 --bind_ip 127.0.0.1 --wiredTigerCacheSizeGB 0.25",
+    "dev:backend": "pnpm --filter backend dev",
+    "dev:frontend": "pnpm --filter frontend dev",
+    "build:backend": "pnpm --filter backend build",
+    "build:frontend": "pnpm --filter frontend build",
+    "ngrok:frontend": "pnpm exec ngrok http 5173",
+    "ngrok:backend": "pnpm exec ngrok http 5001"
+  },
+  "devDependencies": {
+    "ngrok": "5.0.0-beta.2"
+  },
+  "packageManager": "pnpm@9.15.4"
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LinkTracker — Tend your digital garden</title>
+    <meta name="description" content="LinkTracker helps you organize, share and track all your important links in one place." />
+
+    <!-- Google Fonts (Optimized Non-Blocking) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <!-- Anti-flash inline theme initializer -->
+    <script>
+      (function() {
+        try {
+          var t = localStorage.getItem('theme');
+          if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+          else document.documentElement.setAttribute('data-theme', 'light');
+
+          var p = localStorage.getItem('color-palette');
+          if (p) document.documentElement.setAttribute('data-palette', p);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

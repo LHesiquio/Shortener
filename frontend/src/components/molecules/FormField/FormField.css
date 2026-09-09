@@ -1,0 +1,71 @@
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.form-label {
+  font-family: var(--font-label-lg);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  color: var(--on-surface-variant);
+  margin-left: 8px;
+  transition: color 0.2s ease;
+}
+
+/* El label activa el color del primary cuando el input dentro está enfocado */
+.form-field:focus-within .form-label {
+  color: var(--primary);
+}
+
+/* Estado de Error */
+.form-field.has-error .form-label {
+  color: var(--error, #ba1a1a);
+}
+
+.field-error-message {
+  font-family: var(--font-label-sm, 'Inter', sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--error, #ba1a1a);
+  margin: 4px 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  animation: field-error-fade 0.2s ease;
+}
+
+@keyframes field-error-fade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Botón toggle de contraseña */
+.password-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--outline);
+  padding: 4px;
+  border-radius: 50%;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+  cursor: pointer;
+}
+
+.password-toggle:hover {
+  color: var(--primary);
+  background-color: rgba(99, 96, 55, 0.08);
+}
+
+.password-toggle:active {
+  transform: scale(0.85);
+}
+
+/* Transición del icono de visibilidad */
+.password-toggle .material-symbols-outlined,
+.password-toggle .morph-icon-atom {
+  transition: opacity 0.15s ease;
+}

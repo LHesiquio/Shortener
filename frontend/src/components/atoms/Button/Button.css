@@ -1,0 +1,140 @@
+.btn {
+  /* Reset */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Layout & Defaults */
+  gap: 8px;
+  padding: 0 24px;
+  height: 48px;
+
+  /* Tipografía */
+  font-family: var(--font-label-lg);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+
+  /* Diseño */
+  border-radius: var(--rounded-full);
+  cursor: pointer;
+  user-select: none;
+
+  /* Animación */
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease,
+    filter 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Sizes */
+.btn-sm {
+  height: 38px;
+  padding: 0 16px;
+  font-size: 13px;
+  border-radius: 9999px;
+}
+
+.btn-md {
+  height: 48px;
+  padding: 0 24px;
+  font-size: 14px;
+  border-radius: 9999px;
+}
+
+.btn-lg {
+  height: 56px;
+  padding: 0 32px;
+  font-size: 15px;
+  border-radius: 9999px;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* Variante primaria — Creamy Yellow / Secondary container */
+.btn-primary {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+  box-shadow: 0 1px 3px rgba(99, 96, 55, 0.12);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 4px 12px rgba(99, 96, 55, 0.2);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: scale(0.96) translateY(0);
+  box-shadow: 0 1px 3px rgba(99, 96, 55, 0.12);
+}
+
+/* Variante secundaria */
+.btn-secondary {
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 4px 12px rgba(99, 96, 55, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Variante Outlined & Cancel — Transparente con borde M3 legible en light y dark */
+.btn-outlined,
+.btn-cancel {
+  background-color: transparent;
+  border: 1px solid var(--outline-variant, #cac6b8);
+  color: var(--on-surface, #1b1c18);
+}
+
+.btn-outlined:hover,
+.btn-cancel:hover {
+  background-color: var(--surface-container-high, #e9e8e2);
+  border-color: var(--outline, #7a776b);
+  color: var(--on-surface, #1b1c18);
+}
+
+/* Variante Danger / Error */
+.btn-danger {
+  background-color: var(--error, #ba1a1a);
+  color: var(--on-error, #ffffff);
+}
+
+.btn-danger:hover {
+  opacity: 0.92;
+  box-shadow: 0 4px 12px rgba(186, 26, 26, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Variante ghost */
+.btn-ghost {
+  background-color: transparent;
+  color: var(--on-surface-variant);
+}
+
+.btn-ghost:hover {
+  background-color: var(--surface-container-high);
+}

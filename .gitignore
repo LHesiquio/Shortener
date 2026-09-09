@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Builds
+dist/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local launcher scripts
+*.bat
+
+# Environment
+.env
+.env.*
+.env.local
+.env.*.local
+
+# OS and temporary files
+.DS_Store
+._*
+Thumbs.db
+

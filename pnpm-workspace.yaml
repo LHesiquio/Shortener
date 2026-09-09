@@ -1,0 +1,8 @@
+packages:
+  - 'backend'
+  - 'frontend'
+
+allowBuilds:
+  ngrok: true
+  bcrypt: true
+

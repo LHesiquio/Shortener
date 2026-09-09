@@ -1,0 +1,113 @@
+.sidebar-root {
+  height: 100vh;
+  height: 100dvh;
+  width: 17rem;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  background-color: var(--color-surface-container-low, #f5f4ed);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  box-sizing: border-box;
+  z-index: 40;
+}
+
+.sidebar-brand {
+  height: 4.5rem;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.sidebar-brand-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-primary-container, #fff9c4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-on-primary-container, #767248);
+  flex-shrink: 0;
+}
+
+.sidebar-brand-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.sidebar-brand-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  line-height: 1.2;
+}
+
+.sidebar-brand-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-on-surface, #1b1c18);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.sidebar-brand-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--color-on-surface-variant, #49473c);
+  opacity: 0.75;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.sidebar-nav-wrapper {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  overflow-y: auto;
+}
+
+.sidebar-footer {
+  padding: 1rem;
+}
+
+.sidebar-add-btn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary-container, #fff9c4);
+  color: var(--color-on-primary-container, #767248);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(99, 96, 55, 0.08);
+}
+
+.sidebar-add-btn:hover {
+  background-color: var(--color-secondary-container, #e0eb78);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 96, 55, 0.12);
+}
+
+.sidebar-add-btn:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 1024px) {
+  .sidebar-root {
+    display: none;
+  }
+}

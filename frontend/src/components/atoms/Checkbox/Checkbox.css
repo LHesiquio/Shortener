@@ -1,0 +1,173 @@
+/* ── Checkbox Atom (Material 3 Expressive Animated Checkbox) ── */
+.checkbox-atom-root {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--font-body-md, 'Inter', sans-serif);
+  outline: none;
+  position: relative;
+  transition: opacity 0.2s ease;
+}
+
+.checkbox-atom--disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.checkbox-atom-native {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.checkbox-atom-box-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Checkbox Box ── */
+.checkbox-atom-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 2px solid var(--color-outline, #79786a);
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-sizing: border-box;
+  transition:
+    background-color 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.checkbox-atom-root:hover:not(.checkbox-atom--disabled) .checkbox-atom-box {
+  border-color: var(--color-primary, #636037);
+  box-shadow: 0 0 0 4px rgba(99, 96, 55, 0.08);
+}
+
+.checkbox-atom-root:focus-visible .checkbox-atom-box {
+  border-color: var(--color-primary, #636037);
+  box-shadow: 0 0 0 4px var(--color-primary-container, #fff9c4);
+}
+
+/* Checked State with Spring Bounce */
+.checkbox-atom--checked .checkbox-atom-box {
+  background-color: var(--color-primary, #636037);
+  border-color: var(--color-primary, #636037);
+  color: var(--color-on-primary, #ffffff);
+  animation: checkboxPop 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes checkboxPop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(0.85);
+  }
+  75% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ── Checkmark SVG Draw Animation ── */
+.checkbox-atom-check-svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.checkbox-atom-check-path {
+  stroke-dasharray: 18;
+  stroke-dashoffset: 18;
+  transition: stroke-dashoffset 0.26s cubic-bezier(0.16, 1, 0.3, 1) 0.04s,
+              opacity 0.15s ease;
+  opacity: 0;
+}
+
+.checkbox-atom--checked .checkbox-atom-check-path {
+  stroke-dashoffset: 0;
+  opacity: 1;
+}
+
+/* Sizes */
+.checkbox-atom--sm .checkbox-atom-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+.checkbox-atom--sm .checkbox-atom-check-svg {
+  width: 11px;
+  height: 11px;
+}
+
+.checkbox-atom--lg .checkbox-atom-box {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+}
+.checkbox-atom--lg .checkbox-atom-check-svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* Content */
+.checkbox-atom-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.checkbox-atom-label {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--color-on-surface, #1b1c18);
+  line-height: 1.3;
+}
+
+.checkbox-atom-description {
+  font-size: 11.5px;
+  color: var(--color-on-surface-variant, #49473c);
+  opacity: 0.8;
+  line-height: 1.2;
+}
+
+/* ── Dark Mode Support ── */
+:root[data-theme='dark'] .checkbox-atom-box {
+  background-color: var(--color-surface-container-low, #1c1c1c);
+  border-color: var(--color-outline-variant, #49473c);
+}
+
+:root[data-theme='dark'] .checkbox-atom--checked .checkbox-atom-box {
+  background-color: var(--color-primary, #dce775);
+  border-color: var(--color-primary, #dce775);
+  color: var(--color-on-primary, #303300);
+}
+
+:root[data-theme='dark'] .checkbox-atom-root:hover:not(.checkbox-atom--disabled) .checkbox-atom-box {
+  border-color: var(--color-primary, #dce775);
+  box-shadow: 0 0 0 4px rgba(220, 231, 117, 0.12);
+}
+
+:root[data-theme='dark'] .checkbox-atom-label {
+  color: var(--color-on-surface, #f5f4ed);
+}
+
+:root[data-theme='dark'] .checkbox-atom-description {
+  color: var(--color-on-surface-variant, #c9c7ba);
+}

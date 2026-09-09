@@ -1,0 +1,74 @@
+/* ── Overlay ─────────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(27, 28, 24, 0.25);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: modal-overlay-in 0.2s ease forwards;
+}
+
+.modal-overlay--closing {
+  animation: modal-overlay-out 0.2s ease forwards;
+  pointer-events: none; /* stop overlay from blocking clicks during exit */
+}
+
+@keyframes modal-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes modal-overlay-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* ── Card ────────────────────────────────────────────────────────────── */
+.modal-card {
+  background: var(--color-surface-container-lowest, #ffffff);
+  border-radius: 1.5rem;
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  box-shadow:
+    0 20px 60px rgba(99, 96, 55, 0.15),
+    0 4px 16px rgba(99, 96, 55, 0.08);
+  animation: modal-card-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  position: relative;
+}
+
+.modal-card--closing {
+  animation: modal-card-out 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  pointer-events: none; /* card itself also non-interactive during exit */
+}
+
+@keyframes modal-card-in {
+  from { transform: translateY(16px) scale(0.98); opacity: 0; }
+  to   { transform: translateY(0) scale(1);       opacity: 1; }
+}
+
+@keyframes modal-card-out {
+  from { transform: translateY(0) scale(1);       opacity: 1; }
+  to   { transform: translateY(12px) scale(0.98); opacity: 0; }
+}
+
+/* ── Maximized full-screen state ─────────────────────────────────────── */
+.modal-overlay--maximized {
+  padding: 0 !important;
+}
+
+.modal-card--maximized {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  border-radius: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+}
+

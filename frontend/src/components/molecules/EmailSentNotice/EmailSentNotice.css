@@ -1,0 +1,95 @@
+.email-notice-card {
+  background: var(--color-surface-container-lowest, #ffffff);
+  border-radius: var(--rounded-md, 1.5rem);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(99, 96, 55, 0.06);
+  max-width: 440px;
+  margin: 0 auto;
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+}
+
+.email-notice-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: 9999px;
+  background-color: var(--color-primary-container, #fff9c4);
+  color: var(--color-on-primary-container, #767248);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem auto;
+}
+
+.email-notice-icon {
+  font-size: 32px;
+}
+
+.email-notice-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-on-surface, #1b1c18);
+  margin-bottom: 0.75rem;
+}
+
+.email-notice-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--color-on-surface-variant, #49473c);
+  margin-bottom: 1.5rem;
+}
+
+.email-highlight {
+  font-weight: 600;
+  color: var(--color-on-surface, #1b1c18);
+  word-break: break-all;
+}
+
+.email-notice-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.resend-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary, #636037);
+  color: var(--color-on-primary, #ffffff);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.resend-button:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.resend-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.notice-status-msg {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.notice-status-msg.success {
+  color: #2e7d32;
+}
+
+.notice-status-msg.error {
+  color: var(--color-error, #ba1a1a);
+}

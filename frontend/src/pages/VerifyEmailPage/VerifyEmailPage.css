@@ -1,0 +1,113 @@
+.verify-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background, #fafaf3);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.verify-card {
+  background: var(--color-surface-container-lowest, #ffffff);
+  border-radius: var(--rounded-md, 1.5rem);
+  padding: 3rem 2.5rem;
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(99, 96, 55, 0.08);
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  position: relative;
+  z-index: 1;
+}
+
+.verify-icon-wrapper {
+  width: 72px;
+  height: 72px;
+  border-radius: 9999px;
+  margin: 0 auto 1.5rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.verify-icon-wrapper.loading {
+  background-color: var(--color-surface-container-high, #e9e8e2);
+  color: var(--color-primary, #636037);
+}
+
+.verify-icon-wrapper.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.verify-icon-wrapper.error {
+  background-color: var(--color-error-container, #ffdad6);
+  color: var(--color-error, #ba1a1a);
+}
+
+.verify-icon {
+  font-size: 36px;
+}
+
+.verify-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--color-on-surface, #1b1c18);
+  margin-bottom: 0.75rem;
+}
+
+.verify-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-on-surface-variant, #49473c);
+  margin-bottom: 2rem;
+}
+
+.verify-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.875rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary, #636037);
+  color: var(--color-on-primary, #ffffff);
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.verify-action-btn:hover {
+  opacity: 0.9;
+}
+
+.resend-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.resend-input {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  background-color: var(--color-surface-container-low, #f5f4ed);
+}
+
+.resend-input:focus {
+  border-color: var(--color-primary, #636037);
+}

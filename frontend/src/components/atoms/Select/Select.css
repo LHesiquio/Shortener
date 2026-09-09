@@ -1,0 +1,166 @@
+.select-atom-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select-atom-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.select-atom-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 2.5rem 0 0.85rem;
+  border-radius: 0.625rem;
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--color-on-surface, #1b1c18);
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.select-atom-input:focus,
+.select-atom-input-group.open .select-atom-input {
+  border-color: var(--color-primary, #636037);
+  box-shadow: 0 0 0 3px var(--color-primary-container, #fff9c4);
+}
+
+.select-atom-input-group.disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.select-atom-input:disabled,
+.select-atom-input-group.disabled .select-atom-input {
+  background-color: var(--md-sys-color-surface-container-high, #eae7db);
+  color: var(--md-sys-color-on-surface-variant, #5d5b4f);
+  border-color: var(--md-sys-color-outline-variant, #cac6b8);
+  cursor: not-allowed;
+}
+
+:root[data-theme='dark'] .select-atom-input:disabled,
+:root[data-theme='dark'] .select-atom-input-group.disabled .select-atom-input {
+  background-color: var(--md-sys-color-surface-container-high, #2b2b24);
+  color: var(--md-sys-color-on-surface-variant, #cac6b8);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.select-atom-arrow {
+  position: absolute;
+  right: 0.75rem;
+  pointer-events: none;
+  font-size: 20px;
+  color: var(--color-on-surface-variant, #49473c);
+  transition: transform 0.2s ease;
+}
+
+/* Mate Dropdown Menu (M3 Surface) */
+.select-atom-dropdown {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  right: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  border-radius: 0.875rem;
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  box-shadow:
+    0 10px 32px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+  z-index: 100;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  isolation: isolate;
+  animation: select-dropdown-in 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes select-dropdown-in {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.select-atom-empty {
+  padding: 0.75rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--color-on-surface-variant, #49473c);
+  text-align: center;
+}
+
+.select-atom-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-on-surface, #1b1c18);
+  text-align: left;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.select-atom-option:hover {
+  background-color: var(--color-surface-container-high, #efeee7);
+  color: var(--color-on-surface, #1b1c18);
+}
+
+.select-atom-option.selected {
+  font-weight: 600;
+  color: var(--color-on-primary-container, var(--color-primary, #0067c0));
+  background-color: var(--color-primary-container, #e6edf5);
+}
+
+.select-atom-option.selected:hover {
+  background-color: var(--color-primary-container, #e6edf5);
+  filter: brightness(0.96);
+}
+
+.select-atom-loader {
+  position: absolute;
+  right: 0.75rem;
+  pointer-events: none;
+  font-size: 18px;
+  color: var(--color-primary, #636037);
+}
+
+.spinning {
+  animation: select-spin 0.8s linear infinite;
+}
+
+@keyframes select-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.select-atom-searching {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--color-on-surface-variant, #49473c);
+}
+
+.select-atom-searching .material-symbols-outlined,
+.select-atom-searching .morph-icon-atom {
+  font-size: 16px;
+  color: var(--color-primary, #636037);
+}

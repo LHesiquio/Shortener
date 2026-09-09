@@ -1,0 +1,152 @@
+/* ── Unified Table Shell ── */
+.app-table-section {
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  border-radius: var(--rounded, 1.25rem);
+  box-shadow: 0 8px 32px -4px rgba(99, 96, 55, 0.04);
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.app-table-wrapper {
+  overflow-x: auto;
+  overflow-y: visible;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+}
+
+.app-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  table-layout: auto;
+}
+
+/* ── Table Header ── */
+.app-table-head tr {
+  background-color: var(--color-surface-container-low, #f5f4ed);
+}
+
+.app-table-th {
+  padding: 0.75rem 0.85rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-on-surface-variant, #49473c);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--color-surface-variant, #e3e3dc);
+  box-sizing: border-box;
+}
+
+/* ── Table Rows & Cells ── */
+.app-table-row {
+  border-top: 1px solid var(--color-surface-variant, #e3e3dc);
+  transition: background-color 0.15s ease;
+}
+
+.app-table-row--hoverable:hover {
+  background-color: var(--color-surface-container-low, #f5f4ed);
+}
+
+.app-table-td {
+  padding: 0.75rem 0.85rem;
+  vertical-align: middle;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--color-on-surface, #1b1c18);
+  box-sizing: border-box;
+}
+
+/* ── Alignment Helpers ── */
+.app-table-align-left {
+  text-align: left;
+}
+
+.app-table-align-center {
+  text-align: center;
+}
+
+.app-table-align-right {
+  text-align: right;
+}
+
+/* ── Empty State ── */
+.app-table-empty {
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--color-on-surface-variant, #49473c);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.app-table-empty-icon {
+  font-size: 2.75rem;
+  margin-bottom: 0.85rem;
+  opacity: 0.45;
+}
+
+.app-table-empty-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-on-surface, #1b1c18);
+  margin: 0 0 0.4rem 0;
+}
+
+.app-table-empty-desc {
+  font-size: 14px;
+  margin: 0 0 1.25rem 0;
+  max-width: 320px;
+  line-height: 1.4;
+}
+
+.app-table-empty-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary, #636037);
+  color: var(--color-on-primary, #ffffff);
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.app-table-empty-btn:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Dark Mode Support ── */
+:root[data-theme='dark'] .app-table-section {
+  background-color: var(--color-surface-container-low, #1c1c1c);
+  border-color: var(--color-outline-variant, #444444);
+  box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.3);
+}
+
+:root[data-theme='dark'] .app-table-head tr {
+  background-color: var(--color-surface-container-high, #2b2b24);
+}
+
+:root[data-theme='dark'] .app-table-th {
+  color: var(--color-on-surface-variant, #cac6b8);
+  border-bottom-color: var(--color-outline-variant, #333333);
+}
+
+:root[data-theme='dark'] .app-table-row {
+  border-top-color: var(--color-outline-variant, #333333);
+}
+
+:root[data-theme='dark'] .app-table-row--hoverable:hover {
+  background-color: var(--color-surface-container-high, #2b2b24);
+}

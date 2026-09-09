@@ -1,0 +1,26 @@
+.morph-icon-atom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.morph-icon-atom svg {
+  display: block;
+}
+
+.morph-icon-atom.spin,
+.morph-icon-atom.spinning {
+  animation: morph-icon-spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes morph-icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

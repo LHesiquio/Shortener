@@ -1,0 +1,39 @@
+.delete-project-modal-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px;
+  background-color: var(--color-error-container, #ffdad6);
+  color: var(--color-error, #ba1a1a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem auto;
+}
+
+.delete-project-modal-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-on-surface, #1b1c18);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.delete-project-modal-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--color-on-surface-variant, #49473c);
+  text-align: center;
+  margin-bottom: 1.75rem;
+  line-height: 1.5;
+}
+
+.delete-project-modal-name {
+  font-weight: 600;
+  color: var(--color-error, #ba1a1a);
+}
+
+.delete-project-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+}

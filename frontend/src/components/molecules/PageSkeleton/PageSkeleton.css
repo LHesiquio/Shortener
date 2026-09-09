@@ -1,0 +1,99 @@
+.page-skeleton-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--color-surface, #fafaf3);
+}
+
+.page-skeleton-sidebar {
+  width: 16rem;
+  padding: 1.5rem 1rem;
+  border-right: 1px solid var(--color-outline-variant, #cac6b8);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: var(--color-surface-container-lowest, #ffffff);
+}
+
+.page-skeleton-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.page-skeleton-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+}
+
+.page-skeleton-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-skeleton-topbar {
+  height: 4rem;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-outline-variant, #cac6b8);
+  background-color: var(--color-surface-container-lowest, #ffffff);
+}
+
+.page-skeleton-canvas {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.page-skeleton-grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.page-skeleton-card {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.page-skeleton-table-card {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.page-skeleton-table-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-surface-variant, #e3e3dc);
+}
+
+@media (max-width: 768px) {
+  .page-skeleton-sidebar {
+    display: none;
+  }
+  .page-skeleton-canvas {
+    padding: 1rem;
+  }
+}

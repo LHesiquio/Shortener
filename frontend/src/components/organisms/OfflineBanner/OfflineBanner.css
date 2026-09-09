@@ -1,0 +1,97 @@
+.offline-banner {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translate(-50%, -120%);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  border-radius: var(--rounded-full, 9999px);
+  background: var(--color-error-container, #ffdad6);
+  color: var(--color-on-error-container, #93000a);
+  border: 1px solid var(--color-error, #ba1a1a);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+  font-family: var(--font-body-md, 'Inter', sans-serif);
+  font-size: 13.5px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.3s ease;
+  max-width: 90vw;
+}
+
+.offline-banner--visible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.offline-banner__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.offline-banner__text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.offline-banner__retry-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--rounded-full, 9999px);
+  background: var(--color-on-error-container, #93000a);
+  color: var(--color-error-container, #ffdad6);
+  font-family: var(--font-label-sm, 'Inter', sans-serif);
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.offline-banner__retry-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+.offline-banner__retry-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.offline-banner__spinner {
+  animation: offline-banner-spin 1s infinite linear;
+}
+
+@keyframes offline-banner-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dark Mode */
+:root[data-theme='dark'] .offline-banner {
+  background: #3e1b19;
+  color: #ffb4ab;
+  border-color: #ffb4ab;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+:root[data-theme='dark'] .offline-banner__retry-btn {
+  background: #ffb4ab;
+  color: #690005;
+}

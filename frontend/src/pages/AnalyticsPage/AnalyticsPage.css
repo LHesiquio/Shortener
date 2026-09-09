@@ -1,0 +1,346 @@
+.analytics-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.analytics-heading {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-on-surface, #1b1c18);
+}
+
+.analytics-subheading {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--color-on-surface-variant, #49473c);
+  margin-top: 0.2rem;
+}
+
+.analytics-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.analytics-clicks-log-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 38px;
+  padding: 0 1.25rem;
+  border-radius: 9999px;
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-on-surface, #1b1c18);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.analytics-clicks-log-btn:hover {
+  background-color: var(--color-surface-container-high, #eae8e1);
+  border-color: var(--color-primary, #636037);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.analytics-clicks-log-btn:active {
+  transform: scale(0.97);
+}
+
+.analytics-range-selector {
+  display: flex;
+  background-color: var(--color-surface-container-highest, #e3e3dc);
+  padding: 4px;
+  border-radius: 9999px;
+  gap: 2px;
+}
+
+.analytics-range-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-on-surface-variant, #49473c);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.analytics-range-btn.active {
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  color: var(--color-on-surface, #1b1c18);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Timeline Chart Card ── */
+.analytics-chart-container {
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  margin: 0;
+  box-shadow: 0 4px 16px rgba(99, 96, 55, 0.05);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.analytics-card-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-on-surface, #1b1c18);
+}
+
+.analytics-card-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--color-on-surface-variant, #49473c);
+  margin-top: 0.15rem;
+}
+
+.analytics-bars-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 180px;
+  margin-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-outline-variant, #cac6b8);
+}
+
+.analytics-bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+  position: relative;
+  cursor: pointer;
+}
+
+.analytics-bar-col:hover .analytics-bar-tooltip {
+  opacity: 1;
+  transform: translateY(-8px);
+  pointer-events: auto;
+}
+
+.analytics-bar-fill {
+  width: 100%;
+  max-width: 16px;
+  border-radius: 6px 6px 0 0;
+  background-color: var(--color-primary, #636037);
+  transition: all 0.25s ease;
+}
+
+.analytics-bar-col:hover .analytics-bar-fill {
+  background-color: var(--color-primary, #636037);
+  opacity: 0.85;
+}
+
+.analytics-bar-label {
+  position: absolute;
+  bottom: -1.25rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  color: var(--color-on-surface-variant, #49473c);
+  white-space: nowrap;
+}
+
+.analytics-bar-tooltip {
+  position: absolute;
+  top: -2.5rem;
+  background: var(--color-on-surface, #1b1c18);
+  color: #ffffff;
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.4rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.analytics-bar-tooltip span {
+  font-size: 9px;
+  opacity: 0.75;
+}
+
+/* ── Breakdowns Grid ── */
+.analytics-grid-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .analytics-grid-two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.analytics-breakdown-card {
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  box-shadow: 0 2px 10px rgba(99, 96, 55, 0.04);
+}
+
+.analytics-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.analytics-card-icon {
+  font-size: 24px;
+  color: var(--color-on-primary-container, #767248);
+  background-color: var(--color-primary-container, #fff9c4);
+  padding: 0.5rem;
+  border-radius: 9999px;
+}
+
+.analytics-list-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.analytics-list-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.analytics-item-info {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+}
+
+.analytics-item-key {
+  font-weight: 600;
+  color: var(--color-on-surface, #1b1c18);
+  text-transform: capitalize;
+}
+
+.analytics-item-count {
+  color: var(--color-on-surface-variant, #49473c);
+  font-size: 11px;
+}
+
+.analytics-progress-track {
+  width: 100%;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: var(--color-surface-container-highest, #e3e3dc);
+  overflow: hidden;
+}
+
+.analytics-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background-color: var(--color-primary, #636037);
+  transition: width 0.3s ease;
+}
+
+.analytics-empty-item,
+.analytics-empty-chart {
+  padding: 1.5rem;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--color-on-surface-variant, #49473c);
+  opacity: 0.75;
+}
+
+/* Recharts custom tooltip — Material You tonal surface */
+.analytics-recharts-tooltip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--color-inverse-surface, #30312c);
+  color: var(--color-inverse-on-surface, #f2f1ea);
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  pointer-events: none;
+}
+
+.analytics-recharts-tooltip-count {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.analytics-recharts-tooltip-label {
+  font-size: 11px;
+  opacity: 0.75;
+  line-height: 1.2;
+}
+
+/* ── Dark Mode Overrides ─────────────────────────────────────────────────── */
+:root[data-theme='dark'] .analytics-chart-container,
+:root[data-theme='dark'] .analytics-breakdown-card {
+  background-color: var(--color-surface-container-lowest, #141414);
+  border-color: var(--color-outline-variant, #2e2e2e);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+:root[data-theme='dark'] .analytics-range-selector {
+  background-color: var(--color-surface-container-highest, #282828);
+}
+
+:root[data-theme='dark'] .analytics-range-btn {
+  color: var(--color-on-surface-variant, #b5b5ad);
+}
+
+:root[data-theme='dark'] .analytics-range-btn.active {
+  background-color: var(--color-surface-container-lowest, #1c1c1c);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme='dark'] .analytics-clicks-log-btn {
+  background-color: var(--color-surface-container-lowest, #1a1a1a);
+  border-color: var(--color-outline-variant, #333333);
+  color: var(--color-on-surface, #f0f0eb);
+}
+
+:root[data-theme='dark'] .analytics-clicks-log-btn:hover {
+  background-color: var(--color-surface-container-high, #292929);
+  border-color: var(--color-primary, #dce775);
+}
+
+:root[data-theme='dark'] .analytics-card-icon {
+  background-color: var(--color-primary-container, #393e1b);
+  color: var(--color-on-primary-container, #dce775);
+}
+
+:root[data-theme='dark'] .analytics-progress-track {
+  background-color: var(--color-surface-container-highest, #2c2c2c);
+}
+
+

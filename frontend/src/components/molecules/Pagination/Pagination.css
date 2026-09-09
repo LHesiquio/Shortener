@@ -1,0 +1,107 @@
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1rem;
+  background: transparent;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pagination-info-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.pagination-range-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-on-surface-variant, #49473c);
+}
+
+.pagination-page-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-on-primary-container, #767248);
+  background-color: var(--color-primary-container, #fff9c4);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pagination-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  background: transparent;
+}
+
+.page-btn {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-on-surface, #1b1c18);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.page-btn:hover:not(:disabled) {
+  background-color: var(--color-surface-container-high, #e3e3dc);
+  transform: translateY(-1px);
+}
+
+.page-btn:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.page-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.page-btn-active {
+  background-color: var(--color-primary, #636037);
+  color: var(--color-on-primary, #ffffff);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.page-btn-active:hover {
+  background-color: var(--color-primary, #636037) !important;
+  color: var(--color-on-primary, #ffffff) !important;
+  opacity: 0.95;
+}
+
+:root[data-theme='dark'] .page-btn {
+  color: var(--color-on-surface, #e2e2da);
+}
+
+:root[data-theme='dark'] .page-btn:hover:not(:disabled) {
+  background-color: var(--color-surface-container-high, #2b2b24);
+}
+
+@media (max-width: 640px) {
+  .pagination-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+}

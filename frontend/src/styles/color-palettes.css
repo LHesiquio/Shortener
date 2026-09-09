@@ -1,0 +1,902 @@
+/**
+ * ============================================================================
+ * Shortlinks Centralized Color Palettes (M3 Design System)
+ * ============================================================================
+ * Centralized theme palettes supporting both Light & Dark modes.
+ * To add a new palette: define its light `:root[data-palette='...']` and dark
+ * `:root[data-theme='dark'][data-palette='...']` variable blocks below.
+ */
+
+/* ============================================================================
+ * 1. CREAMY GRAY (DEFAULT)
+ * ============================================================================ */
+:root,
+:root[data-palette='creamy-gray'] {
+  --surface: #f3f3f3;
+  --surface-dim: #d8d8d8;
+  --surface-bright: #ffffff;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f8f8f8;
+  --surface-container: #eeeeee;
+  --surface-container-high: #e7e7e7;
+  --surface-container-highest: #e0e0e0;
+  --surface-variant: #e0e0e0;
+  --on-surface: #1f1f1f;
+  --on-surface-variant: #464646;
+  --inverse-surface: #303030;
+  --inverse-on-surface: #f5f5f5;
+  --outline: #767676;
+  --outline-variant: #c6c6c6;
+  --surface-tint: #0067c0;
+  --primary: #0067c0;
+  --on-primary: #ffffff;
+  --primary-container: #e6edf5;
+  --on-primary-container: #004e93;
+  --inverse-primary: #60cdff;
+  --secondary: #52606d;
+  --on-secondary: #ffffff;
+  --secondary-container: #d9e4f0;
+  --on-secondary-container: #3d4a57;
+  --tertiary: #49636f;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #cee7f6;
+  --on-tertiary-container: #344d59;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #f3f3f3;
+  --on-background: #1f1f1f;
+
+  /* Mesh Background Gradients */
+  --mesh-gradient-1: hsla(210, 15%, 93%, 1);
+  --mesh-gradient-2: hsla(200, 20%, 96%, 1);
+  --mesh-gradient-3: hsla(220, 12%, 91%, 1);
+  --glass-tint: rgba(230, 237, 245, 0.5);
+}
+
+:root[data-theme='dark'],
+:root[data-theme='dark'][data-palette='creamy-gray'] {
+  --surface: #202020;
+  --surface-dim: #181818;
+  --surface-bright: #383838;
+  --surface-container-lowest: #141414;
+  --surface-container-low: #1c1c1c;
+  --surface-container: #262626;
+  --surface-container-high: #2f2f2f;
+  --surface-container-highest: #3b3b3b;
+  --surface-variant: #3b3b3b;
+  --on-surface: #f3f3f3;
+  --on-surface-variant: #cccccc;
+  --inverse-surface: #f3f3f3;
+  --inverse-on-surface: #202020;
+  --outline: #8a8a8a;
+  --outline-variant: #444444;
+  --surface-tint: #60cdff;
+  --primary: #60cdff;
+  --on-primary: #003453;
+  --primary-container: #2d2d2d;
+  --on-primary-container: #c4e7ff;
+  --inverse-primary: #0067c0;
+  --secondary: #b8c8d8;
+  --on-secondary: #24323e;
+  --secondary-container: #394855;
+  --on-secondary-container: #d9e4f0;
+  --tertiary: #b0ccdb;
+  --on-tertiary: #1c343f;
+  --tertiary-container: #334b56;
+  --on-tertiary-container: #cee7f6;
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+  --background: #181818;
+  --on-background: #f3f3f3;
+
+  /* Dark Mesh Background Gradients */
+  --mesh-gradient-1: hsla(0, 0%, 14%, 1);
+  --mesh-gradient-2: hsla(210, 8%, 16%, 1);
+  --mesh-gradient-3: hsla(0, 0%, 12%, 1);
+  --glass-tint: rgba(45, 45, 45, 0.45);
+}
+
+/* ============================================================================
+ * 2. CREAMY YELLOW
+ * ============================================================================ */
+:root[data-palette='creamy-yellow'] {
+  --surface: #fafaf3;
+  --surface-dim: #dbdad4;
+  --surface-bright: #fafaf3;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f5f4ed;
+  --surface-container: #efeee7;
+  --surface-container-high: #e9e8e2;
+  --surface-container-highest: #e3e3dc;
+  --surface-variant: #e3e3dc;
+  --on-surface: #1b1c18;
+  --on-surface-variant: #49473c;
+  --inverse-surface: #30312c;
+  --inverse-on-surface: #f2f1ea;
+  --outline: #7a776b;
+  --outline-variant: #cac6b8;
+  --surface-tint: #636037;
+  --primary: #636037;
+  --on-primary: #ffffff;
+  --primary-container: #fff9c4;
+  --on-primary-container: #767248;
+  --inverse-primary: #cdc897;
+  --secondary: #5b6300;
+  --on-secondary: #ffffff;
+  --secondary-container: #e0eb78;
+  --on-secondary-container: #616a00;
+  --tertiary: #326578;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #eef9ff;
+  --on-tertiary-container: #46778c;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #fafaf3;
+  --on-background: #1b1c18;
+
+  --mesh-gradient-1: hsla(62, 56%, 92%, 1);
+  --mesh-gradient-2: hsla(55, 100%, 95%, 1);
+  --mesh-gradient-3: hsla(62, 36%, 90%, 1);
+  --glass-tint: rgba(255, 249, 196, 0.4);
+}
+
+:root[data-theme='dark'][data-palette='creamy-yellow'] {
+  --surface: #1b1c18;
+  --surface-dim: #131410;
+  --surface-bright: #393a34;
+  --surface-container-lowest: #141511;
+  --surface-container-low: #1c1d18;
+  --surface-container: #21221d;
+  --surface-container-high: #2b2c26;
+  --surface-container-highest: #363731;
+  --surface-variant: #363731;
+  --on-surface: #e5e3dc;
+  --on-surface-variant: #c9c7bc;
+  --inverse-surface: #e5e3dc;
+  --inverse-on-surface: #1b1c18;
+  --outline: #939185;
+  --outline-variant: #49473c;
+  --surface-tint: #cdc897;
+  --primary: #cdc897;
+  --on-primary: #34320d;
+  --primary-container: #4b4822;
+  --on-primary-container: #eae4b1;
+  --inverse-primary: #636037;
+  --secondary: #c3ce5f;
+  --on-secondary: #2f3400;
+  --secondary-container: #444b00;
+  --on-secondary-container: #e0eb78;
+  --tertiary: #9ccee4;
+  --on-tertiary: #003546;
+  --tertiary-container: #154d5f;
+  --on-tertiary-container: #bbe9ff;
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+  --background: #131410;
+  --on-background: #e5e3dc;
+
+  --mesh-gradient-1: hsla(62, 10%, 15%, 1);
+  --mesh-gradient-2: hsla(55, 12%, 18%, 1);
+  --mesh-gradient-3: hsla(62, 8%, 14%, 1);
+  --glass-tint: rgba(75, 72, 34, 0.4);
+}
+
+/* ============================================================================
+ * 3. CREAMY MATCHA (SAGE / ZEN GREEN)
+ * ============================================================================ */
+:root[data-palette='creamy-matcha'] {
+  --surface: #f5faf5;
+  --surface-dim: #d6ded6;
+  --surface-bright: #f5faf5;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #eff5ef;
+  --surface-container: #e9eee9;
+  --surface-container-high: #e3e8e3;
+  --surface-container-highest: #dde3dd;
+  --surface-variant: #dde3dd;
+  --on-surface: #141d14;
+  --on-surface-variant: #404a40;
+  --inverse-surface: #293229;
+  --inverse-on-surface: #edf3ed;
+  --outline: #707a70;
+  --outline-variant: #c0cac0;
+  --surface-tint: #3b693a;
+  --primary: #3b693a;
+  --on-primary: #ffffff;
+  --primary-container: #d9f3d7;
+  --on-primary-container: #235024;
+  --inverse-primary: #9ed79c;
+  --secondary: #516350;
+  --on-secondary: #ffffff;
+  --secondary-container: #d4e8d2;
+  --on-secondary-container: #3a4b3a;
+  --tertiary: #386567;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #bcebed;
+  --on-tertiary-container: #1e4d4f;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #f5faf5;
+  --on-background: #141d14;
+
+  --mesh-gradient-1: hsla(115, 45%, 93%, 1);
+  --mesh-gradient-2: hsla(125, 60%, 95%, 1);
+  --mesh-gradient-3: hsla(105, 40%, 91%, 1);
+  --glass-tint: rgba(217, 243, 215, 0.5);
+}
+
+:root[data-theme='dark'][data-palette='creamy-matcha'] {
+  --surface: #121812;
+  --surface-dim: #0c120c;
+  --surface-bright: #323a32;
+  --surface-container-lowest: #0d130d;
+  --surface-container-low: #151d15;
+  --surface-container: #1a221a;
+  --surface-container-high: #242d24;
+  --surface-container-highest: #2f382f;
+  --surface-variant: #2f382f;
+  --on-surface: #dfe5df;
+  --on-surface-variant: #c0cac0;
+  --inverse-surface: #dfe5df;
+  --inverse-on-surface: #121812;
+  --outline: #8a948a;
+  --outline-variant: #404a40;
+  --surface-tint: #9ed79c;
+  --primary: #9ed79c;
+  --on-primary: #06390a;
+  --primary-container: #235024;
+  --on-primary-container: #b9f3b7;
+  --inverse-primary: #3b693a;
+  --secondary: #b8ccb6;
+  --on-secondary: #243424;
+  --secondary-container: #3a4b3a;
+  --on-secondary-container: #d4e8d2;
+  --tertiary: #a0cfd1;
+  --on-tertiary: #003739;
+  --tertiary-container: #1e4d4f;
+  --on-tertiary-container: #bcebed;
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+  --background: #0c120c;
+  --on-background: #dfe5df;
+
+  --mesh-gradient-1: hsla(115, 20%, 15%, 1);
+  --mesh-gradient-2: hsla(125, 22%, 18%, 1);
+  --mesh-gradient-3: hsla(105, 18%, 13%, 1);
+  --glass-tint: rgba(35, 80, 36, 0.4);
+}
+
+/* ============================================================================
+ * 4. CREAMY BLUE (SKY PASTEL / SERENE OCEAN)
+ * ============================================================================ */
+:root[data-palette='creamy-blue'] {
+  --surface: #f5f9fc;
+  --surface-dim: #d5dade;
+  --surface-bright: #f5f9fc;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #eff4f7;
+  --surface-container: #e8edf1;
+  --surface-container-high: #e2e7eb;
+  --surface-container-highest: #dbe2e6;
+  --surface-variant: #dbe2e6;
+  --on-surface: #151d20;
+  --on-surface-variant: #3e484d;
+  --inverse-surface: #2b3336;
+  --inverse-on-surface: #edf1f4;
+  --outline: #6e797e;
+  --outline-variant: #bec9ce;
+  --surface-tint: #326578;
+  --primary: #326578;
+  --on-primary: #ffffff;
+  --primary-container: #dcf1ff;
+  --on-primary-container: #235467;
+  --inverse-primary: #9ccee4;
+  --secondary: #4e616c;
+  --on-secondary: #ffffff;
+  --secondary-container: #d2e5f3;
+  --on-secondary-container: #40535e;
+  --tertiary: #5f5a7d;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #e5deff;
+  --on-tertiary-container: #504b6d;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #f5f9fc;
+  --on-background: #151d20;
+
+  --mesh-gradient-1: hsla(205, 60%, 93%, 1);
+  --mesh-gradient-2: hsla(195, 80%, 95%, 1);
+  --mesh-gradient-3: hsla(215, 50%, 92%, 1);
+  --glass-tint: rgba(220, 241, 255, 0.5);
+}
+
+:root[data-theme='dark'][data-palette='creamy-blue'] {
+  --surface: #12181b;
+  --surface-dim: #0d1215;
+  --surface-bright: #30373a;
+  --surface-container-lowest: #0e1417;
+  --surface-container-low: #151c1f;
+  --surface-container: #1a2226;
+  --surface-container-high: #242c30;
+  --surface-container-highest: #2e373b;
+  --surface-variant: #2e373b;
+  --on-surface: #dfe4e8;
+  --on-surface-variant: #bec9ce;
+  --inverse-surface: #dfe4e8;
+  --inverse-on-surface: #12181b;
+  --outline: #889398;
+  --outline-variant: #3e484d;
+  --surface-tint: #9ccee4;
+  --primary: #9ccee4;
+  --on-primary: #003546;
+  --primary-container: #154d5f;
+  --on-primary-container: #bbe9ff;
+  --inverse-primary: #326578;
+  --secondary: #b6c9d7;
+  --on-secondary: #20333d;
+  --secondary-container: #374954;
+  --on-secondary-container: #d2e5f3;
+  --tertiary: #c9c1ea;
+  --on-tertiary: #312c4d;
+  --tertiary-container: #484364;
+  --on-tertiary-container: #e5deff;
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+  --background: #0d1215;
+  --on-background: #dfe4e8;
+
+  --mesh-gradient-1: hsla(205, 20%, 15%, 1);
+  --mesh-gradient-2: hsla(195, 22%, 18%, 1);
+  --mesh-gradient-3: hsla(215, 18%, 14%, 1);
+  --glass-tint: rgba(21, 77, 95, 0.4);
+}
+
+/* ============================================================================
+ * 5. CREAMY PEACH (APRICOT / TERRACOTTA)
+ * ============================================================================ */
+:root[data-palette='creamy-peach'] {
+  --surface: #fdf7f3;
+  --surface-dim: #e1d6d0;
+  --surface-bright: #fdf7f3;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f8f1eb;
+  --surface-container: #f2ebe5;
+  --surface-container-high: #ece5df;
+  --surface-container-highest: #e6dfd9;
+  --surface-variant: #e6dfd9;
+  --on-surface: #201a17;
+  --on-surface-variant: #52433d;
+  --inverse-surface: #362e2a;
+  --inverse-on-surface: #faeee8;
+  --outline: #85736b;
+  --outline-variant: #d7c2b9;
+  --surface-tint: #8c4e2d;
+  --primary: #8c4e2d;
+  --on-primary: #ffffff;
+  --primary-container: #ffe8d9;
+  --on-primary-container: #934117;
+  --inverse-primary: #ffb592;
+  --secondary: #75594c;
+  --on-secondary: #ffffff;
+  --secondary-container: #ffdccb;
+  --on-secondary-container: #604639;
+  --tertiary: #646032;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #ece4aa;
+  --on-tertiary-container: #504b20;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #fdf7f3;
+  --on-background: #201a17;
+
+  --mesh-gradient-1: hsla(22, 70%, 94%, 1);
+  --mesh-gradient-2: hsla(32, 85%, 96%, 1);
+  --mesh-gradient-3: hsla(12, 60%, 93%, 1);
+  --glass-tint: rgba(255, 232, 217, 0.5);
+}
+
+:root[data-theme='dark'][data-palette='creamy-peach'] {
+  --surface: #1a1411;
+  --surface-dim: #130e0c;
+  --surface-bright: #3a322e;
+  --surface-container-lowest: #140f0d;
+  --surface-container-low: #1d1613;
+  --surface-container: #231b18;
+  --surface-container-high: #2e2521;
+  --surface-container-highest: #3a302b;
+  --surface-variant: #3a302b;
+  --on-surface: #ece0da;
+  --on-surface-variant: #d7c2b9;
+  --inverse-surface: #ece0da;
+  --inverse-on-surface: #1a1411;
+  --outline: #a08d85;
+  --outline-variant: #52433d;
+  --surface-tint: #ffb592;
+  --primary: #ffb592;
+  --on-primary: #522304;
+  --primary-container: #5b2e15;
+  --on-primary-container: #ffdccb;
+  --inverse-primary: #8c4e2d;
+  --secondary: #e5bead;
+  --on-secondary: #422b20;
+  --secondary-container: #5a4034;
+  --on-secondary-container: #ffdccb;
+  --tertiary: #cfc890;
+  --on-tertiary: #353108;
+  --tertiary-container: #4c471c;
+  --on-tertiary-container: #ebe4ab;
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+  --background: #130e0c;
+  --on-background: #ece0da;
+
+  --mesh-gradient-1: hsla(22, 22%, 16%, 1);
+  --mesh-gradient-2: hsla(32, 25%, 19%, 1);
+  --mesh-gradient-3: hsla(12, 20%, 14%, 1);
+  --glass-tint: rgba(91, 46, 21, 0.4);
+}
+
+/* ============================================================================
+ * 6. CREAMY RED (PASTEL ROSE / VELVET)
+ * ============================================================================ */
+:root[data-palette='creamy-red'] {
+  --surface: #faf6f6;
+  --surface-dim: #ded7d8;
+  --surface-bright: #faf6f6;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f6efef;
+  --surface-container: #f0e8e9;
+  --surface-container-high: #eae2e3;
+  --surface-container-highest: #e4dcdd;
+  --surface-variant: #e4dcdd;
+  --on-surface: #1e191a;
+  --on-surface-variant: #4f4244;
+  --inverse-surface: #342d2f;
+  --inverse-on-surface: #f7eff0;
+  --outline: #827274;
+  --outline-variant: #d4c2c4;
+  --surface-tint: #8c4a50;
+  --primary: #8c4a50;
+  --on-primary: #ffffff;
+  --primary-container: #ffe5e7;
+  --on-primary-container: #983e46;
+  --inverse-primary: #ffb3ba;
+  --secondary: #775658;
+  --on-secondary: #ffffff;
+  --secondary-container: #ffd9dc;
+  --on-secondary-container: #68494b;
+  --tertiary: #785a42;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #ffddc7;
+  --on-tertiary-container: #674c35;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #faf6f6;
+  --on-background: #1e191a;
+
+  --mesh-gradient-1: hsla(350, 56%, 93%, 1);
+  --mesh-gradient-2: hsla(355, 90%, 96%, 1);
+  --mesh-gradient-3: hsla(345, 40%, 91%, 1);
+  --glass-tint: rgba(255, 229, 231, 0.5);
+}
+
+:root[data-theme='dark'][data-palette='creamy-red'] {
+  --surface: #1d1516;
+  --surface-dim: #150f10;
+  --surface-bright: #3c3233;
+  --surface-container-lowest: #171011;
+  --surface-container-low: #1e1718;
+  --surface-container: #241c1e;
+  --surface-container-high: #2f2628;
+  --surface-container-highest: #3a3133;
+  --surface-variant: #3a3133;
+  --on-surface: #e8e0e1;
+  --on-surface-variant: #d4c2c4;
+  --inverse-surface: #e8e0e1;
+  --inverse-on-surface: #1d1516;
+  --outline: #9c8b8e;
+  --outline-variant: #524245;
+  --surface-tint: #ffb3ba;
+  --primary: #ffb3ba;
+  --on-primary: #541d24;
+  --primary-container: #5b2b31;
+  --on-primary-container: #ffd9dc;
+  --inverse-primary: #8c4a50;
+  --secondary: #e5bdc0;
+  --on-secondary: #44292b;
+  --secondary-container: #5d3f41;
+  --on-secondary-container: #ffd9dc;
+  --tertiary: #e9be9e;
+  --on-tertiary: #442b17;
+  --tertiary-container: #5e422c;
+  --on-tertiary-container: #ffddc7;
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+  --background: #150f10;
+  --on-background: #e8e0e1;
+
+  --mesh-gradient-1: hsla(350, 14%, 16%, 1);
+  --mesh-gradient-2: hsla(355, 16%, 19%, 1);
+  --mesh-gradient-3: hsla(345, 12%, 15%, 1);
+  --glass-tint: rgba(91, 43, 49, 0.4);
+}
+
+/* ============================================================================
+ * 7. CREAMY PURPLE (PASTEL LAVENDER / LILAC)
+ * ============================================================================ */
+:root[data-palette='creamy-purple'] {
+  --surface: #f8f6fc;
+  --surface-dim: #d9d5de;
+  --surface-bright: #f8f6fc;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f3f0f7;
+  --surface-container: #ece8f2;
+  --surface-container-high: #e6e2ec;
+  --surface-container-highest: #e0dbe6;
+  --surface-variant: #e0dbe6;
+  --on-surface: #1b1720;
+  --on-surface-variant: #47434e;
+  --inverse-surface: #312d35;
+  --inverse-on-surface: #f4eff7;
+  --outline: #797480;
+  --outline-variant: #cac3d1;
+  --surface-tint: #68548e;
+  --primary: #68548e;
+  --on-primary: #ffffff;
+  --primary-container: #efe5ff;
+  --on-primary-container: #5d4486;
+  --inverse-primary: #d1bcff;
+  --secondary: #635b70;
+  --on-secondary: #ffffff;
+  --secondary-container: #e9def8;
+  --on-secondary-container: #534c60;
+  --tertiary: #7e5264;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #ffd8e6;
+  --on-tertiary-container: #6d4254;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #f8f6fc;
+  --on-background: #1b1720;
+
+  --mesh-gradient-1: hsla(270, 50%, 94%, 1);
+  --mesh-gradient-2: hsla(285, 75%, 96%, 1);
+  --mesh-gradient-3: hsla(260, 45%, 92%, 1);
+  --glass-tint: rgba(239, 229, 255, 0.5);
+}
+
+:root[data-theme='dark'][data-palette='creamy-purple'] {
+  --surface: #18151f;
+  --surface-dim: #110e17;
+  --surface-bright: #37323f;
+  --surface-container-lowest: #120f18;
+  --surface-container-low: #1a1622;
+  --surface-container: #201c29;
+  --surface-container-high: #2b2634;
+  --surface-container-highest: #363040;
+  --surface-variant: #363040;
+  --on-surface: #e6e0eb;
+  --on-surface-variant: #cac3d1;
+  --inverse-surface: #e6e0eb;
+  --inverse-on-surface: #18151f;
+  --outline: #938e9a;
+  --outline-variant: #49454f;
+  --surface-tint: #d1bcff;
+  --primary: #d1bcff;
+  --on-primary: #39245c;
+  --primary-container: #4f3c75;
+  --on-primary-container: #eaddff;
+  --inverse-primary: #68548e;
+  --secondary: #cdc2db;
+  --on-secondary: #342d40;
+  --secondary-container: #4b4358;
+  --on-secondary-container: #e8def8;
+  --tertiary: #efb7cc;
+  --on-tertiary: #492535;
+  --tertiary-container: #633b4c;
+  --on-tertiary-container: #ffd8e6;
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+  --background: #110e17;
+  --on-background: #e6e0eb;
+
+  --mesh-gradient-1: hsla(270, 18%, 16%, 1);
+  --mesh-gradient-2: hsla(285, 20%, 19%, 1);
+  --mesh-gradient-3: hsla(260, 15%, 14%, 1);
+  --glass-tint: rgba(79, 60, 117, 0.4);
+}
+
+/* ============================================================================
+ * 8. CREAMY CORAL (SALMON / BLOSSOM)
+ * ============================================================================ */
+:root[data-palette='creamy-coral'] {
+  --surface: #fbf5f5;
+  --surface-dim: #ded6d6;
+  --surface-bright: #fbf5f5;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f7efef;
+  --surface-container: #f1e9e9;
+  --surface-container-high: #ebe3e3;
+  --surface-container-highest: #e5dddd;
+  --surface-variant: #e5dddd;
+  --on-surface: #20191a;
+  --on-surface-variant: #514243;
+  --inverse-surface: #352d2e;
+  --inverse-on-surface: #f9eeee;
+  --outline: #847273;
+  --outline-variant: #d6c1c2;
+  --surface-tint: #8e4249;
+  --primary: #8e4249;
+  --on-primary: #ffffff;
+  --primary-container: #ffe2e4;
+  --on-primary-container: #9e353e;
+  --inverse-primary: #ffb2b7;
+  --secondary: #765657;
+  --on-secondary: #ffffff;
+  --secondary-container: #ffd9db;
+  --on-secondary-container: #624244;
+  --tertiary: #76573c;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #ffdcbd;
+  --on-tertiary-container: #614429;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #fbf5f5;
+  --on-background: #20191a;
+
+  --mesh-gradient-1: hsla(355, 60%, 94%, 1);
+  --mesh-gradient-2: hsla(5, 80%, 96%, 1);
+  --mesh-gradient-3: hsla(345, 45%, 92%, 1);
+  --glass-tint: rgba(255, 226, 228, 0.5);
+}
+
+:root[data-theme='dark'][data-palette='creamy-coral'] {
+  --surface: #1b1314;
+  --surface-dim: #140d0e;
+  --surface-bright: #3a3132;
+  --surface-container-lowest: #150e0f;
+  --surface-container-low: #1c1516;
+  --surface-container: #221a1c;
+  --surface-container-high: #2e2526;
+  --surface-container-highest: #392f31;
+  --surface-variant: #392f31;
+  --on-surface: #ece0e0;
+  --on-surface-variant: #d6c1c2;
+  --inverse-surface: #ece0e0;
+  --inverse-on-surface: #1b1314;
+  --outline: #9f8b8c;
+  --outline-variant: #514243;
+  --surface-tint: #ffb2b7;
+  --primary: #ffb2b7;
+  --on-primary: #561d24;
+  --primary-container: #5e272d;
+  --on-primary-container: #ffd9db;
+  --inverse-primary: #8e4249;
+  --secondary: #e5bdbc;
+  --on-secondary: #43292b;
+  --secondary-container: #5c3f41;
+  --on-secondary-container: #ffd9db;
+  --tertiary: #e6be9b;
+  --on-tertiary: #422b13;
+  --tertiary-container: #5b4027;
+  --on-tertiary-container: #ffdcbd;
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+  --background: #140d0e;
+  --on-background: #ece0e0;
+
+  --mesh-gradient-1: hsla(355, 18%, 16%, 1);
+  --mesh-gradient-2: hsla(5, 20%, 19%, 1);
+  --mesh-gradient-3: hsla(345, 15%, 14%, 1);
+  --glass-tint: rgba(94, 39, 45, 0.4);
+}
+
+/* ============================================================================
+ * 9. CREAMY MINT (GLACIER ICE TEAL / MINT)
+ * ============================================================================ */
+:root[data-palette='creamy-mint'] {
+  --surface: #f3faf8;
+  --surface-dim: #d4dedb;
+  --surface-bright: #f3faf8;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #edf5f3;
+  --surface-container: #e7efec;
+  --surface-container-high: #e1eae7;
+  --surface-container-highest: #dbe4e1;
+  --surface-variant: #dbe4e1;
+  --on-surface: #141d1b;
+  --on-surface-variant: #3f4947;
+  --inverse-surface: #283230;
+  --inverse-on-surface: #ebf3f1;
+  --outline: #6f7977;
+  --outline-variant: #bec9c6;
+  --surface-tint: #24685d;
+  --primary: #24685d;
+  --on-primary: #ffffff;
+  --primary-container: #d5f6ee;
+  --on-primary-container: #0e544a;
+  --inverse-primary: #8cd5c6;
+  --secondary: #4c635e;
+  --on-secondary: #ffffff;
+  --secondary-container: #cee8e2;
+  --on-secondary-container: #384e49;
+  --tertiary: #4a6176;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #d1e5fd;
+  --on-tertiary-container: #354b5e;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #f3faf8;
+  --on-background: #141d1b;
+
+  --mesh-gradient-1: hsla(165, 55%, 93%, 1);
+  --mesh-gradient-2: hsla(175, 70%, 95%, 1);
+  --mesh-gradient-3: hsla(155, 45%, 92%, 1);
+  --glass-tint: rgba(213, 246, 238, 0.5);
+}
+
+:root[data-theme='dark'][data-palette='creamy-mint'] {
+  --surface: #101716;
+  --surface-dim: #0b1110;
+  --surface-bright: #303736;
+  --surface-container-lowest: #0c1211;
+  --surface-container-low: #131a19;
+  --surface-container: #18201e;
+  --surface-container-high: #222b29;
+  --surface-container-highest: #2d3634;
+  --surface-variant: #2d3634;
+  --on-surface: #dee5e3;
+  --on-surface-variant: #bec9c6;
+  --inverse-surface: #dee5e3;
+  --inverse-on-surface: #101716;
+  --outline: #889390;
+  --outline-variant: #3f4947;
+  --surface-tint: #8cd5c6;
+  --primary: #8cd5c6;
+  --on-primary: #003730;
+  --primary-container: #034f45;
+  --on-primary-container: #a7f2e2;
+  --inverse-primary: #24685d;
+  --secondary: #b2ccc6;
+  --on-secondary: #1e3530;
+  --secondary-container: #354c47;
+  --on-secondary-container: #cee8e2;
+  --tertiary: #b2c9e0;
+  --on-tertiary: #1a3246;
+  --tertiary-container: #32495d;
+  --on-tertiary-container: #d1e5fd;
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+  --background: #0b1110;
+  --on-background: #dee5e3;
+
+  --mesh-gradient-1: hsla(165, 18%, 15%, 1);
+  --mesh-gradient-2: hsla(175, 20%, 18%, 1);
+  --mesh-gradient-3: hsla(155, 15%, 13%, 1);
+  --glass-tint: rgba(3, 79, 69, 0.4);
+}
+
+/* ============================================================================
+ * 10. CREAMY MOCHA (ESPRESSO LATTE / WARM MOCHA)
+ * ============================================================================ */
+:root[data-palette='creamy-mocha'] {
+  --surface: #fbf7f4;
+  --surface-dim: #dfd7d2;
+  --surface-bright: #fbf7f4;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f6f0ec;
+  --surface-container: #f0eae5;
+  --surface-container-high: #eae4df;
+  --surface-container-highest: #e4ded9;
+  --surface-variant: #e4ded9;
+  --on-surface: #1f1a18;
+  --on-surface-variant: #50443f;
+  --inverse-surface: #352f2c;
+  --inverse-on-surface: #f8efea;
+  --outline: #83746f;
+  --outline-variant: #d5c3be;
+  --surface-tint: #6e5540;
+  --primary: #6e5540;
+  --on-primary: #ffffff;
+  --primary-container: #f4e7db;
+  --on-primary-container: #67482f;
+  --inverse-primary: #d8c1ab;
+  --secondary: #6d5b51;
+  --on-secondary: #ffffff;
+  --secondary-container: #f7ded2;
+  --on-secondary-container: #57463d;
+  --tertiary: #625f38;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #e9e4b1;
+  --on-tertiary-container: #4b4723;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #fbf7f4;
+  --on-background: #1f1a18;
+
+  --mesh-gradient-1: hsla(30, 45%, 93%, 1);
+  --mesh-gradient-2: hsla(25, 55%, 95%, 1);
+  --mesh-gradient-3: hsla(35, 38%, 91%, 1);
+  --glass-tint: rgba(244, 231, 219, 0.5);
+}
+
+:root[data-theme='dark'][data-palette='creamy-mocha'] {
+  --surface: #161311;
+  --surface-dim: #100d0c;
+  --surface-bright: #36302d;
+  --surface-container-lowest: #110e0d;
+  --surface-container-low: #191513;
+  --surface-container: #1f1b19;
+  --surface-container-high: #2a2522;
+  --surface-container-highest: #352f2c;
+  --surface-variant: #352f2c;
+  --on-surface: #eae1dc;
+  --on-surface-variant: #d5c3be;
+  --inverse-surface: #eae1dc;
+  --inverse-on-surface: #161311;
+  --outline: #9e8e88;
+  --outline-variant: #50443f;
+  --surface-tint: #d8c1ab;
+  --primary: #d8c1ab;
+  --on-primary: #3d2817;
+  --primary-container: #453322;
+  --on-primary-container: #f5deca;
+  --inverse-primary: #6e5540;
+  --secondary: #dac2b7;
+  --on-secondary: #3c2e26;
+  --secondary-container: #54443b;
+  --on-secondary-container: #f7ded2;
+  --tertiary: #cdc897;
+  --on-tertiary: #33310f;
+  --tertiary-container: #4a4723;
+  --on-tertiary-container: #e9e4b1;
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+  --background: #100d0c;
+  --on-background: #eae1dc;
+
+  --mesh-gradient-1: hsla(30, 16%, 15%, 1);
+  --mesh-gradient-2: hsla(25, 18%, 18%, 1);
+  --mesh-gradient-3: hsla(35, 14%, 13%, 1);
+  --glass-tint: rgba(69, 51, 34, 0.4);
+}

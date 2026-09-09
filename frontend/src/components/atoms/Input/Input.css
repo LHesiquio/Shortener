@@ -1,0 +1,140 @@
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Reset + estilos base del campo de texto */
+.input-field {
+  /* Reset de estilos del navegador */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  outline: none;
+  margin: 0;
+
+  /* Layout */
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  height: 48px;
+  padding: 0 20px;
+
+  /* Diseño */
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  border-radius: var(--rounded-full);
+  color: var(--color-on-surface, #1b1c18);
+
+  /* Tipografía */
+  font-family: var(--font-body-lg);
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: 0.25px;
+
+  /* Animación */
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.input-field::placeholder {
+  color: var(--color-on-surface-variant, #49473c);
+  opacity: 0.65;
+  transition: opacity 0.2s ease;
+}
+
+.input-field:focus::placeholder {
+  opacity: 0.45;
+}
+
+.input-field:focus {
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  border-color: var(--color-primary, #636037);
+  box-shadow: 0 0 0 3px var(--color-primary-container, #fff9c4);
+}
+
+.input-field:hover:not(:focus) {
+  background-color: var(--color-surface-container-low, #f5f4ed);
+  border-color: var(--color-outline, #7a776b);
+}
+
+/* Estado de Error (Material Design 3) */
+.input-field.has-error {
+  background-color: var(--error-container, #ffdad6);
+  border-color: var(--error, #ba1a1a);
+  color: var(--on-error-container, #93000a);
+}
+
+.input-field.has-error::placeholder {
+  color: var(--on-error-container, #93000a);
+  opacity: 0.7;
+}
+
+.input-field.has-error:focus {
+  background-color: var(--error-container, #ffdad6);
+  border-color: var(--error, #ba1a1a);
+  box-shadow: 0 0 0 4px rgba(186, 26, 26, 0.15);
+}
+
+.input-wrapper.has-error .input-icon-left {
+  color: var(--error, #ba1a1a);
+}
+
+/* Padding con ícono izquierdo */
+.input-field.has-icon-left {
+  padding-left: 52px;
+}
+
+/* Padding con ícono derecho */
+.input-field.has-icon-right {
+  padding-right: 52px;
+}
+
+/* Ícono izquierdo */
+.input-icon-left {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-on-surface-variant, #49473c);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  transition: color 0.25s ease;
+  z-index: 1;
+  font-size: 20px;
+}
+
+.input-wrapper:focus-within .input-icon-left {
+  color: var(--color-primary, #636037);
+}
+
+/* Ícono derecho (toggle password) */
+.input-icon-right {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.input-icon-right button {
+  display: flex;
+  align-items: center;
+  color: var(--color-on-surface-variant, #49473c);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.input-icon-right button:hover {
+  color: var(--color-primary, #636037);
+  background-color: var(--color-surface-container-high, rgba(99, 96, 55, 0.08));
+}

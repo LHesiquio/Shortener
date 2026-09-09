@@ -1,0 +1,196 @@
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Atmospheric orbs */
+.register-bg-orb {
+  position: fixed;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb-bottom-left {
+  bottom: -80px;
+  left: -80px;
+  background-color: var(--primary-container);
+  opacity: 0.2;
+}
+
+.orb-top-right {
+  top: -80px;
+  right: -80px;
+  background-color: var(--secondary-container);
+  opacity: 0.2;
+}
+
+/* Main layout */
+.register-main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Branding */
+.register-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.register-brand-icon {
+  width: 64px;
+  height: 64px;
+  background-color: var(--primary-container);
+  border-radius: var(--rounded);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(99, 96, 55, 0.12);
+}
+
+.register-brand-symbol {
+  color: var(--primary);
+  font-size: 32px;
+}
+
+.register-brand-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.register-brand-name {
+  font-family: var(--font-headline-md);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--on-surface, #1b1c18);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.register-brand-tagline {
+  font-family: var(--font-body-md);
+  font-size: 14px;
+  color: var(--on-surface-variant);
+  margin: 8px 0 0;
+}
+
+/* Card */
+.register-card {
+  width: 100%;
+  background-color: var(--surface-container-lowest);
+  border: 1px solid color-mix(in srgb, var(--outline-variant) 30%, transparent);
+  border-radius: var(--rounded-lg);
+  padding: 40px;
+  box-shadow: 0 2px 8px rgba(99, 96, 55, 0.06);
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.register-card .step-indicator-container {
+  margin-bottom: 32px;
+}
+
+.register-login-link {
+  font-family: var(--font-body-md);
+  font-size: 14px;
+  color: var(--on-surface-variant);
+  margin: 24px 0 0;
+}
+
+.link-accent {
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.link-accent:hover {
+  text-decoration: underline;
+}
+
+/* Success View */
+.success-view {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.success-icon-wrapper {
+  width: 96px;
+  height: 96px;
+  background-color: var(--secondary-container);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.success-icon {
+  color: var(--on-secondary-container);
+  font-size: 52px;
+}
+
+.success-title {
+  font-family: var(--font-headline-md);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--on-surface);
+  margin: 0 0 16px;
+}
+
+.success-body {
+  font-family: var(--font-body-lg);
+  font-size: 16px;
+  color: var(--on-surface-variant);
+  max-width: 360px;
+  margin: 0 0 40px;
+  line-height: 24px;
+}
+
+.success-btn {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  font-family: var(--font-label-lg);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 16px 40px;
+  border-radius: var(--rounded-full);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(99, 96, 55, 0.2);
+  transition: all 0.2s ease;
+}
+
+.success-btn:hover {
+  box-shadow: 0 8px 24px rgba(99, 96, 55, 0.3);
+  transform: translateY(-2px);
+}
+
+.success-btn:active {
+  transform: scale(0.95);
+}

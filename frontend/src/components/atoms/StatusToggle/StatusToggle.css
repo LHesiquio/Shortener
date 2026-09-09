@@ -1,0 +1,110 @@
+.status-toggle-root {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.75rem 0.3rem 0.45rem;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  background-color: transparent;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.status-toggle-root:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Active State ── */
+.status-toggle-root--active {
+  background-color: var(--color-primary-container, #fff9c4);
+  color: var(--color-on-primary-container, #767248);
+  border-color: rgba(99, 96, 55, 0.18);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.status-toggle-root--active:hover:not(:disabled) {
+  filter: brightness(0.96);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.status-toggle-root--active:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* ── Inactive State ── */
+.status-toggle-root--inactive {
+  background-color: var(--color-surface-container-high, #e8e7e0);
+  color: var(--color-on-surface-variant, #79766d);
+  border-color: var(--color-outline-variant, #cac6b8);
+}
+
+.status-toggle-root--inactive:hover:not(:disabled) {
+  background-color: var(--color-surface-container-highest, #e0e0dc);
+  color: var(--color-on-surface, #1b1c18);
+  transform: translateY(-1px);
+}
+
+.status-toggle-root--inactive:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* ── Indicator Dot / Switch Knob ── */
+.status-toggle-indicator {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  display: inline-block;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.status-toggle-root--active .status-toggle-indicator {
+  background-color: var(--color-primary, #636037);
+  box-shadow: 0 0 0 2px rgba(99, 96, 55, 0.2);
+}
+
+.status-toggle-root--inactive .status-toggle-indicator {
+  background-color: var(--color-outline, #939083);
+}
+
+/* ── Small variant ── */
+.status-toggle-root--sm {
+  padding: 0.2rem 0.6rem 0.2rem 0.35rem;
+  font-size: 11px;
+  gap: 0.35rem;
+}
+
+.status-toggle-root--sm .status-toggle-indicator {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+
+/* ── Dark Mode ── */
+:root[data-theme='dark'] .status-toggle-root--active {
+  background-color: var(--color-primary-container, #4b4822);
+  color: var(--color-on-primary-container, #e6e3af);
+  border-color: rgba(230, 227, 175, 0.2);
+}
+
+:root[data-theme='dark'] .status-toggle-root--active .status-toggle-indicator {
+  background-color: var(--color-primary, #dce775);
+  box-shadow: 0 0 0 2px rgba(220, 231, 117, 0.25);
+}
+
+:root[data-theme='dark'] .status-toggle-root--inactive {
+  background-color: var(--color-surface-container-high, #2b2b24);
+  color: var(--color-on-surface-variant, #a8a79d);
+  border-color: var(--color-outline-variant, #444444);
+}
+
+:root[data-theme='dark'] .status-toggle-root--inactive .status-toggle-indicator {
+  background-color: var(--color-outline, #6e6d64);
+}

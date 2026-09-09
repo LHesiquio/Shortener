@@ -1,0 +1,138 @@
+.project-card-root {
+  background-color: var(--md-sys-color-surface-container-low, #f5f4ed);
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  border: 1px solid var(--md-sys-color-outline-variant, rgba(202, 198, 184, 0.4));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.project-card-root:hover {
+  transform: translateY(-2px);
+  background-color: var(--md-sys-color-surface-container, #efeee7);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.project-card-archived {
+  opacity: 0.85;
+  border-style: dashed;
+}
+
+.project-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.project-card-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background-color: var(--md-sys-color-primary-container, #fff9c4);
+  color: var(--md-sys-color-on-primary-container, #767248);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.project-card-icon-wrapper.archived {
+  background-color: var(--color-surface-container-highest, #e3e3dc);
+  color: var(--color-on-surface-variant, #49473c);
+}
+
+.project-card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.project-card-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface, #1b1c18);
+  margin: 0;
+  word-break: break-word;
+}
+
+.project-card-slug-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.55rem;
+  border-radius: 9999px;
+  background-color: rgba(99, 96, 55, 0.08);
+  border: 1px solid rgba(99, 96, 55, 0.16);
+  color: var(--color-primary, #636037);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.project-card-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--md-sys-color-on-surface-variant, #49473c);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+.project-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--md-sys-color-outline-variant, rgba(202, 198, 184, 0.3));
+}
+
+.project-card-date {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant, #49473c);
+}
+
+.project-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.project-card-action-btn {
+  background: transparent;
+  border: none;
+  color: var(--md-sys-color-outline, #7a776b);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.project-card-archive-btn:hover {
+  color: var(--color-primary, #636037);
+  background-color: var(--color-primary-container, #fff9c4);
+}
+
+.project-card-unarchive-btn:hover {
+  color: var(--color-secondary, #5b6300);
+  background-color: var(--color-secondary-container, #e0eb78);
+}
+
+.project-card-delete-btn:hover {
+  color: var(--md-sys-color-error, #ba1a1a);
+  background-color: var(--md-sys-color-error-container, #ffdad6);
+}

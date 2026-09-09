@@ -1,0 +1,137 @@
+.palette-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+.palette-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.15rem;
+  background-color: var(--color-surface-container-low, #f5f4ed);
+  border: 2px solid transparent;
+  border-radius: 1.25rem;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  transition:
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.palette-card:hover {
+  transform: translateY(-2px);
+  background-color: var(--color-surface-container, #efeee7);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.palette-card:focus-visible {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-container);
+}
+
+.palette-card.selected {
+  background-color: var(--color-surface-container-high, #e9e8e2);
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Palette Card Header & Swatches */
+.palette-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.palette-swatches {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.palette-swatch-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.palette-card:hover .palette-swatch-dot {
+  transform: scale(1.08);
+}
+
+.palette-card-badge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+  letter-spacing: 0.02em;
+}
+
+.palette-check-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 0.875rem;
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.palette-card.selected .palette-check-indicator {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Palette Card Content */
+.palette-card-title {
+  font-family: var(--font-title-md);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-on-surface);
+  margin-bottom: 0.25rem;
+}
+
+.palette-card-subtitle {
+  font-family: var(--font-body-md);
+  font-size: 0.8125rem;
+  color: var(--color-on-surface-variant);
+  line-height: 1.35;
+}
+
+/* Dark Mode Overrides */
+:root[data-theme='dark'] .palette-card {
+  background-color: var(--color-surface-container-low, #1c1d18);
+}
+
+:root[data-theme='dark'] .palette-card:hover {
+  background-color: var(--color-surface-container, #21221d);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+:root[data-theme='dark'] .palette-card.selected {
+  background-color: var(--color-surface-container-high, #2b2c26);
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme='dark'] .palette-swatch-dot {
+  border-color: rgba(255, 255, 255, 0.15);
+}

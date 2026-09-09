@@ -1,0 +1,240 @@
+@import './styles/design-tokens.css';
+
+body {
+  margin: 0;
+  font-family: var(--font-body-md);
+  background-color: var(--background);
+  color: var(--on-background);
+  min-height: 100vh;
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  /* Background Mesh adapted dynamically to active color palette */
+  background-image: 
+      radial-gradient(at 0% 0%, var(--mesh-gradient-1) 0, transparent 50%), 
+      radial-gradient(at 50% 0%, var(--mesh-gradient-2) 0, transparent 50%), 
+      radial-gradient(at 100% 0%, var(--mesh-gradient-3) 0, transparent 50%);
+  pointer-events: none;
+  will-change: transform;
+}
+
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headline-md);
+  margin: 0;
+}
+
+/* Base Material Symbols style */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+/* Utilities for Glassmorphism & specific effects */
+.glass-background {
+  background: radial-gradient(circle at 50% 50%, var(--glass-tint) 0%, var(--surface) 100%);
+}
+
+:root[data-theme='dark'] .glass-background {
+  background: radial-gradient(circle at 50% 50%, var(--glass-tint) 0%, var(--surface) 100%);
+}
+
+.login-card-shadow {
+  box-shadow: 0 8px 32px rgba(99, 96, 55, 0.06);
+}
+
+:root[data-theme='dark'] .login-card-shadow {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.step-transition {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Normalización mínima — reset solo lo indispensable sin romper apariencias nativas */
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── Contextual Dropdowns & Popovers (Mate Finish - Opaque M3 Surface) ───── */
+.menu-popover-mate,
+.select-input-dropdown,
+.select-atom-dropdown,
+.profile-dropdown,
+.datepicker-atom-popover {
+  background-color: var(--color-surface-container-lowest, #ffffff) !important;
+  border: 1px solid var(--color-outline-variant, #cac6b8) !important;
+  box-shadow: 0 10px 32px rgba(27, 28, 24, 0.16), 0 2px 8px rgba(27, 28, 24, 0.08) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.menu-popover-mate::before,
+.select-input-dropdown::before,
+.select-atom-dropdown::before,
+.profile-dropdown::before,
+.datepicker-atom-popover::before {
+  display: none !important;
+}
+
+/* Global Disabled Input & Control Styling */
+input:disabled,
+select:disabled,
+textarea:disabled,
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background-color: var(--md-sys-color-surface-container-high, #eae7db) !important;
+  color: var(--md-sys-color-on-surface-variant, #5d5b4f) !important;
+  border-color: var(--md-sys-color-outline-variant, #cac6b8) !important;
+}
+
+:root[data-theme='dark'] input:disabled,
+:root[data-theme='dark'] select:disabled,
+:root[data-theme='dark'] textarea:disabled {
+  background-color: var(--md-sys-color-surface-container-high, #2b2b24) !important;
+  color: var(--md-sys-color-on-surface-variant, #cac6b8) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* ── Fluid Page Canvas Entrance Animation (Material 3 Expressive) ── */
+@keyframes pageCanvasSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dashboard-canvas,
+.projects-page-canvas,
+.project-detail-canvas,
+.clicks-page-canvas,
+.settings-page-container {
+  animation: pageCanvasSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Staggered entry for canvas child sections */
+.dashboard-canvas > *:nth-child(1),
+.projects-page-canvas > *:nth-child(1),
+.project-detail-canvas > *:nth-child(1),
+.clicks-page-canvas > *:nth-child(1),
+.settings-page-container > *:nth-child(1) {
+  animation: pageCanvasSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.02s;
+}
+
+.dashboard-canvas > *:nth-child(2),
+.projects-page-canvas > *:nth-child(2),
+.project-detail-canvas > *:nth-child(2),
+.clicks-page-canvas > *:nth-child(2),
+.settings-page-container > *:nth-child(2) {
+  animation: pageCanvasSlideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.06s;
+}
+
+.dashboard-canvas > *:nth-child(3),
+.projects-page-canvas > *:nth-child(3),
+.project-detail-canvas > *:nth-child(3),
+.clicks-page-canvas > *:nth-child(3),
+.settings-page-container > *:nth-child(3) {
+  animation: pageCanvasSlideUp 0.36s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.10s;
+}
+
+.dashboard-canvas > *:nth-child(4),
+.projects-page-canvas > *:nth-child(4),
+.project-detail-canvas > *:nth-child(4),
+.clicks-page-canvas > *:nth-child(4),
+.settings-page-container > *:nth-child(4) {
+  animation: pageCanvasSlideUp 0.40s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.14s;
+}
+
+/* ── Auth & Centered Card Entrance Animation ── */
+@keyframes authCardEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.login-main,
+.register-main,
+.login-card,
+.register-card,
+.verify-card,
+.redirect-card,
+.success-view {
+  animation: authCardEnter 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.register-main > *:nth-child(1),
+.login-main > *:nth-child(1) {
+  animation: authCardEnter 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.02s;
+}
+
+.register-main > *:nth-child(2),
+.login-main > *:nth-child(2) {
+  animation: authCardEnter 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.06s;
+}
+
+.register-main > *:nth-child(3),
+.login-main > *:nth-child(3) {
+  animation: authCardEnter 0.36s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.10s;
+}
+
+.register-main > *:nth-child(4) {
+  animation: authCardEnter 0.40s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.14s;
+}
+

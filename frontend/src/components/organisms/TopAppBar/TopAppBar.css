@@ -1,0 +1,325 @@
+/* ── Top bar shell ───────────────────────────────────────────────────── */
+.topbar-root {
+  height: 4.5rem;
+  background-color: var(--color-surface-container-low, #f5f4ed);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root[data-theme='dark'] .topbar-root {
+  background-color: var(--color-surface-container-low, #1c1c1c);
+}
+
+/* ── Search ──────────────────────────────────────────────────────────── */
+.topbar-search-wrapper {
+  position: relative;
+  max-width: 22rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+.topbar-search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-on-surface-variant, #49473c);
+  pointer-events: none;
+  font-size: 18px;
+  opacity: 0.75;
+}
+
+.topbar-search-input {
+  width: 100%;
+  height: 38px;
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  border-radius: 9999px;
+  padding: 0 2.2rem 0 2.4rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--color-on-surface, #1b1c18);
+  outline: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.topbar-search-input:hover {
+  border-color: var(--color-primary, #636037);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.topbar-search-input:focus {
+  box-shadow: 0 0 0 2px var(--color-primary-container, #fff9c4);
+}
+
+.topbar-cmd-badge {
+  position: absolute;
+  right: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-on-surface-variant, #49473c);
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.35rem;
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  pointer-events: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* ── Actions row ─────────────────────────────────────────────────────── */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ── Avatar button ───────────────────────────────────────────────────── */
+.topbar-avatar {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary-container, #fff9c4);
+  color: var(--color-on-primary-container, #767248);
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  user-select: none;
+}
+
+.topbar-avatar:hover {
+  border-color: var(--color-primary, #636037);
+  box-shadow: 0 0 0 3px rgba(99, 96, 55, 0.12);
+}
+
+.topbar-avatar--open {
+  border-color: var(--color-primary, #636037);
+  box-shadow: 0 0 0 3px rgba(99, 96, 55, 0.18);
+}
+
+.topbar-avatar:active {
+  transform: scale(0.93);
+}
+
+/* ── Profile menu wrapper ────────────────────────────────────────────── */
+.profile-menu-wrapper {
+  position: relative;
+}
+
+/* ── Dropdown card ───────────────────────────────────────────────────── */
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 230px;
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  border-radius: 1.25rem;
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+  box-shadow:
+    0 10px 38px rgba(27, 28, 24, 0.16),
+    0 2px 8px  rgba(27, 28, 24, 0.08);
+  z-index: 200;
+  isolation: isolate;
+  animation: dropdown-in 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: top right;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  box-sizing: border-box;
+}
+
+@keyframes dropdown-in {
+  from { opacity: 0; transform: scale(0.93) translateY(-6px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);    }
+}
+
+/* ── Dropdown header (user info) ─────────────────────────────────────── */
+.profile-dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.75rem 0.65rem;
+}
+
+.profile-dropdown-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary-container, #fff9c4);
+  color: var(--color-on-primary-container, #767248);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.profile-dropdown-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.profile-dropdown-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-on-surface, #1b1c18);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-dropdown-email {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--color-on-surface-variant, #49473c);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+/* ── Divider ─────────────────────────────────────────────────────────── */
+.profile-dropdown-divider {
+  height: 1px;
+  background: var(--color-outline-variant, rgba(99, 96, 55, 0.15));
+  margin: 3px 0;
+}
+
+/* ── Menu items ──────────────────────────────────────────────────────── */
+.profile-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-on-surface, #1b1c18);
+  text-align: left;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.profile-dropdown-item:hover {
+  background-color: var(--color-surface-container-high, #e9e8e2);
+}
+
+.profile-dropdown-item:active {
+  background-color: var(--color-surface-container-highest, #e0e0e0);
+}
+
+.profile-dropdown-item--danger {
+  color: var(--color-error, #ba1a1a);
+}
+
+.profile-dropdown-item--danger:hover {
+  background-color: var(--color-error-container, #ffdad6);
+  color: var(--color-on-error-container, #93000a);
+}
+
+:root[data-theme='dark'] .profile-dropdown {
+  background-color: var(--color-surface-container-low, #1c1c1c);
+  border-color: var(--color-outline-variant, #444444);
+  box-shadow: 0 10px 38px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme='dark'] .profile-dropdown-item:hover {
+  background-color: var(--color-surface-container-high, #2b2b2b);
+}
+
+:root[data-theme='dark'] .profile-dropdown-item--danger:hover {
+  background-color: rgba(255, 180, 171, 0.15);
+  color: var(--color-error, #ffb4ab);
+}
+
+.profile-dropdown-icon {
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+/* ── Mobile Responsive Brand Header & Layout ───────────────────────────── */
+.topbar-mobile-brand {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .topbar-root {
+    padding: 0 1rem;
+    gap: 0.5rem;
+  }
+
+  .topbar-mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .topbar-mobile-brand-icon {
+    width: 2.125rem;
+    height: 2.125rem;
+    border-radius: 0.5rem;
+    background-color: var(--color-primary-container, #fff9c4);
+    color: var(--color-on-primary-container, #767248);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  :root[data-theme='dark'] .topbar-mobile-brand-icon {
+    background-color: var(--md-sys-color-primary-container, #4b4822);
+    color: var(--md-sys-color-on-primary-container, #e6e3af);
+  }
+
+  .topbar-mobile-brand-icon .material-symbols-outlined,
+  .topbar-mobile-brand-icon .morph-icon-atom {
+    font-size: 1.25rem;
+  }
+
+  .topbar-mobile-brand-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-on-surface, #1b1c18);
+    white-space: nowrap;
+  }
+
+  :root[data-theme='dark'] .topbar-mobile-brand-name {
+    color: #ffffff;
+  }
+
+  .topbar-search-wrapper {
+    max-width: 14rem;
+    flex: 1;
+  }
+
+  .topbar-cmd-badge {
+    display: none;
+  }
+}

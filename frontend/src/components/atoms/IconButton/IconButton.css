@@ -1,0 +1,105 @@
+.icon-btn-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn-root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 9999px;
+  color: var(--color-on-surface-variant, #49473c);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-btn-root:hover {
+  background-color: var(--color-surface-container-high, #e9e8e2);
+}
+
+.icon-btn-root:active {
+  transform: scale(0.92);
+}
+
+.icon-btn-primary:hover {
+  color: var(--color-primary, #636037);
+  background-color: var(--color-primary-container, #fff9c4);
+}
+
+.icon-btn-danger:hover {
+  color: var(--color-error, #ba1a1a);
+  background-color: var(--color-error-container, #ffdad6);
+}
+
+/* ── Tonal filled variants (permanent color, not just hover) ─────────── */
+
+.icon-btn-success {
+  color: var(--color-on-secondary-container, #616a00);
+  background-color: var(--color-secondary-container, #e0eb78);
+}
+
+.icon-btn-success:hover {
+  color: var(--color-on-secondary, #ffffff);
+  background-color: var(--color-secondary, #5b6300);
+}
+
+.icon-btn-danger-active {
+  color: var(--color-on-error-container, #93000a);
+  background-color: var(--color-error-container, #ffdad6);
+}
+
+.icon-btn-danger-active:hover {
+  color: var(--color-on-error, #ffffff);
+  background-color: var(--color-error, #ba1a1a);
+}
+
+/* ── Material Design 3 Tooltip (Pure CSS Relative Positioning) ──────── */
+.icon-btn-tooltip {
+  position: absolute;
+  left: 50%;
+  background-color: var(--inverse-surface, #30312c);
+  color: var(--inverse-on-surface, #f2f1ea);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Tooltip positioned above the icon button */
+.icon-btn-tooltip-top {
+  bottom: calc(100% + 6px);
+  top: auto;
+  transform: translateX(-50%) translateY(4px);
+}
+
+.icon-btn-wrapper:hover .icon-btn-tooltip-top {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Tooltip positioned below the icon button */
+.icon-btn-tooltip-bottom {
+  top: calc(100% + 6px);
+  bottom: auto;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.icon-btn-wrapper:hover .icon-btn-tooltip-bottom {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}

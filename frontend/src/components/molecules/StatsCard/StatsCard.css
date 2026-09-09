@@ -1,0 +1,49 @@
+.stats-card-root {
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  padding: 1.5rem;
+  border-radius: var(--rounded, 1rem);
+  box-shadow: 0 8px 32px -4px rgba(99, 96, 55, 0.04);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--color-outline-variant, #cac6b8);
+}
+
+.stats-card-icon-container {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stats-card-icon-primary {
+  background-color: var(--color-primary-container, #fff9c4);
+  color: var(--color-on-primary-container, #767248);
+}
+
+.stats-card-icon-secondary {
+  background-color: var(--color-secondary-container, #e0eb78);
+  color: var(--color-on-secondary-container, #616a00);
+}
+
+.stats-card-icon-tertiary {
+  background-color: var(--color-tertiary-container, #eef9ff);
+  color: var(--color-on-tertiary-container, #46778c);
+}
+
+.stats-card-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-on-surface-variant, #49473c);
+}
+
+.stats-card-value {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-on-surface, #1b1c18);
+}
