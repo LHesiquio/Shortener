@@ -195,11 +195,11 @@ export function ClicksPage() {
   const page = useClicksPage();
 
   return (
-    <div className="clicks-page-layout">
+    <div className="dashboard-layout">
       <SidebarNav />
-      <main className="clicks-page-main">
+      <main className="dashboard-main">
         <TopAppBar onLogout={page.handleLogout} />
-        <div className="clicks-page-canvas">
+        <div className="dashboard-canvas">
           <ClicksPageContent page={page} />
         </div>
       </main>

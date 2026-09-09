@@ -137,11 +137,11 @@ export function ProjectsPage() {
   const page = useProjectsPage();
 
   return (
-    <div className="projects-page-layout">
+    <div className="dashboard-layout">
       <SidebarNav />
-      <main className="projects-page-main">
+      <main className="dashboard-main">
         <TopAppBar search={page.search} onSearchChange={page.setSearch} onLogout={page.handleLogout} />
-        <div className="projects-page-canvas">
+        <div className="dashboard-canvas">
           <ProjectsHeaderSection onOpenCreate={() => page.setIsCreateModalOpen(true)} />
           <ProjectsFilterTabs tab={page.tab} setTab={page.setTab} />
           <ProjectsPageContent page={page} />

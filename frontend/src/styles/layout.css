@@ -1,0 +1,96 @@
+/* ==========================================================================
+   GLOBAL APPLICATION LAYOUT (layout.css)
+   Centralized Shell Architecture: Sidebar + Main Content + Topbar + Canvas.
+   Loaded globally so that EVERY route (lazy-loaded or not) always has
+   bulletproof flex layout and zero structural shift.
+   ========================================================================== */
+
+/* ── 1. The Root Shell / Layout Container ──────────────────────────────── */
+.dashboard-layout,
+.app-layout,
+.projects-page-layout,
+.clicks-page-layout,
+.project-detail-layout {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  background-color: var(--color-surface-container-low, #f5f4ed);
+  position: relative;
+  box-sizing: border-box;
+}
+
+:root[data-theme='dark'] .dashboard-layout,
+:root[data-theme='dark'] .app-layout,
+:root[data-theme='dark'] .projects-page-layout,
+:root[data-theme='dark'] .clicks-page-layout,
+:root[data-theme='dark'] .project-detail-layout {
+  background-color: var(--color-surface-container-low, #1c1c1c);
+}
+
+/* ── 2. The Main Content Viewport ───────────────────────────────────────── */
+.dashboard-main,
+.app-main,
+.projects-page-main,
+.clicks-page-main,
+.project-detail-main {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── 3. The Content Canvas ──────────────────────────────────────────────── */
+.dashboard-canvas,
+.app-canvas,
+.projects-page-canvas,
+.clicks-page-canvas,
+.project-detail-canvas,
+.settings-page-container {
+  padding: 2rem;
+  max-width: 1360px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-sizing: border-box;
+}
+
+/* ── 4. Responsive Breakpoint (Tablet & Mobile: <= 1024px) ───────────────── */
+@media (max-width: 1024px) {
+  .dashboard-layout,
+  .app-layout,
+  .projects-page-layout,
+  .clicks-page-layout,
+  .project-detail-layout {
+    flex-direction: column !important;
+  }
+
+  .dashboard-main,
+  .app-main,
+  .projects-page-main,
+  .clicks-page-main,
+  .project-detail-main {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .dashboard-canvas,
+  .app-canvas,
+  .projects-page-canvas,
+  .clicks-page-canvas,
+  .project-detail-canvas,
+  .settings-page-container {
+    padding: 1.25rem 1rem;
+    padding-bottom: 7rem !important; /* Reserves clearance for MobileBottomNav */
+    gap: 1.25rem;
+  }
+}

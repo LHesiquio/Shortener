@@ -2,6 +2,7 @@
   height: 100vh;
   height: 100dvh;
   width: 17rem;
+  min-width: 17rem;
   flex-shrink: 0;
   position: sticky;
   top: 0;
@@ -11,6 +12,10 @@
   padding: 0;
   box-sizing: border-box;
   z-index: 40;
+}
+
+:root[data-theme='dark'] .sidebar-root {
+  background-color: var(--color-surface-container-low, #1c1c1c);
 }
 
 .sidebar-brand {
@@ -108,6 +113,6 @@
 
 @media (max-width: 1024px) {
   .sidebar-root {
-    display: none;
+    display: none !important;
   }
 }

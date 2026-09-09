@@ -27,7 +27,7 @@ interface CanvasProps {
 
 function ProjectDetailCanvas({ page, onOpenClicksLog }: CanvasProps) {
   return (
-    <div className="project-detail-canvas">
+    <div className="dashboard-canvas">
       {page.error && (
         <div className="dashboard-error-banner">
           <Icon name="error" />
@@ -116,9 +116,9 @@ export function ProjectDetailPage() {
   };
 
   return (
-    <div className="project-detail-layout">
+    <div className="dashboard-layout">
       <SidebarNav />
-      <main className="project-detail-main">
+      <main className="dashboard-main">
         <TopAppBar
           search={page.search}
           onSearchChange={page.setSearch}
