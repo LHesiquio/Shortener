@@ -55,7 +55,7 @@ pnpm install
 Create the backend environment file:
 
 ```bash
-cp backend/.env.example backend/.env
+cp backend/.env-example backend/.env
 ```
 
 Verify or adjust the default settings inside `backend/.env`:
