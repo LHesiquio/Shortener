@@ -18,6 +18,9 @@ pnpm-debug.log*
 # Environment
 .env
 .env.*
+!.env.example
+!.env-example
+!.env*.example
 .env.local
 .env.*.local
 
@@ -25,4 +28,5 @@ pnpm-debug.log*
 .DS_Store
 ._*
 Thumbs.db
+.mongo-data/
 
