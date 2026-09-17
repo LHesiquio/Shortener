@@ -6,12 +6,16 @@ export interface PublicUser {
   nickname?: string;
   status: 'active' | 'inactive';
   timezone?: string;
+  twoFactorEnabled?: boolean;
   createdAt: string;
 }
 
 export interface LoginResponsePayload {
-  user: PublicUser;
-  accessToken: string;
+  user?: PublicUser;
+  accessToken?: string;
+  mfaRequired?: boolean;
+  mfaToken?: string;
+  email?: string;
 }
 
 export interface RegisterResponsePayload {

@@ -168,23 +168,36 @@ function buildIndexFilter<TDoc extends Document>(
   sinceDate?: Date | null,
   archived?: boolean
 ): Filter<TDoc> {
-  const filter: Filter<TDoc> = {} as Filter<TDoc>;
+  const filter: Record<string, unknown> = {};
+  applyUserFilter(filter, req);
+  applySearchFilter(filter, search);
+  applyDateFilter(filter, sinceDate);
+  applyArchivedFilter(filter, archived);
+  return filter as Filter<TDoc>;
+}
+
+function applyUserFilter(filter: Record<string, unknown>, req: Request): void {
   if (req.user?.id && ObjectId.isValid(req.user.id)) {
-    (filter as Record<string, unknown>).userId = new ObjectId(req.user.id);
+    filter.userId = new ObjectId(req.user.id);
   }
+}
+
+function applySearchFilter(filter: Record<string, unknown>, search?: string): void {
   if (search) {
-    (filter as Record<string, unknown>).name = { $regex: search, $options: 'i' };
+    filter.name = { $regex: search, $options: 'i' };
   }
+}
+
+function applyDateFilter(filter: Record<string, unknown>, sinceDate?: Date | null): void {
   if (sinceDate) {
-    (filter as Record<string, unknown>).createdAt = { $gte: sinceDate };
+    filter.createdAt = { $gte: sinceDate };
   }
+}
+
+function applyArchivedFilter(filter: Record<string, unknown>, archived?: boolean): void {
   if (archived === true) {
-    (filter as Record<string, unknown>).isArchived = true;
+    filter.isArchived = true;
   } else if (archived === false) {
-    (filter as Record<string, unknown>).$or = [
-      { isArchived: false },
-      { isArchived: { $exists: false } },
-    ];
+    filter.$or = [{ isArchived: false }, { isArchived: { $exists: false } }];
   }
-  return filter;
 }

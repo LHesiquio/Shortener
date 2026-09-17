@@ -151,3 +151,108 @@
   75%  { transform: translateX(-2px); }
   100% { transform: translateX(0); }
 }
+
+/* MFA 2FA Challenge View */
+.mfa-challenge-form {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mfa-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.mfa-icon-badge {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 9999px;
+  background-color: var(--primary-container);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.mfa-title {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin: 0 0 0.35rem 0;
+}
+
+.mfa-subtitle {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--on-surface-variant);
+  margin: 0;
+}
+
+.mfa-otp-section {
+  margin: 0.5rem 0;
+}
+
+.mfa-toggle-row {
+  display: flex;
+  justify-content: center;
+  margin: -0.25rem 0 0.5rem 0;
+}
+
+.mfa-toggle-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--primary);
+  cursor: pointer;
+  text-decoration: underline;
+  transition: opacity 0.2s ease;
+}
+
+.mfa-toggle-btn:hover {
+  opacity: 0.75;
+}
+
+.mfa-back-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.mfa-cancel-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mfa-cancel-btn:hover {
+  color: var(--on-surface);
+  transform: translateX(-2px);
+}

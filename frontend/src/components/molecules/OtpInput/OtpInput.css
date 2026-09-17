@@ -1,0 +1,54 @@
+.otp-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 0.75rem 0;
+}
+
+.otp-digit-input {
+  width: 3rem;
+  height: 3.5rem;
+  text-align: center;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  background-color: var(--surface-container-high);
+  border: 2px solid transparent;
+  border-radius: 1rem;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.otp-digit-input:hover:not(:disabled) {
+  background-color: var(--surface-container-highest);
+}
+
+.otp-digit-input:focus {
+  border-color: var(--primary);
+  background-color: var(--surface-container-lowest);
+  box-shadow: 0 0 0 3px var(--primary-container);
+  transform: translateY(-1px);
+}
+
+.otp-digit-input.filled {
+  border-color: var(--outline-variant);
+  background-color: var(--surface-container-low);
+}
+
+.otp-digit-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .otp-digit-input {
+    width: 2.5rem;
+    height: 3rem;
+    font-size: 1.25rem;
+    border-radius: 0.75rem;
+  }
+}

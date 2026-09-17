@@ -34,7 +34,7 @@ export function NewLinkDrawerProvider({ children }: { children: ReactNode }) {
 
   const openNewLinkDrawer = useCallback((options?: OpenDrawerOptions) => {
     setEditTarget(options?.editTarget ?? null);
-    setInitialUrl(options?.initialUrl);
+    setInitialUrl(typeof options?.initialUrl === 'string' ? options.initialUrl : undefined);
     setDefaultProjectId(options?.defaultProjectId);
     setError(null);
     setOnSuccessCallback(() => (options?.onCreated ? options.onCreated : null));

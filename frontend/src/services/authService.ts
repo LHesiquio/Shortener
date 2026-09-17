@@ -1,5 +1,10 @@
 import { apiClient } from '@/lib/apiClient';
-import type { PublicUser } from '@/types/api';
+import type {
+  PublicUser,
+  TwoFactorSetupResponse,
+  TwoFactorConfirmResponse,
+  TwoFactorChallengeResponse,
+} from '@/types/api';
 
 export interface UpdateProfilePayload {
   firstName?: string;
@@ -13,6 +18,17 @@ export interface ChangePasswordPayload {
   currentPassword?: string;
   newPassword?: string;
   confirmPassword?: string;
+}
+
+export interface DisableTwoFactorPayload {
+  currentPassword: string;
+  code?: string;
+}
+
+export interface VerifyTwoFactorChallengePayload {
+  mfaToken: string;
+  code?: string;
+  backupCode?: string;
 }
 
 export const authService = {
@@ -42,5 +58,25 @@ export const authService = {
 
   async resetPassword(token: string, password: string): Promise<{ message: string }> {
     return apiClient.post<{ message: string }>('/api/auth/reset-password', { token, password });
+  },
+
+  async setup2FA(): Promise<TwoFactorSetupResponse> {
+    return apiClient.post<TwoFactorSetupResponse>('/api/auth/2fa/setup', {});
+  },
+
+  async confirm2FA(code: string): Promise<TwoFactorConfirmResponse> {
+    return apiClient.post<TwoFactorConfirmResponse>('/api/auth/2fa/confirm', { code });
+  },
+
+  async disable2FA(payload: DisableTwoFactorPayload): Promise<{ message: string }> {
+    return apiClient.post<{ message: string }>('/api/auth/2fa/disable', payload);
+  },
+
+  async verify2FAChallenge(payload: VerifyTwoFactorChallengePayload): Promise<TwoFactorChallengeResponse> {
+    return apiClient.post<TwoFactorChallengeResponse>('/api/auth/2fa/challenge', payload);
+  },
+
+  async regenerateBackupCodes(currentPassword: string): Promise<TwoFactorConfirmResponse> {
+    return apiClient.post<TwoFactorConfirmResponse>('/api/auth/2fa/backup-codes/regenerate', { currentPassword });
   },
 };

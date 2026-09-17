@@ -16,11 +16,15 @@ export interface User extends Document {
   /** 'active' once verified (or always, if email verification is disabled). */
   status: 'active' | 'inactive';
   timezone?: string;
+  twoFactorEnabled?: boolean;
+  twoFactorSecret?: string | null;
+  twoFactorTempSecret?: string | null;
+  twoFactorBackupCodes?: string[];
   createdAt: Date;
   updatedAt: Date;
 }
 
-/** Public projection of a user — never includes `passwordHash`. */
+/** Public projection of a user — never includes `passwordHash` or 2FA secrets. */
 export type PublicUser = {
   id: string;
   email: string;
@@ -29,6 +33,7 @@ export type PublicUser = {
   nickname: string;
   status: User['status'];
   timezone?: string;
+  twoFactorEnabled: boolean;
   createdAt: Date;
   updatedAt: Date;
 };

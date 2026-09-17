@@ -47,13 +47,17 @@ export function LoginPage() {
             onSubmit={login.handleLogin}
             onResendVerification={login.handleResendVerification}
             onForgotPassword={() => login.setIsForgotPasswordOpen(true)}
+            onVerifyMfaSubmit={login.handleVerifyMfaSubmit}
+            onCancelMfa={login.handleCancelMfa}
           />
-          <div className="login-footer-actions">
-            <p className="login-register-link">
-              New to the garden?{' '}
-              <Link to="/register" className="link-accent">Create an account</Link>
-            </p>
-          </div>
+          {!login.mfaChallenge && (
+            <div className="login-footer-actions">
+              <p className="login-register-link">
+                New to the garden?{' '}
+                <Link to="/register" className="link-accent">Create an account</Link>
+              </p>
+            </div>
+          )}
         </div>
         <LegalFooter />
       </main>

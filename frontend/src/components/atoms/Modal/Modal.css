@@ -1,19 +1,24 @@
-/* ── Overlay ─────────────────────────────────────────────────────────── */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(27, 28, 24, 0.25);
-  backdrop-filter: blur(4px);
+  background: rgba(27, 28, 24, 0.45);
   z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  animation: modal-overlay-in 0.2s ease forwards;
+  contain: strict;
+  transform: translateZ(0);
+  will-change: opacity;
+  animation: modal-overlay-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+:root[data-theme='dark'] .modal-overlay {
+  background: rgba(15, 16, 12, 0.65);
 }
 
 .modal-overlay--closing {
-  animation: modal-overlay-out 0.2s ease forwards;
+  animation: modal-overlay-out 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   pointer-events: none; /* stop overlay from blocking clicks during exit */
 }
 
@@ -29,32 +34,36 @@
 
 /* ── Card ────────────────────────────────────────────────────────────── */
 .modal-card {
-  background: var(--color-surface-container-lowest, #ffffff);
-  border-radius: 1.5rem;
-  border: 1px solid var(--color-outline-variant, #cac6b8);
-  padding: 2rem;
-  max-width: 400px;
+  background: var(--surface-container-lowest);
+  border-radius: 2rem;
+  border: 1px solid var(--outline-variant);
+  padding: 2.25rem 2rem;
+  max-width: 440px;
   width: 100%;
   box-shadow:
-    0 20px 60px rgba(99, 96, 55, 0.15),
-    0 4px 16px rgba(99, 96, 55, 0.08);
-  animation: modal-card-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    0 24px 64px rgba(0, 0, 0, 0.35),
+    0 4px 16px rgba(0, 0, 0, 0.12);
   position: relative;
+  color: var(--on-surface);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  animation: modal-card-in 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .modal-card--closing {
-  animation: modal-card-out 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: modal-card-out 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   pointer-events: none; /* card itself also non-interactive during exit */
 }
 
 @keyframes modal-card-in {
-  from { transform: translateY(16px) scale(0.98); opacity: 0; }
-  to   { transform: translateY(0) scale(1);       opacity: 1; }
+  from { transform: translate3d(0, 14px, 0) scale(0.99); opacity: 0; }
+  to   { transform: translate3d(0, 0, 0) scale(1);       opacity: 1; }
 }
 
 @keyframes modal-card-out {
-  from { transform: translateY(0) scale(1);       opacity: 1; }
-  to   { transform: translateY(12px) scale(0.98); opacity: 0; }
+  from { transform: translate3d(0, 0, 0) scale(1);       opacity: 1; }
+  to   { transform: translate3d(0, 10px, 0) scale(0.99); opacity: 0; }
 }
 
 /* ── Maximized full-screen state ─────────────────────────────────────── */

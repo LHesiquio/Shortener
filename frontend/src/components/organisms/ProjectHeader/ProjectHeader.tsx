@@ -111,7 +111,7 @@ function ProjectHeaderBody({
         </div>
       </div>
       <div className="project-header-actions">
-        <button type="button" className="project-header-add-btn" onClick={onAddShortlink}>
+        <button type="button" className="project-header-add-btn" onClick={() => onAddShortlink()}>
           <Icon name="add" /> Create Shortlink in Project
         </button>
       </div>

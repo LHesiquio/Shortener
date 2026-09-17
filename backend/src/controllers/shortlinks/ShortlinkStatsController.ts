@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { ObjectId } from 'mongodb';
+import { Collection, ObjectId, WithId } from 'mongodb';
 import { collection, Collections } from '@config/db';
 import { Shortlink, ShortlinkClick } from '@appTypes/shortlink';
 import { ApiError } from '@utils/ApiError';
@@ -30,10 +30,6 @@ export interface ShortlinkStatsResponse {
 
 /**
  * Handles `GET /api/shortlinks/:id/stats`.
- *
- * Returns aggregate counts (totals + 24h + 7d), top breakdowns by
- * country/device/browser/OS, and the 20 most recent clicks.
- * Owner-only: 404 if the shortlink belongs to someone else (no leak).
  */
 export class ShortlinkStatsController {
   public stats = asyncHandler(async (req: Request, res: Response): Promise<void> => {
@@ -41,44 +37,20 @@ export class ShortlinkStatsController {
     const id = this.parseObjectId(req.params.id);
     await this.assertOwned(id, userId);
 
-    const now = new Date();
-    const last24h = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-    const last7d = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-
     const clicks = collection<ShortlinkClick>(Collections.ShortlinkClicks);
-    const filter = { shortlinkId: id };
-
-    const [total, last24hCount, last7dCount, uniqueIpsLast7d, countryAgg, deviceAgg, browserAgg, osAgg, recent] = await Promise.all([
-      clicks.countDocuments(filter),
-      clicks.countDocuments({ ...filter, timestamp: { $gte: last24h } }),
-      clicks.countDocuments({ ...filter, timestamp: { $gte: last7d } }),
-      uniqueIpsLast7dCount(clicks, id, last7d),
-      topField(clicks, id, 'geo.country'),
-      topField(clicks, id, 'device.type'),
-      topField(clicks, id, 'device.browser'),
-      topField(clicks, id, 'device.os'),
-      clicks.find(filter).sort({ timestamp: -1 }).limit(20).toArray(),
-    ]);
+    const data = await fetchShortlinkAggregates(clicks, id);
 
     const payload: ShortlinkStatsResponse = {
       shortlinkId: id.toHexString(),
-      totalClicks: total,
-      clicksLast24h: last24hCount,
-      clicksLast7d: last7dCount,
-      uniqueIpsLast7d,
-      byCountry: countryAgg,
-      byDevice: deviceAgg,
-      byBrowser: browserAgg,
-      byOs: osAgg,
-      recent: recent.map((c) => ({
-        timestamp: c.timestamp,
-        country: c.geo.country,
-        city: c.geo.city,
-        deviceType: c.device.type,
-        browser: c.device.browser,
-        os: c.device.os,
-        referer: c.referer,
-      })),
+      totalClicks: data.total,
+      clicksLast24h: data.last24hCount,
+      clicksLast7d: data.last7dCount,
+      uniqueIpsLast7d: data.uniqueIpsLast7d,
+      byCountry: data.countryAgg,
+      byDevice: data.deviceAgg,
+      byBrowser: data.browserAgg,
+      byOs: data.osAgg,
+      recent: buildRecentClicks(data.recent),
     };
     res.status(200).json({ ok: true, data: payload });
   });
@@ -110,11 +82,45 @@ export class ShortlinkStatsController {
 }
 
 // ---------------------------------------------------------------------------
-// Aggregation helpers (file-scope, kept below complexity threshold)
+// Aggregation helpers
 // ---------------------------------------------------------------------------
 
+async function fetchShortlinkAggregates(clicks: Collection<ShortlinkClick>, id: ObjectId) {
+  const now = new Date();
+  const last24h = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  const last7d = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  const filter = { shortlinkId: id };
+
+  const [total, last24hCount, last7dCount, uniqueIpsLast7d, countryAgg, deviceAgg, browserAgg, osAgg, recent] =
+    await Promise.all([
+      clicks.countDocuments(filter),
+      clicks.countDocuments({ ...filter, timestamp: { $gte: last24h } }),
+      clicks.countDocuments({ ...filter, timestamp: { $gte: last7d } }),
+      uniqueIpsLast7dCount(clicks, id, last7d),
+      topField(clicks, id, 'geo.country'),
+      topField(clicks, id, 'device.type'),
+      topField(clicks, id, 'device.browser'),
+      topField(clicks, id, 'device.os'),
+      clicks.find(filter).sort({ timestamp: -1 }).limit(20).toArray(),
+    ]);
+
+  return { total, last24hCount, last7dCount, uniqueIpsLast7d, countryAgg, deviceAgg, browserAgg, osAgg, recent };
+}
+
+function buildRecentClicks(recent: WithId<ShortlinkClick>[]): ShortlinkStatsResponse['recent'] {
+  return recent.map((c) => ({
+    timestamp: c.timestamp,
+    country: c.geo.country,
+    city: c.geo.city,
+    deviceType: c.device.type,
+    browser: c.device.browser,
+    os: c.device.os,
+    referer: c.referer,
+  }));
+}
+
 async function topField(
-  coll: ReturnType<typeof collection<ShortlinkClick>>,
+  coll: Collection<ShortlinkClick>,
   shortlinkId: ObjectId,
   field: string
 ): Promise<StatsBreakdownEntry[]> {
@@ -129,7 +135,7 @@ async function topField(
 }
 
 async function uniqueIpsLast7dCount(
-  coll: ReturnType<typeof collection<ShortlinkClick>>,
+  coll: Collection<ShortlinkClick>,
   shortlinkId: ObjectId,
   since: Date
 ): Promise<number> {

@@ -1,6 +1,10 @@
 @import './styles/design-tokens.css';
 @import './styles/layout.css';
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   margin: 0;
   font-family: var(--font-body-md);
@@ -22,7 +26,6 @@ body::before {
       radial-gradient(at 50% 0%, var(--mesh-gradient-2) 0, transparent 50%), 
       radial-gradient(at 100% 0%, var(--mesh-gradient-3) 0, transparent 50%);
   pointer-events: none;
-  will-change: transform;
 }
 
 
@@ -201,4 +204,6 @@ textarea:disabled {
   animation: authCardEnter 0.40s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.14s;
 }
+
+
 

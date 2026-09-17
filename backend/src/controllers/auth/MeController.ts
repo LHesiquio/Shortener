@@ -27,6 +27,7 @@ export class MeController {
       nickname: user.nickname,
       status: user.status,
       timezone: user.timezone,
+      twoFactorEnabled: Boolean(user.twoFactorEnabled),
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     };

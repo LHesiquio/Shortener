@@ -38,8 +38,8 @@ function isValidHostname(hostname: string): boolean {
   return subdomains.every((l) => l.length >= 2);
 }
 
-export function isValidUrlFormat(urlStr: string): boolean {
-  if (!urlStr.trim()) return false;
+export function isValidUrlFormat(urlStr: unknown): boolean {
+  if (typeof urlStr !== 'string' || !urlStr.trim()) return false;
   const raw = urlStr.trim();
 
   // First pass: regex pre-check (quick reject)
@@ -55,7 +55,8 @@ export function isValidUrlFormat(urlStr: string): boolean {
   }
 }
 
-export function normalizeUrl(urlStr: string): string {
+export function normalizeUrl(urlStr: unknown): string {
+  if (typeof urlStr !== 'string') return '';
   const raw = urlStr.trim();
   if (!raw) return '';
   if (/^https?:\/\//i.test(raw)) return raw;
@@ -74,8 +75,8 @@ function extractPathSlug(pathname: string): string {
   return pathname.replace(/^\/|\/$/g, '').split('/').filter(Boolean).join('/');
 }
 
-export function deriveTitleFromUrl(urlStr: string): string {
-  if (!urlStr.trim()) return '';
+export function deriveTitleFromUrl(urlStr: unknown): string {
+  if (typeof urlStr !== 'string' || !urlStr.trim()) return '';
   try {
     const raw = urlStr.trim();
     const formattedUrl = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;

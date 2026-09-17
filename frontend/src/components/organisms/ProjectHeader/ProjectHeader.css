@@ -88,21 +88,31 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background-color: var(--md-sys-color-primary-container, #fff9c4);
-  color: var(--md-sys-color-on-primary-container, #767248);
-  border: 1px solid var(--md-sys-color-outline-variant, #cac6b8);
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  border: 1px solid var(--outline-variant);
   border-radius: 9999px;
   padding: 10px 20px;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .project-header-add-btn:hover {
-  background-color: #f7f0b5;
+  filter: brightness(0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transform: translateY(-1px);
+}
+
+:root[data-theme='dark'] .project-header-add-btn:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.project-header-add-btn:active {
+  transform: scale(0.98);
 }
 
 .project-header-stats-row {

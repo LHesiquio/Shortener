@@ -66,7 +66,8 @@ import {
   Minimize2,
   Wifi,
   WifiOff,
-  CloudOff
+  CloudOff,
+  QrCode
 } from 'lucide';
 
 export const ICON_MAP: Record<string, IconNode> = {
@@ -138,6 +139,8 @@ export const ICON_MAP: Record<string, IconNode> = {
   security: Shield,
   shield: Shield,
   verified_user: ShieldCheck,
+  qr_code: QrCode,
+  qrcode: QrCode,
   person: User,
   user: User,
   logout: LogOut,

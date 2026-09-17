@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type { NewLinkDrawerProps } from './NewLinkDrawer.types';
 import type { PublicProject } from '@/types/shortlink.types';
@@ -22,7 +22,8 @@ export function useNewLinkDrawer(props: NewLinkDrawerProps) {
   const queryClient = useQueryClient();
   const toast = useToast();
 
-  const initUrl = props.editTarget?.url ?? props.initialUrl ?? '';
+  const safeInitialUrl = typeof props.initialUrl === 'string' ? props.initialUrl : '';
+  const initUrl = props.editTarget?.url ?? safeInitialUrl;
   const initTitle = props.editTarget?.title ?? deriveTitleFromUrl(initUrl);
 
   const [url, setUrlState] = useState(initUrl);
@@ -72,20 +73,39 @@ export function useNewLinkDrawer(props: NewLinkDrawerProps) {
 
   // Synchronize state on drawer open or edit target change
   if (props.isOpen && (!prevIsOpen || props.editTarget !== prevTarget)) {
+    const freshSafeUrl = typeof props.initialUrl === 'string' ? props.initialUrl : '';
+    const freshUrl = props.editTarget?.url ?? freshSafeUrl;
+    const freshTitle = props.editTarget?.title ?? deriveTitleFromUrl(freshUrl);
     setPrevIsOpen(true);
     setPrevTarget(props.editTarget);
-    setUrlState(initUrl);
-    setTitleState(initTitle);
+    setUrlState(freshUrl);
+    setTitleState(freshTitle);
     setTitleEdited(false);
     setIsCreatingProjectMode(false);
     setNewProjectName('');
     setProjectSearch('');
-    setProjectId(props.editTarget?.projectId ?? props.defaultProjectId ?? '');
+    const targetCandidate = props.editTarget?.projectId ?? props.defaultProjectId ?? '';
+    const matchedProject = projects.find(
+      (p) => p.id === targetCandidate || p.slug === targetCandidate
+    );
+    setProjectId(matchedProject ? matchedProject.id : targetCandidate);
     setActiveFrom(formatDateForInput(props.editTarget?.activeFrom));
     setActiveTo(formatDateForInput(props.editTarget?.activeTo));
   } else if (!props.isOpen && prevIsOpen) {
     setPrevIsOpen(false);
   }
+
+  // Resolve defaultProjectId once projects query finishes loading if initially empty/unmatched
+  useEffect(() => {
+    if (props.defaultProjectId && projects.length > 0) {
+      const match = projects.find(
+        (p) => p.id === props.defaultProjectId || p.slug === props.defaultProjectId
+      );
+      if (match && projectId !== match.id) {
+        setProjectId(match.id);
+      }
+    }
+  }, [props.defaultProjectId, projects, projectId]);
 
   const effectiveProjectId = projectId;
 

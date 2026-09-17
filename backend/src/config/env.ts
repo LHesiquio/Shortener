@@ -30,6 +30,15 @@ const envSchema = z.object({
   LOGIN_RATE_LIMIT_MAX: z.coerce.number().int().positive().default(5),
   LOGIN_RATE_LIMIT_WINDOW: z.string().default('15m'),
 
+  TWO_FACTOR_APP_NAME: z.string().default('LinkTracker'),
+  TWO_FACTOR_ENCRYPTION_KEY: z
+    .string()
+    .min(32, 'TWO_FACTOR_ENCRYPTION_KEY must be at least 32 characters')
+    .default('shortlinks_super_secure_two_factor_aes256_encryption_key_2026_xyz123'),
+  TWO_FACTOR_CHALLENGE_TTL: z.string().default('5m'),
+  TWO_FACTOR_RATE_LIMIT_MAX: z.coerce.number().int().positive().default(5),
+  TWO_FACTOR_RATE_LIMIT_WINDOW: z.string().default('5m'),
+
   EMAIL_VERIFICATION_ENABLED: z
     .union([z.literal('true'), z.literal('false')])
     .default('false')

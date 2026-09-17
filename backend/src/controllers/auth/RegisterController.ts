@@ -1,13 +1,11 @@
 import { Request, Response } from 'express';
 import { Collection, ObjectId } from 'mongodb';
-import { GeneralController } from '@controllers/GeneralController';
-import { RegisterInput, RegisterModel } from '@models/AuthModel';
+import { RegisterModel } from '@models/AuthModel';
 import { TokenService } from '@services/TokenService';
 import { EmailService } from '@services/EmailService';
 import { collection, Collections } from '@config/db';
 import { env } from '@config/env';
 import { User } from '@appTypes/user';
-import { ApiError } from '@utils/ApiError';
 import { asyncHandler } from '@utils/asyncHandler';
 import { setRefreshCookie } from '@utils/cookie';
 
@@ -33,11 +31,10 @@ interface RegisterPendingVerificationPayload {
  *
  * In both cases the response is 201 Created.
  */
-export class RegisterController extends GeneralController<RegisterInput, User> {
-  protected readonly model = new RegisterModel();
+export class RegisterController {
+  private readonly model = new RegisterModel();
 
-  /** Lazy: resolves the collection only after `connect()` has run. */
-  protected get collection(): Collection<User> {
+  private get collection(): Collection<User> {
     return collection<User>(Collections.Users);
   }
 
@@ -98,12 +95,4 @@ export class RegisterController extends GeneralController<RegisterInput, User> {
     });
     return { accessToken, refreshToken: refresh.rawToken };
   }
-
-  /**
-   * We override the base `create` so it is NOT accidentally wired to a route.
-   * Anyone who wires `/register` should call `register` explicitly.
-   */
-  public create = asyncHandler(async (_req: Request, _res: Response): Promise<void> => {
-    throw new ApiError(500, 'RegisterController.create should not be used directly. Use register().');
-  });
 }

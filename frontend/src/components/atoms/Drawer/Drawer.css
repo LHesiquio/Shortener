@@ -1,10 +1,16 @@
 .drawer-atom-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(27, 28, 24, 0.25);
-  backdrop-filter: blur(3px);
+  background: rgba(27, 28, 24, 0.45);
   z-index: 90;
+  contain: strict;
+  transform: translateZ(0);
+  will-change: opacity;
   animation: drawer-atom-fade-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+:root[data-theme='dark'] .drawer-atom-backdrop {
+  background: rgba(15, 16, 12, 0.65);
 }
 
 .drawer-atom-backdrop--closing {
@@ -37,6 +43,9 @@
   flex-direction: column;
   padding: 1.25rem;
   z-index: 100;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
   animation: drawer-atom-slide-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -46,13 +55,13 @@
 }
 
 @keyframes drawer-atom-slide-in {
-  from { transform: translateX(100%); }
-  to   { transform: translateX(0); }
+  from { transform: translate3d(100%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
 }
 
 @keyframes drawer-atom-slide-out {
-  from { transform: translateX(0); }
-  to   { transform: translateX(100%); }
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(100%, 0, 0); }
 }
 
 .drawer-atom-header {

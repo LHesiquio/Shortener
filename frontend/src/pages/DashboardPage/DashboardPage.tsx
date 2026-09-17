@@ -46,7 +46,7 @@ function DashboardCanvas({
         onToggleActive={dash.handleToggleActive}
         onViewClicks={(link) => onOpenClicksLog(link)}
         onPageChange={dash.setCurrentPage}
-        onAddLink={dash.openAddDrawer}
+        onAddLink={(url?: string) => dash.openAddDrawer(typeof url === 'string' ? url : undefined)}
       />
     </div>
   );

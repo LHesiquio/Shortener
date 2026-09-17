@@ -39,7 +39,7 @@ function ProjectDetailCanvas({ page, onOpenClicksLog }: CanvasProps) {
         totalLinks={page.totalItems}
         loading={page.loadingProject}
         onBackToProjects={page.handleBackToProjects}
-        onAddShortlink={page.openAddDrawer}
+        onAddShortlink={() => page.openAddDrawer()}
         onArchiveProject={() => page.setIsArchiveProjectModalOpen(true)}
         onUnarchiveProject={() => page.setIsUnarchiveProjectModalOpen(true)}
         onDeleteProject={() => page.setIsDeleteProjectModalOpen(true)}
@@ -55,7 +55,7 @@ function ProjectDetailCanvas({ page, onOpenClicksLog }: CanvasProps) {
         onToggleActive={page.handleToggleActive}
         onViewClicks={(link) => onOpenClicksLog(link)}
         onPageChange={page.setCurrentPage}
-        onAddLink={page.openAddDrawer}
+        onAddLink={(url?: string) => page.openAddDrawer(typeof url === 'string' ? url : undefined)}
         showQuickCreate={false}
         search={page.search}
         onSearchChange={page.setSearch}
@@ -126,7 +126,7 @@ export function ProjectDetailPage() {
         />
         <ProjectDetailCanvas page={page} onOpenClicksLog={handleOpenClicksLog} />
       </main>
-      <MobileBottomNav onAddLink={page.openAddDrawer} />
+      <MobileBottomNav onAddLink={() => page.openAddDrawer()} />
       <ProjectDetailModals
         page={page}
         clicksLogState={clicksLogState}

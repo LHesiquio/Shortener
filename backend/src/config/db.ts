@@ -70,6 +70,12 @@ async function ensureUserAndTokenIndexes(database: Db): Promise<void> {
     { key: { email: 1 }, name: 'users_email_unique', unique: true },
     { key: { nickname: 1 }, name: 'users_nickname_unique', unique: true },
     { key: { email: 1, isVerified: 1 }, name: 'users_email_isVerified' },
+    {
+      key: { twoFactorEnabled: 1 },
+      name: 'users_twoFactorEnabled_partial',
+      partialFilterExpression: { twoFactorEnabled: true },
+    },
+    { key: { status: 1, twoFactorEnabled: 1 }, name: 'users_status_twoFactorEnabled' },
   ]);
 
   await database.collection<RefreshTokenRecord>(Collections.RefreshTokens).createIndexes([

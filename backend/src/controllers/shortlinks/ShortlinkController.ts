@@ -1,39 +1,27 @@
 import { Request, Response } from 'express';
-import { Collection, ObjectId, Filter, WithId, OptionalUnlessRequiredId } from 'mongodb';
-import { z } from 'zod';
-import { GeneralController } from '@controllers/GeneralController';
-import { CreateShortlinkInput, ShortlinkModel } from '@models/ShortlinkModel';
+import { Collection, ObjectId, Filter, WithId, OptionalUnlessRequiredId, Document } from 'mongodb';
+import { ShortlinkModel } from '@models/ShortlinkModel';
 import { PublicShortlink, Shortlink, ShortlinkClick } from '@appTypes/shortlink';
 import { collection, Collections } from '@config/db';
 import { ApiError } from '@utils/ApiError';
 import { asyncHandler } from '@utils/asyncHandler';
-
 import { QueryHelper } from '@utils/QueryHelper';
+
+interface AggregatedShortlinkDoc extends WithId<Shortlink> {
+  projectInfo?: { _id: ObjectId; name: string };
+  computedClicksCount?: number;
+}
 
 /**
  * Handles `/api/shortlinks/*` for the authenticated user.
- *
- * - `create`     POST  /              (inherits GeneralController + sets userId)
- * - `listMine`   GET   /              (paginated via QueryHelper, owner-filtered)
- * - `show`       GET   /:id           (inherits GeneralController, owner-filtered)
- * - `update`     PATCH /:id           (inherits GeneralController, owner-filtered)
- * - `delete`     DELETE /:id          (inherits GeneralController, owner-filtered + cascades to clicks)
  */
-export class ShortlinkController extends GeneralController<CreateShortlinkInput, Shortlink> {
-  protected readonly model = new ShortlinkModel();
+export class ShortlinkController {
+  private readonly model = new ShortlinkModel();
 
-  protected get collection(): Collection<Shortlink> {
+  private get collection(): Collection<Shortlink> {
     return collection<Shortlink>(Collections.Shortlinks);
   }
 
-  // -------------------------------------------------------------------------
-  // create
-  // -------------------------------------------------------------------------
-
-  /**
-   * Inherits the GeneralController.create flow but stamps the document
-   * with the authenticated userId before insertion.
-   */
   public create = asyncHandler(async (req: Request, res: Response): Promise<void> => {
     const userId = this.requireUserId(req);
     const input = this.model.extractFromRequest(req);
@@ -45,10 +33,6 @@ export class ShortlinkController extends GeneralController<CreateShortlinkInput,
     res.status(201).json({ ok: true, data: this.model.toResponse(stored) });
   });
 
-  // -------------------------------------------------------------------------
-  // listMine / index
-  // -------------------------------------------------------------------------
-
   public listMine = asyncHandler(async (req: Request, res: Response): Promise<void> => {
     const userId = this.requireUserId(req);
     const params = QueryHelper.parseForFeature(req, 'shortlinks');
@@ -56,79 +40,33 @@ export class ShortlinkController extends GeneralController<CreateShortlinkInput,
     const resolvedProjectId = await resolveProjectId(userId, projectIdRaw);
     const filter = buildShortlinkFilter(userId, resolvedProjectId, params);
 
-    const sortOrder = params.order === 'asc' ? 1 : -1;
+    const sortOrder: 1 | -1 = params.order === 'asc' ? 1 : -1;
     const sortField = params.sort || 'createdAt';
+    const pipeline = buildShortlinkPipeline(filter, sortField, sortOrder, params.skip, params.pageSize);
 
     const [itemsWithProject, total] = await Promise.all([
-      this.collection
-        .aggregate([
-          { $match: filter },
-          { $sort: { [sortField]: sortOrder } },
-          { $skip: params.skip },
-          { $limit: params.pageSize },
-          {
-            $lookup: {
-              from: Collections.Projects,
-              localField: 'projectId',
-              foreignField: '_id',
-              as: 'projectDoc',
-            },
-          },
-          {
-            $lookup: {
-              from: Collections.ShortlinkClicks,
-              localField: '_id',
-              foreignField: 'shortlinkId',
-              as: 'clicksList',
-            },
-          },
-          {
-            $addFields: {
-              projectInfo: { $arrayElemAt: ['$projectDoc', 0] },
-              computedClicksCount: { $size: '$clicksList' },
-            },
-          },
-        ])
-        .toArray(),
+      this.collection.aggregate<AggregatedShortlinkDoc>(pipeline).toArray(),
       this.collection.countDocuments(filter),
     ]);
 
-    const formattedItems: PublicShortlink[] = itemsWithProject.map((item) => {
-      const base = this.model.toResponse(item as WithId<Shortlink>);
-      base.clicksCount = item.computedClicksCount ?? item.clicksCount ?? 0;
-      if (item.projectInfo) {
-        base.project = {
-          id: item.projectInfo._id.toHexString(),
-          name: item.projectInfo.name,
-        };
-      }
-      return base;
-    });
-
-    const meta = QueryHelper.buildMeta(total, params);
+    const formattedItems: PublicShortlink[] = itemsWithProject.map((item) =>
+      formatShortlinkItem(this.model, item)
+    );
 
     res.status(200).json({
       ok: true,
       data: formattedItems,
-      meta,
+      meta: QueryHelper.buildMeta(total, params),
     });
   });
 
-  public override index = this.listMine;
-
-  // -------------------------------------------------------------------------
-  // show  (override to enforce ownership)
-  // -------------------------------------------------------------------------
+  public index = this.listMine;
 
   public show = asyncHandler(async (req: Request, res: Response): Promise<void> => {
     const userId = this.requireUserId(req);
     const doc = await this.findOwnedOr404(req, userId);
     res.status(200).json({ ok: true, data: this.model.toResponse(doc) });
   });
-
-  // -------------------------------------------------------------------------
-  // update  (override to enforce ownership)
-  // -------------------------------------------------------------------------
 
   public update = asyncHandler(async (req: Request, res: Response): Promise<void> => {
     const userId = this.requireUserId(req);
@@ -144,10 +82,6 @@ export class ShortlinkController extends GeneralController<CreateShortlinkInput,
     if (!result) throw new ApiError(404, 'Shortlink not found', 'NOT_FOUND');
     res.status(200).json({ ok: true, data: this.model.toResponse(result) });
   });
-
-  // -------------------------------------------------------------------------
-  // delete  (override to enforce ownership + cascade clicks)
-  // -------------------------------------------------------------------------
 
   public delete = asyncHandler(async (req: Request, res: Response): Promise<void> => {
     const userId = this.requireUserId(req);
@@ -183,13 +117,74 @@ export class ShortlinkController extends GeneralController<CreateShortlinkInput,
   }
 }
 
+// ---------------------------------------------------------------------------
+// Pipeline & Formatting Helpers
+// ---------------------------------------------------------------------------
+
+function buildShortlinkPipeline(
+  filter: Filter<Shortlink>,
+  sortField: string,
+  sortOrder: 1 | -1,
+  skip: number,
+  pageSize: number
+): Document[] {
+  return [
+    { $match: filter },
+    { $sort: { [sortField]: sortOrder } },
+    { $skip: skip },
+    { $limit: pageSize },
+    {
+      $lookup: {
+        from: Collections.Projects,
+        localField: 'projectId',
+        foreignField: '_id',
+        as: 'projectDoc',
+      },
+    },
+    {
+      $lookup: {
+        from: Collections.ShortlinkClicks,
+        localField: '_id',
+        foreignField: 'shortlinkId',
+        as: 'clicksList',
+      },
+    },
+    {
+      $addFields: {
+        projectInfo: { $arrayElemAt: ['$projectDoc', 0] },
+        computedClicksCount: { $size: '$clicksList' },
+      },
+    },
+  ];
+}
+
+function formatShortlinkItem(model: ShortlinkModel, item: AggregatedShortlinkDoc): PublicShortlink {
+  const base = model.toResponse(item);
+  base.clicksCount = item.computedClicksCount ?? item.clicksCount ?? 0;
+  if (item.projectInfo) {
+    base.project = {
+      id: item.projectInfo._id.toHexString(),
+      name: item.projectInfo.name,
+    };
+  }
+  return base;
+}
+
 async function resolveProjectId(userId: ObjectId, projectIdRaw?: string): Promise<ObjectId | undefined> {
-  if (!projectIdRaw || !projectIdRaw.trim()) return undefined;
-  const raw = projectIdRaw.trim();
-  if (ObjectId.isValid(raw) && raw.length === 24) {
+  const raw = projectIdRaw?.trim();
+  if (!raw) return undefined;
+  if (isDirectObjectId(raw)) {
     return new ObjectId(raw);
   }
-  const project = await collection(Collections.Projects).findOne({ userId, slug: raw.toLowerCase() });
+  return resolveProjectBySlug(userId, raw);
+}
+
+function isDirectObjectId(raw: string): boolean {
+  return raw.length === 24 && ObjectId.isValid(raw);
+}
+
+async function resolveProjectBySlug(userId: ObjectId, slug: string): Promise<ObjectId> {
+  const project = await collection(Collections.Projects).findOne({ userId, slug: slug.toLowerCase() });
   return project?._id ?? new ObjectId();
 }
 

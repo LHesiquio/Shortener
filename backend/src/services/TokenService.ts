@@ -238,6 +238,34 @@ export const TokenService = {
     assertPasswordResetPayload(decoded);
     return new ObjectId(decoded.sub);
   },
+
+  /**
+   * Signs a short-lived JWT for the 2FA login challenge. Tagged with
+   * `purpose: 'mfa_challenge'` and expires per env (default 5m).
+   */
+  issueMfaChallengeToken(userId: ObjectId, remember: boolean): string {
+    const payload: MfaChallengeTokenPayload = {
+      sub: userId.toHexString(),
+      purpose: 'mfa_challenge',
+      remember,
+    };
+    const options: SignOptions = {
+      expiresIn: env.TWO_FACTOR_CHALLENGE_TTL as SignOptions['expiresIn'],
+    };
+    return jwt.sign(payload, env.JWT_ACCESS_SECRET, options);
+  },
+
+  /**
+   * Verifies an MFA challenge token and returns userId + remember flag.
+   */
+  verifyMfaChallengeToken(rawToken: string): { userId: ObjectId; remember: boolean } {
+    const decoded = decodeMfaChallenge(rawToken);
+    assertMfaChallengePayload(decoded);
+    return {
+      userId: new ObjectId(decoded.sub),
+      remember: Boolean(decoded.remember),
+    };
+  },
 };
 
 // Re-export for unit tests so they can introspect internal helpers.
@@ -336,5 +364,33 @@ function assertPasswordResetPayload(payload: PasswordResetTokenPayload): void {
   }
   if (typeof payload.sub !== 'string' || !ObjectId.isValid(payload.sub)) {
     throw new ApiError(400, 'Malformed password reset token', 'INVALID_RESET_TOKEN');
+  }
+}
+
+export interface MfaChallengeTokenPayload {
+  sub: string;
+  purpose: 'mfa_challenge';
+  remember: boolean;
+}
+
+function decodeMfaChallenge(rawToken: string): MfaChallengeTokenPayload {
+  let decoded: unknown;
+  try {
+    decoded = jwt.verify(rawToken, env.JWT_ACCESS_SECRET);
+  } catch {
+    throw new ApiError(401, 'Invalid or expired 2FA challenge token', 'INVALID_2FA_CHALLENGE');
+  }
+  if (typeof decoded !== 'object' || decoded === null) {
+    throw new ApiError(401, 'Malformed 2FA challenge token', 'INVALID_2FA_CHALLENGE');
+  }
+  return decoded as MfaChallengeTokenPayload;
+}
+
+function assertMfaChallengePayload(payload: MfaChallengeTokenPayload): void {
+  if (payload.purpose !== 'mfa_challenge') {
+    throw new ApiError(401, 'Token is not for 2FA challenge', 'INVALID_2FA_CHALLENGE');
+  }
+  if (typeof payload.sub !== 'string' || !ObjectId.isValid(payload.sub)) {
+    throw new ApiError(401, 'Malformed 2FA challenge token', 'INVALID_2FA_CHALLENGE');
   }
 }

@@ -39,8 +39,24 @@ export interface PublicUser {
   nickname: string;
   status: 'active' | 'inactive';
   timezone?: string;
+  twoFactorEnabled?: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface TwoFactorSetupResponse {
+  secret: string;
+  qrCodeDataUrl: string;
+  otpauthUrl: string;
+}
+
+export interface TwoFactorConfirmResponse {
+  backupCodes: string[];
+}
+
+export interface TwoFactorChallengeResponse {
+  user: PublicUser;
+  accessToken: string;
 }
 
 /** Payload returned by /login and /register (active). */

@@ -9,6 +9,9 @@ import { SelectInput } from '@/components/atoms/SelectInput/SelectInput';
 import { DeactivateModal } from '@/components/molecules/DeactivateModal/DeactivateModal';
 import { ChangePasswordModal } from '@/components/molecules/ChangePasswordModal/ChangePasswordModal';
 import { PalettePicker } from '@/components/molecules/PalettePicker/PalettePicker';
+import { TwoFactorSetupModal } from '@/components/organisms/TwoFactorSetupModal/TwoFactorSetupModal';
+import { TwoFactorDisableModal } from '@/components/organisms/TwoFactorDisableModal/TwoFactorDisableModal';
+import { TwoFactorBackupCodesModal } from '@/components/organisms/TwoFactorBackupCodesModal/TwoFactorBackupCodesModal';
 import { APP_CONFIG } from '@/config/app.config';
 import { useSettingsPage } from './useSettingsPage';
 import { TIMEZONE_OPTIONS } from './SettingsPage.types';
@@ -40,6 +43,15 @@ export function SettingsPage() {
     setShowDeactivateModal,
     deactivating,
     handleConfirmDeactivate,
+    // 2FA state & handlers
+    user,
+    showTwoFactorSetupModal,
+    setShowTwoFactorSetupModal,
+    showTwoFactorDisableModal,
+    setShowTwoFactorDisableModal,
+    showTwoFactorBackupCodesModal,
+    setShowTwoFactorBackupCodesModal,
+    handleToggleTwoFactor,
   } = useSettingsPage();
 
   return (
@@ -222,20 +234,64 @@ export function SettingsPage() {
                   </button>
                 </div>
 
-                {/* 2FA Option (Alpha disabled) */}
-                <div className="settings-item-row disabled">
+                {/* 2FA Option */}
+                <div className="settings-item-row">
                   <div className="settings-item-info">
-                    <Icon name="verified_user" style={{ color: 'var(--color-on-surface-variant)' }} />
+                    <Icon
+                      name={user?.twoFactorEnabled ? 'verified_user' : 'shield'}
+                      style={{
+                        color: user?.twoFactorEnabled
+                          ? 'var(--color-primary, #636037)'
+                          : 'var(--color-on-surface-variant)',
+                      }}
+                    />
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <p className="settings-item-text-title">Two-Factor Authentication (2FA)</p>
-                        <ReleaseBadge size="xs" variant="subtle" />
+                        {user?.twoFactorEnabled && (
+                          <span
+                            style={{
+                              fontSize: '0.75rem',
+                              fontWeight: 600,
+                              padding: '0.15rem 0.5rem',
+                              borderRadius: '9999px',
+                              backgroundColor: 'var(--color-secondary-container, #e0eb78)',
+                              color: 'var(--color-on-secondary-container, #616a00)',
+                            }}
+                          >
+                            Enabled
+                          </span>
+                        )}
                       </div>
-                      <p className="settings-item-text-sub">Protect your account with an extra verification layer (Coming Soon)</p>
+                      <p className="settings-item-text-sub">
+                        {user?.twoFactorEnabled
+                          ? 'Your account is protected with time-based one-time password (TOTP) verification.'
+                          : 'Protect your account with an extra verification layer using an authenticator app.'}
+                      </p>
                     </div>
                   </div>
-                  <div className="settings-toggle-switch" style={{ cursor: 'not-allowed', opacity: 0.5 }}>
-                    <div className="settings-toggle-thumb" />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    {user?.twoFactorEnabled && (
+                      <button
+                        type="button"
+                        className="settings-btn-secondary"
+                        onClick={() => setShowTwoFactorBackupCodesModal(true)}
+                        style={{ fontSize: '0.85rem', padding: '0.4rem 0.85rem' }}
+                      >
+                        <Icon name="key" size={16} />
+                        <span>Backup Codes</span>
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      role="switch"
+                      aria-checked={Boolean(user?.twoFactorEnabled)}
+                      className={`settings-toggle-switch ${user?.twoFactorEnabled ? 'active' : ''}`}
+                      onClick={handleToggleTwoFactor}
+                      title={user?.twoFactorEnabled ? 'Click to disable 2FA' : 'Click to enable 2FA'}
+                    >
+                      <div className="settings-toggle-thumb" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -359,6 +415,20 @@ export function SettingsPage() {
         deactivating={deactivating}
         onConfirm={handleConfirmDeactivate}
         onCancel={() => setShowDeactivateModal(false)}
+      />
+
+      {/* Two-Factor Authentication Modals */}
+      <TwoFactorSetupModal
+        isOpen={showTwoFactorSetupModal}
+        onClose={() => setShowTwoFactorSetupModal(false)}
+      />
+      <TwoFactorDisableModal
+        isOpen={showTwoFactorDisableModal}
+        onClose={() => setShowTwoFactorDisableModal(false)}
+      />
+      <TwoFactorBackupCodesModal
+        isOpen={showTwoFactorBackupCodesModal}
+        onClose={() => setShowTwoFactorBackupCodesModal(false)}
       />
     </div>
   );

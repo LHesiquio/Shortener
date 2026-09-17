@@ -36,9 +36,9 @@ export function useSettingsPage() {
 
   const [isEditingProfile, setIsEditingProfile] = useState(false);
 
-  const [securityData, setSecurityData] = useState<SecuritySettingsData>({
-    twoFactorEnabled: false,
-  });
+  const securityData: SecuritySettingsData = {
+    twoFactorEnabled: Boolean(user?.twoFactorEnabled),
+  };
 
   const [notificationPreferences, setNotificationPreferences] = useState({
     weeklyReport: true,
@@ -62,6 +62,11 @@ export function useSettingsPage() {
 
   // Deactivate modal state
   const [showDeactivateModal, setShowDeactivateModal] = useState(false);
+
+  // Two-Factor Authentication modal states
+  const [showTwoFactorSetupModal, setShowTwoFactorSetupModal] = useState(false);
+  const [showTwoFactorDisableModal, setShowTwoFactorDisableModal] = useState(false);
+  const [showTwoFactorBackupCodesModal, setShowTwoFactorBackupCodesModal] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -183,11 +188,11 @@ export function useSettingsPage() {
   };
 
   const handleToggleTwoFactor = () => {
-    setSecurityData((prev) => {
-      const next = !prev.twoFactorEnabled;
-      toast.push(next ? 'Two-Factor Authentication enabled' : 'Two-Factor Authentication disabled', 'info');
-      return { twoFactorEnabled: next };
-    });
+    if (user?.twoFactorEnabled) {
+      setShowTwoFactorDisableModal(true);
+    } else {
+      setShowTwoFactorSetupModal(true);
+    }
   };
 
   const handleThemeChange = (newTheme: 'light' | 'dark') => {
@@ -225,12 +230,19 @@ export function useSettingsPage() {
     setShowDeactivateModal,
     deactivating: deactivateAccountMutation.isPending,
     handleConfirmDeactivate,
+    // 2FA state & handlers
+    showTwoFactorSetupModal,
+    setShowTwoFactorSetupModal,
+    showTwoFactorDisableModal,
+    setShowTwoFactorDisableModal,
+    showTwoFactorBackupCodesModal,
+    setShowTwoFactorBackupCodesModal,
+    handleToggleTwoFactor,
     // General handlers
     handleStartEditing,
     handleCancelEditing,
     handleSaveProfile,
     handleAutoDetectTimezone,
-    handleToggleTwoFactor,
     handleThemeChange,
     handlePaletteChange,
     handleToggleNotification,

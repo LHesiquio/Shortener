@@ -11,8 +11,9 @@ import { ResetPasswordController } from '@controllers/auth/ResetPasswordControll
 import { ProfileController } from '@controllers/auth/ProfileController';
 import { ChangePasswordController } from '@controllers/auth/ChangePasswordController';
 import { DeactivateAccountController } from '@controllers/auth/DeactivateAccountController';
+import { TwoFactorController } from '@controllers/auth/TwoFactorController';
 import { authMiddleware } from '@middlewares/authMiddleware';
-import { createLoginRateLimit, createResendRateLimit } from '@middlewares/rateLimit';
+import { createLoginRateLimit, createResendRateLimit, createTwoFactorRateLimit } from '@middlewares/rateLimit';
 
 const router = Router();
 const registerController = new RegisterController();
@@ -27,19 +28,22 @@ const verifyEmailController = new VerifyEmailController();
 const resendController = new ResendVerificationController();
 const forgotPasswordController = new ForgotPasswordController();
 const resetPasswordController = new ResetPasswordController();
+const twoFactorController = new TwoFactorController();
 
 /**
- * The login / resend rate limits are factories so tests can pass
+ * The login / resend / 2fa rate limits are factories so tests can pass
  * permissive overrides when mounting the routes. By default they read env.
  */
 const loginRateLimit = createLoginRateLimit();
 const resendRateLimit = createResendRateLimit();
+const twoFactorRateLimit = createTwoFactorRateLimit();
 
 // Public — auth
 router.post('/register', registerController.register);
 router.post('/login', loginRateLimit, loginController.login);
 router.post('/refresh', refreshController.refresh);
 router.post('/logout', logoutController.logout);
+router.post('/2fa/challenge', twoFactorRateLimit, twoFactorController.challenge);
 
 // Public — email verification & recovery
 router.post('/verify-email', verifyEmailController.verify);
@@ -52,5 +56,11 @@ router.get('/me', authMiddleware, meController.me);
 router.patch('/profile', authMiddleware, profileController.updateProfile);
 router.post('/change-password', authMiddleware, changePasswordController.changePassword);
 router.post('/deactivate', authMiddleware, deactivateAccountController.deactivate);
+
+// Protected — Two-Factor Authentication
+router.post('/2fa/setup', authMiddleware, twoFactorController.setup);
+router.post('/2fa/confirm', authMiddleware, twoFactorRateLimit, twoFactorController.confirm);
+router.post('/2fa/disable', authMiddleware, twoFactorController.disable);
+router.post('/2fa/backup-codes/regenerate', authMiddleware, twoFactorController.regenerateBackupCodes);
 
 export { router as authRouter };

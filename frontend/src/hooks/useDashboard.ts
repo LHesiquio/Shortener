@@ -142,10 +142,10 @@ export function useDashboard() {
     drawerError,
     deleteTarget,
     deleting: deleteMutation.isPending,
-    openAddDrawer: (url?: string) => {
+    openAddDrawer: (url?: unknown) => {
       setEditTarget(null);
       setDrawerError(null);
-      setInitialUrl(url ?? '');
+      setInitialUrl(typeof url === 'string' ? url : '');
       setDrawerOpen(true);
     },
     openEditDrawer: (link: PublicShortlink) => {

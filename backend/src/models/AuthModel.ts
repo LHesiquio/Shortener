@@ -62,6 +62,7 @@ export class LoginModel implements IBaseModel<LoginInput, User> {
       nickname: doc.nickname,
       status: doc.status,
       timezone: doc.timezone,
+      twoFactorEnabled: Boolean(doc.twoFactorEnabled),
       createdAt: doc.createdAt,
       updatedAt: doc.updatedAt,
     };
@@ -150,6 +151,7 @@ export class RegisterModel implements IBaseModel<RegisterInput, User> {
       nickname: doc.nickname,
       status: doc.status,
       timezone: doc.timezone,
+      twoFactorEnabled: Boolean(doc.twoFactorEnabled),
       createdAt: doc.createdAt,
       updatedAt: doc.updatedAt,
     };
@@ -223,6 +225,7 @@ export class ProfileModel {
       nickname: doc.nickname,
       status: doc.status,
       timezone: doc.timezone,
+      twoFactorEnabled: Boolean(doc.twoFactorEnabled),
       createdAt: doc.createdAt,
       updatedAt: doc.updatedAt,
     };
@@ -361,6 +364,117 @@ export class ResetPasswordModel {
     if (!result.success) {
       const issue = result.error.issues[0];
       throw new ApiError(400, issue?.message ?? 'Invalid password reset payload', 'VALIDATION_ERROR');
+    }
+    return result.data;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 7. TWO-FACTOR AUTHENTICATION MODELS
+// ---------------------------------------------------------------------------
+
+const twoFactorConfirmSchema = z.object({
+  code: z
+    .string()
+    .min(6, 'Authentication code must be 6 digits')
+    .max(8)
+    .transform((val) => val.replace(/\s+/g, '')),
+});
+
+export type TwoFactorConfirmInput = z.infer<typeof twoFactorConfirmSchema>;
+
+export class TwoFactorConfirmModel {
+  public extractFromRequest(req: Request): TwoFactorConfirmInput {
+    return {
+      code: req.body?.code ?? '',
+    };
+  }
+
+  public validate(input: TwoFactorConfirmInput): TwoFactorConfirmInput {
+    const result = twoFactorConfirmSchema.safeParse(input);
+    if (!result.success) {
+      const issue = result.error.issues[0];
+      throw new ApiError(400, issue?.message ?? 'Invalid 2FA code', 'VALIDATION_ERROR');
+    }
+    return result.data;
+  }
+}
+
+const twoFactorDisableSchema = z.object({
+  currentPassword: z.string().min(1, 'Current password is required to disable 2FA'),
+  code: z.string().optional(),
+});
+
+export type TwoFactorDisableInput = z.infer<typeof twoFactorDisableSchema>;
+
+export class TwoFactorDisableModel {
+  public extractFromRequest(req: Request): TwoFactorDisableInput {
+    return {
+      currentPassword: req.body?.currentPassword ?? '',
+      code: req.body?.code,
+    };
+  }
+
+  public validate(input: TwoFactorDisableInput): TwoFactorDisableInput {
+    const result = twoFactorDisableSchema.safeParse(input);
+    if (!result.success) {
+      const issue = result.error.issues[0];
+      throw new ApiError(400, issue?.message ?? 'Invalid 2FA disable payload', 'VALIDATION_ERROR');
+    }
+    return result.data;
+  }
+}
+
+const twoFactorChallengeSchema = z
+  .object({
+    mfaToken: z.string().min(1, 'MFA challenge token is required'),
+    code: z.string().optional(),
+    backupCode: z.string().optional(),
+  })
+  .refine((data) => Boolean(data.code || data.backupCode), {
+    message: 'Either an authentication code or backup recovery code is required',
+    path: ['code'],
+  });
+
+export type TwoFactorChallengeInput = z.infer<typeof twoFactorChallengeSchema>;
+
+export class TwoFactorChallengeModel {
+  public extractFromRequest(req: Request): TwoFactorChallengeInput {
+    return {
+      mfaToken: req.body?.mfaToken ?? '',
+      code: req.body?.code,
+      backupCode: req.body?.backupCode,
+    };
+  }
+
+  public validate(input: TwoFactorChallengeInput): TwoFactorChallengeInput {
+    const result = twoFactorChallengeSchema.safeParse(input);
+    if (!result.success) {
+      const issue = result.error.issues[0];
+      throw new ApiError(400, issue?.message ?? 'Invalid 2FA challenge payload', 'VALIDATION_ERROR');
+    }
+    return result.data;
+  }
+}
+
+const twoFactorRegenerateSchema = z.object({
+  currentPassword: z.string().min(1, 'Current password is required to regenerate backup codes'),
+});
+
+export type TwoFactorRegenerateInput = z.infer<typeof twoFactorRegenerateSchema>;
+
+export class TwoFactorRegenerateCodesModel {
+  public extractFromRequest(req: Request): TwoFactorRegenerateInput {
+    return {
+      currentPassword: req.body?.currentPassword ?? '',
+    };
+  }
+
+  public validate(input: TwoFactorRegenerateInput): TwoFactorRegenerateInput {
+    const result = twoFactorRegenerateSchema.safeParse(input);
+    if (!result.success) {
+      const issue = result.error.issues[0];
+      throw new ApiError(400, issue?.message ?? 'Password is required', 'VALIDATION_ERROR');
     }
     return result.data;
   }

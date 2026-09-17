@@ -40,7 +40,6 @@ function ProjectNameField({
         placeholder="e.g. Summer Marketing Campaign"
         value={name}
         onChange={handleNameChange}
-        autoFocus
       />
     </div>
   );

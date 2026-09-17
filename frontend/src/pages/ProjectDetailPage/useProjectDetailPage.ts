@@ -33,7 +33,11 @@ function useProjectNavigation(projectId?: string) {
   const { openNewLinkDrawer } = useNewLinkDrawer();
   return {
     handleBackToProjects: () => navigate('/projects'),
-    openAddDrawer: (initialUrl?: string) => openNewLinkDrawer({ defaultProjectId: projectId, initialUrl }),
+    openAddDrawer: (initialUrl?: unknown) =>
+      openNewLinkDrawer({
+        defaultProjectId: projectId,
+        initialUrl: typeof initialUrl === 'string' ? initialUrl : undefined,
+      }),
     openEditDrawer: (shortlink: PublicShortlink) => openNewLinkDrawer({ editTarget: shortlink }),
     handleLogout: () => {
       localStorage.removeItem('auth_token');
@@ -82,9 +86,9 @@ export function useProjectDetailPage() {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const modals = useProjectModalsState();
-  const nav = useProjectNavigation(projectId);
   const queries = useProjectDetailQueries({ projectId, currentPage, pageSize: 10, search });
-  const muts = useProjectMutationsBundle(projectId, modals, nav);
+  const nav = useProjectNavigation(queries.project?.id ?? projectId);
+  const muts = useProjectMutationsBundle(queries.project?.id ?? projectId, modals, nav);
 
   return {
     projectId,

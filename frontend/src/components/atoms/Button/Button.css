@@ -73,58 +73,59 @@
   width: 100%;
 }
 
-/* Variante primaria — Creamy Yellow / Secondary container */
+/* Variante primaria — Uses the active signature palette primary color */
 .btn-primary {
-  background-color: var(--secondary-container);
-  color: var(--on-secondary-container);
-  box-shadow: 0 1px 3px rgba(99, 96, 55, 0.12);
+  background-color: var(--primary);
+  color: var(--on-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary:hover {
-  filter: brightness(1.05);
-  box-shadow: 0 4px 12px rgba(99, 96, 55, 0.2);
+  filter: brightness(1.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
   transform: translateY(-1px);
 }
 
 .btn-primary:active {
   transform: scale(0.96) translateY(0);
-  box-shadow: 0 1px 3px rgba(99, 96, 55, 0.12);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
-/* Variante secundaria */
+/* Variante secundaria / tonal */
 .btn-secondary {
-  background-color: var(--primary);
-  color: var(--on-primary);
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
 }
 
 .btn-secondary:hover {
-  box-shadow: 0 4px 12px rgba(99, 96, 55, 0.3);
+  filter: brightness(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transform: translateY(-1px);
 }
 
-/* Variante Outlined & Cancel — Transparente con borde M3 legible en light y dark */
+/* Variante Outlined & Cancel — Transparente con borde M3 dinámico */
 .btn-outlined,
 .btn-cancel {
   background-color: transparent;
-  border: 1px solid var(--outline-variant, #cac6b8);
-  color: var(--on-surface, #1b1c18);
+  border: 1px solid var(--outline-variant);
+  color: var(--on-surface);
 }
 
 .btn-outlined:hover,
 .btn-cancel:hover {
-  background-color: var(--surface-container-high, #e9e8e2);
-  border-color: var(--outline, #7a776b);
-  color: var(--on-surface, #1b1c18);
+  background-color: var(--surface-container-high);
+  border-color: var(--outline);
+  color: var(--on-surface);
 }
 
 /* Variante Danger / Error */
 .btn-danger {
-  background-color: var(--error, #ba1a1a);
-  color: var(--on-error, #ffffff);
+  background-color: var(--error);
+  color: var(--on-error);
 }
 
 .btn-danger:hover {
-  opacity: 0.92;
+  filter: brightness(1.1);
   box-shadow: 0 4px 12px rgba(186, 26, 26, 0.25);
   transform: translateY(-1px);
 }

@@ -60,3 +60,21 @@ export function createResendRateLimit(overrides?: { max?: number; windowMs?: num
     },
   });
 }
+
+/**
+ * Builds the rate-limit middleware applied to 2FA verification and challenge endpoints.
+ * Protects against brute-forcing 6-digit TOTP codes.
+ */
+export function createTwoFactorRateLimit(overrides?: { max?: number; windowMs?: number }): RateLimitRequestHandler {
+  const max = overrides?.max ?? env.TWO_FACTOR_RATE_LIMIT_MAX;
+  const windowMs = overrides?.windowMs ?? parseWindowMs(env.TWO_FACTOR_RATE_LIMIT_WINDOW);
+  return rateLimit({
+    windowMs,
+    max,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+    handler: (_req, _res, next) => {
+      next(new ApiError(429, 'Too many 2FA attempts. Please try again later.', 'RATE_LIMITED'));
+    },
+  });
+}
