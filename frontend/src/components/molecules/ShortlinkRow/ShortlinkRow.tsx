@@ -1,6 +1,8 @@
 import { IconButton } from '@/components/atoms/IconButton/IconButton';
 import { Badge } from '@/components/atoms/Badge/Badge';
 import { Icon } from '@/components/atoms/Icon/Icon';
+import { TooltipBubble } from '@/components/atoms/Tooltip/TooltipBubble';
+import { useTooltip } from '@/components/atoms/Tooltip/useTooltip';
 import { formatLocalizedDate } from '@/utils/date.utils';
 import { useUserProfile } from '@/context/UserProfileContext';
 import type { PublicShortlink } from '@/types/shortlink.types';
@@ -18,23 +20,31 @@ interface SlugCellProps {
 }
 
 function SlugCell({ slug, fullUrl, copied, onCopy }: SlugCellProps) {
+  const slugTooltip = useTooltip<HTMLSpanElement>({ label: fullUrl });
+  const copyTooltip = useTooltip<HTMLButtonElement>({ label: `Copy: ${fullUrl}` });
+
   return (
     <div className="sl-short-link">
-      <span title={fullUrl}>{slug}</span>
-      <button type="button" className="sl-copy-btn" onClick={onCopy} title={`Copy: ${fullUrl}`}>
+      <span {...slugTooltip.anchorProps}>{slug}</span>
+      <button type="button" className="sl-copy-btn" onClick={onCopy} {...copyTooltip.anchorProps}>
         <Icon name={copied ? 'check' : 'content_copy'} />
       </button>
+      <TooltipBubble {...slugTooltip.tooltipProps} />
+      <TooltipBubble {...copyTooltip.tooltipProps} />
     </div>
   );
 }
 
 function UrlCell({ url }: { url: string }) {
+  const urlTooltip = useTooltip<HTMLDivElement>({ label: url });
+
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
       <div className="sl-url-icon">
         <Icon name="public" />
       </div>
-      <div className="sl-url-text" title={url}>{url}</div>
+      <div className="sl-url-text" {...urlTooltip.anchorProps}>{url}</div>
+      <TooltipBubble {...urlTooltip.tooltipProps} />
     </div>
   );
 }
@@ -74,6 +84,17 @@ function ActionsCell({ shortlink, onEdit, onDelete, onToggleActive }: ActionsCel
   );
 }
 
+function ClicksCell({ count, onClick }: { count: number; onClick: () => void }) {
+  const tooltip = useTooltip<HTMLButtonElement>({ label: 'View click logs' });
+  return (
+    <button type="button" className="sl-clicks-badge-btn" onClick={onClick} {...tooltip.anchorProps}>
+      <Icon name="ads_click" />
+      <span>{count}</span>
+      <TooltipBubble {...tooltip.tooltipProps} />
+    </button>
+  );
+}
+
 export function ShortlinkRow({
   shortlink,
   onEdit,
@@ -98,10 +119,7 @@ export function ShortlinkRow({
         <SlugCell slug={shortlink.slug} fullUrl={fullUrl} copied={isCopied} onCopy={() => copyToClipboard(fullUrl)} />
       </td>
       <td className="sl-cell sl-col-clicks">
-        <button type="button" className="sl-clicks-badge-btn" onClick={() => onViewClicks?.(shortlink)} title="View click logs">
-          <Icon name="ads_click" />
-          <span>{shortlink.clicksCount || 0}</span>
-        </button>
+        <ClicksCell count={shortlink.clicksCount || 0} onClick={() => onViewClicks?.(shortlink)} />
       </td>
       <td className="sl-cell sl-col-expires">
         <span style={{ fontSize: '12px', color: 'var(--color-on-surface-variant, #49473c)' }}>{expiryText}</span>

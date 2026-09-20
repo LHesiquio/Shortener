@@ -507,8 +507,7 @@
 }
 
 /* Disabled Cards & Rows for Alpha features */
-.settings-item-row.disabled,
-.settings-disabled-card {
+.settings-item-row.disabled {
   opacity: 0.6;
   pointer-events: none;
   user-select: none;

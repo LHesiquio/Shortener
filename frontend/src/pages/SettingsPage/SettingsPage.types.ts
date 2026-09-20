@@ -15,8 +15,6 @@ export interface SecuritySettingsData {
 export interface PreferenceSettingsData {
   theme: ThemeMode;
   palette: ColorPaletteId;
-  weeklyReport: boolean;
-  securityAlerts: boolean;
 }
 
 export const TIMEZONE_OPTIONS = [

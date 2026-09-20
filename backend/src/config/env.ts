@@ -82,6 +82,14 @@ const envSchema = z.object({
     .transform((v) => v === 'true'),
   /** TTL for click records. Default 0 = keep forever. Format: ms as string. */
   SHORTLINK_CLICK_TTL_MS: z.coerce.number().int().min(0).default(0),
+
+  // ===== Click export jobs =====
+  /** Directory where generated export files are stored, relative to the backend cwd. */
+  EXPORT_STORAGE_DIR: z.string().min(1).default('.exports'),
+  /** How many days a completed export file remains downloadable before cleanup. */
+  EXPORT_JOB_RETENTION_DAYS: z.coerce.number().int().positive().default(7),
+  /** Max records a single export job may include. */
+  EXPORT_JOB_MAX_RECORDS: z.coerce.number().int().positive().default(10000),
 });
 
 const parsed = envSchema.safeParse(process.env);

@@ -1,6 +1,8 @@
 import { createPortal } from 'react-dom';
 import { NavLink } from 'react-router-dom';
 import { Icon } from '@/components/atoms/Icon/Icon';
+import { TooltipBubble } from '@/components/atoms/Tooltip/TooltipBubble';
+import { useTooltip } from '@/components/atoms/Tooltip/useTooltip';
 import { useNewLinkDrawer } from '@/context/NewLinkDrawerContext';
 import type { MobileBottomNavProps } from './MobileBottomNav.types';
 import './MobileBottomNav.css';
@@ -23,16 +25,20 @@ function MobileNavItem({ to, icon, label, end }: { to: string; icon: string; lab
 }
 
 function MobileNavFab({ onClick }: { onClick: () => void }) {
+  const tooltip = useTooltip<HTMLButtonElement>({ label: 'Create shortlink' });
   return (
-    <button
-      type="button"
-      className="mobile-bottom-nav-fab"
-      onClick={onClick}
-      aria-label="Create shortlink"
-      title="Create shortlink"
-    >
-      <Icon name="add" />
-    </button>
+    <>
+      <button
+        type="button"
+        className="mobile-bottom-nav-fab"
+        onClick={onClick}
+        aria-label="Create shortlink"
+        {...tooltip.anchorProps}
+      >
+        <Icon name="add" />
+      </button>
+      <TooltipBubble {...tooltip.tooltipProps} />
+    </>
   );
 }
 

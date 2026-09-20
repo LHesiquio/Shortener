@@ -12,6 +12,8 @@ export interface PaginationParams {
   range?: string;
   sinceDate?: Date | null;
   archived?: boolean;
+  /** Optional status filter for export jobs (e.g. "completed", "failed"). */
+  exportStatus?: string;
 }
 
 export interface PaginationMeta {
@@ -40,6 +42,7 @@ export class QueryHelper {
     const range = parseRange(query);
     const sinceDate = QueryHelper.parseDateRange(range);
     const archived = parseArchived(query);
+    const exportStatus = parseExportStatus(query);
 
     return {
       page,
@@ -52,6 +55,7 @@ export class QueryHelper {
       range,
       sinceDate,
       archived,
+      exportStatus,
     };
   }
 
@@ -177,4 +181,11 @@ function parseRange(query: Record<string, unknown>): string | undefined {
 function parseArchived(query: Record<string, unknown>): boolean {
   const val = query.archived;
   return val === 'true' || val === true || val === '1' || val === 1;
+}
+
+function parseExportStatus(query: Record<string, unknown>): string | undefined {
+  if (typeof query.status === 'string' && query.status.trim()) {
+    return query.status.trim().toLowerCase();
+  }
+  return undefined;
 }

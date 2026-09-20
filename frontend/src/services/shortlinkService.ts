@@ -1,5 +1,6 @@
 import { apiClient } from '@/lib/apiClient';
 import { getFeatureEndpoint, getFeaturePageSize } from '@/config/featureConfig';
+import { resolveExportFilename, triggerDownload } from '@/utils/download.utils';
 import type {
   PublicShortlink,
   ListShortlinksResponse,
@@ -131,13 +132,6 @@ export const shortlinkService = {
   },
 };
 
-const MIME_MAP: Record<string, string> = {
-  csv: 'text/csv;charset=utf-8;',
-  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  pdf: 'application/pdf',
-  json: 'application/json',
-};
-
 function buildExportQuery(params: {
   slug?: string;
   shortlinkId?: string;
@@ -163,41 +157,3 @@ function buildExportQuery(params: {
   return query.toString();
 }
 
-function extractDispositionFilename(disposition: string | null): string | null {
-  if (!disposition) return null;
-  const match = disposition.match(/filename=["']?([^"';]+)["']?/);
-  return match ? match[1] : null;
-}
-
-function buildFallbackFilename(projectName?: string, slug?: string, format = 'csv'): string {
-  const safeProject = (projectName || '').trim().replace(/[^a-zA-Z0-9_-]/g, '_');
-  const safeSlug = (slug || 'report').trim().replace(/[^a-zA-Z0-9_-]/g, '_');
-  const dateStr = new Date().toISOString().slice(0, 10);
-  const prefix = safeProject ? `${safeProject}-${safeSlug}` : `click-logs-${safeSlug}`;
-  return `${prefix}-${dateStr}.${format}`;
-}
-
-function resolveExportFilename(
-  disposition: string | null,
-  projectName?: string,
-  slug?: string,
-  format = 'csv'
-): string {
-  return extractDispositionFilename(disposition) || buildFallbackFilename(projectName, slug, format);
-}
-
-function triggerDownload(rawBlob: Blob, filename: string, format = 'csv'): void {
-  const mimeType = MIME_MAP[format] || rawBlob.type || 'application/octet-stream';
-  const blob = rawBlob.type ? rawBlob : new Blob([rawBlob], { type: mimeType });
-  const url = window.URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.style.display = 'none';
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(() => {
-    a.remove();
-    window.URL.revokeObjectURL(url);
-  }, 1000);
-}

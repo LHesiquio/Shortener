@@ -40,16 +40,9 @@ export function useSettingsPage() {
     twoFactorEnabled: Boolean(user?.twoFactorEnabled),
   };
 
-  const [notificationPreferences, setNotificationPreferences] = useState({
-    weeklyReport: true,
-    securityAlerts: true,
-  });
-
   const preferencesData: PreferenceSettingsData = {
     theme,
     palette,
-    weeklyReport: notificationPreferences.weeklyReport,
-    securityAlerts: notificationPreferences.securityAlerts,
   };
 
   // Password modal state
@@ -205,10 +198,6 @@ export function useSettingsPage() {
     toast.push('Color palette updated successfully', 'info');
   };
 
-  const handleToggleNotification = (key: 'weeklyReport' | 'securityAlerts') => {
-    setNotificationPreferences((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
   return {
     user,
     loadingUser,
@@ -245,7 +234,6 @@ export function useSettingsPage() {
     handleAutoDetectTimezone,
     handleThemeChange,
     handlePaletteChange,
-    handleToggleNotification,
   };
 }
 

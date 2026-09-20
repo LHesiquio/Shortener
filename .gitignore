@@ -30,3 +30,7 @@ pnpm-debug.log*
 Thumbs.db
 .mongo-data/
 
+# Generated export files
+backend/.exports/
+.exports/
+

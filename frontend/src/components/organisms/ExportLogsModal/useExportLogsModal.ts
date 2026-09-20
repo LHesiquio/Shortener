@@ -3,8 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import { projectService } from '@/services/projectService';
 import { shortlinkService } from '@/services/shortlinkService';
 import { useUserProfile } from '@/context/UserProfileContext';
-import { useToast } from '@/context/ToastContext';
+import { useExportJobs } from '@/context/ExportJobsContext';
 import type { PublicProject, PublicShortlink } from '@/types/shortlink.types';
+import type { CreateExportJobPayload } from '@/types/exportJob.types';
 import type { ExportFormat } from './ExportLogsModal.types';
 import {
   ALL_FIELD_IDS,
@@ -81,23 +82,16 @@ async function performExport(
   tz: string,
   fields: string[],
   fmt: ExportFormat,
-  toast: ReturnType<typeof useToast>,
-  done: () => void
+  createJob: (payload: CreateExportJobPayload) => Promise<void>
 ) {
-  try {
-    await shortlinkService.exportClicks({
-      slug: shortlink.slug,
-      shortlinkId: shortlink.id,
-      projectName,
-      timezone: tz,
-      fields,
-      format: fmt,
-    });
-    toast.push(`Click logs for /${shortlink.slug} exported successfully.`, 'success');
-    done();
-  } catch {
-    toast.push('Failed to export click logs. Please try again.', 'error');
-  }
+  await createJob({
+    slug: shortlink.slug,
+    shortlinkId: shortlink.id,
+    projectName,
+    timezone: tz,
+    fields,
+    format: fmt,
+  });
 }
 
 function createFieldActions(state: WizardState) {
@@ -128,7 +122,11 @@ function createNavigationActions(state: WizardState) {
   };
 }
 
-function useWizardHandlers(state: WizardState, onClose: () => void, toast: ReturnType<typeof useToast>) {
+function useWizardHandlers(
+  state: WizardState,
+  onClose: () => void,
+  createJob: (payload: CreateExportJobPayload) => Promise<void>
+) {
   const reset = () => {
     state.setStep(1);
     state.setSelectedProject(null);
@@ -142,16 +140,21 @@ function useWizardHandlers(state: WizardState, onClose: () => void, toast: Retur
   const handleExecuteExport = async () => {
     if (!state.selectedShortlink) return;
     state.setIsExporting(true);
-    await performExport(
-      state.selectedShortlink,
-      state.selectedProject?.name,
-      state.selectedTimezone,
-      state.selectedFields,
-      state.selectedFormat,
-      toast,
-      reset
-    );
-    state.setIsExporting(false);
+    try {
+      await performExport(
+        state.selectedShortlink,
+        state.selectedProject?.name,
+        state.selectedTimezone,
+        state.selectedFields,
+        state.selectedFormat,
+        createJob
+      );
+      reset();
+    } catch {
+      // The failure toast is surfaced by ExportJobsProvider.
+    } finally {
+      state.setIsExporting(false);
+    }
   };
 
   return {
@@ -163,11 +166,11 @@ function useWizardHandlers(state: WizardState, onClose: () => void, toast: Retur
 }
 
 export function useExportLogsModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const toast = useToast();
   const { userTimezone } = useUserProfile();
+  const { createJob } = useExportJobs();
   const state = useWizardState(userTimezone);
   const data = useWizardData(isOpen, state.selectedProject?.id);
-  const handlers = useWizardHandlers(state, onClose, toast);
+  const handlers = useWizardHandlers(state, onClose, createJob);
 
   return {
     step: state.step,

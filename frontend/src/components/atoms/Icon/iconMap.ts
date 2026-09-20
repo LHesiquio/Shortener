@@ -67,7 +67,17 @@ import {
   Wifi,
   WifiOff,
   CloudOff,
-  QrCode
+  QrCode,
+  Bell,
+  FileText,
+  History,
+  RotateCcw,
+  Table,
+  Code,
+  Map as MapIcon,
+  Building2,
+  ArrowUpRight,
+  MonitorSmartphone
 } from 'lucide';
 
 export const ICON_MAP: Record<string, IconNode> = {
@@ -172,6 +182,35 @@ export const ICON_MAP: Record<string, IconNode> = {
   mail: Mail,
   email: Mail,
   forest: Trees,
+
+  // Notifications & Exports
+  notifications: Bell,
+  bell: Bell,
+  file_text: FileText,
+  description: FileText,
+  history: History,
+  rotate_ccw: RotateCcw,
+  restore: RotateCcw,
+
+  // Data & Documents
+  table: Table,
+  table_view: Table,
+  code: Code,
+  code_xml: Code,
+  braces: Code,
+
+  // Geography & Locations
+  map: MapIcon,
+  location_city: Building2,
+  city: Building2,
+  arrow_outward: ArrowUpRight,
+  external_link: ArrowUpRight,
+
+  // Generic Devices & Web
+  devices: MonitorSmartphone,
+  responsive: MonitorSmartphone,
+  web: Globe,
+  browser: Globe,
 
   // Date & Time
   calendar_today: Calendar,

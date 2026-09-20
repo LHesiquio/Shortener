@@ -1,0 +1,32 @@
+/* ── Material Design 3 Tooltip (portaled, viewport-fixed) ───────────── */
+.tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  --tt-y: 4px;
+  background-color: var(--inverse-surface, #30312c);
+  color: var(--inverse-on-surface, #f2f1ea);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(var(--tt-y));
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 2000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Vertical placement flips above/below when it would be clipped. */
+.tooltip--above { --tt-y: 4px; }
+.tooltip--below { --tt-y: -4px; }
+
+.tooltip.is-visible {
+  opacity: 1;
+  visibility: visible;
+  --tt-y: 0;
+}

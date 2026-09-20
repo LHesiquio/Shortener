@@ -1,4 +1,6 @@
 import { Icon } from '@/components/atoms/Icon/Icon';
+import { TooltipBubble } from '@/components/atoms/Tooltip/TooltipBubble';
+import { useTooltip } from '@/components/atoms/Tooltip/useTooltip';
 import { useDatePicker } from './useDatePicker';
 import type { DatePickerProps } from './DatePicker.types';
 import './DatePicker.css';
@@ -23,6 +25,8 @@ export function DatePicker(props: DatePickerProps) {
     handleClear,
   } = useDatePicker(props);
 
+  const clearTooltip = useTooltip<HTMLButtonElement>({ label: 'Clear date' });
+
   return (
     <div className="datepicker-atom-wrapper" ref={containerRef}>
       <div
@@ -38,9 +42,10 @@ export function DatePicker(props: DatePickerProps) {
             type="button"
             className="datepicker-clear-btn"
             onClick={handleClear}
-            title="Clear date"
+            {...clearTooltip.anchorProps}
           >
             <Icon name="close" size={16} />
+            <TooltipBubble {...clearTooltip.tooltipProps} />
           </button>
         ) : (
           <Icon

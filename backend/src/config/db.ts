@@ -3,6 +3,7 @@ import { env } from '@config/env';
 import { RefreshTokenRecord } from '@appTypes/jwt';
 import { User } from '@appTypes/user';
 import { Shortlink, ShortlinkClick } from '@appTypes/shortlink';
+import { ExportJob } from '@appTypes/exportJob';
 import { slugify } from '@utils/slug';
 
 let client: MongoClient | null = null;
@@ -45,6 +46,7 @@ export enum Collections {
   Shortlinks = 'shortlinks',
   ShortlinkClicks = 'shortlink_clicks',
   Projects = 'projects',
+  ExportJobs = 'export_jobs',
 }
 
 async function backfillProjectSlugs(database: Db): Promise<void> {
@@ -119,11 +121,20 @@ async function ensureClickIndexes(database: Db): Promise<void> {
   await database.collection<ShortlinkClick>(Collections.ShortlinkClicks).createIndexes(clickIndexes);
 }
 
+async function ensureExportJobIndexes(database: Db): Promise<void> {
+  await database.collection<ExportJob>(Collections.ExportJobs).createIndexes([
+    { key: { userId: 1, createdAt: -1 }, name: 'export_jobs_userId_createdAt' },
+    { key: { userId: 1, status: 1, createdAt: -1 }, name: 'export_jobs_userId_status_createdAt' },
+    { key: { expiresAt: 1 }, name: 'export_jobs_expiresAt' },
+  ]);
+}
+
 export async function ensureIndexes(): Promise<void> {
   const database = getDb();
   await ensureUserAndTokenIndexes(database);
   await backfillProjectSlugs(database);
   await ensureShortlinkAndProjectIndexes(database);
   await ensureClickIndexes(database);
+  await ensureExportJobIndexes(database);
   console.log('[db] Indexes ensured');
 }

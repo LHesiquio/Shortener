@@ -2,6 +2,8 @@ import { memo } from 'react';
 import { COLOR_PALETTES, type ColorPaletteMetadata } from '@/config/theme.config';
 import { useTheme } from '@/context/ThemeContext';
 import { Icon } from '@/components/atoms/Icon/Icon';
+import { TooltipBubble } from '@/components/atoms/Tooltip/TooltipBubble';
+import { useTooltip } from '@/components/atoms/Tooltip/useTooltip';
 import type { PalettePickerProps } from './PalettePicker.types';
 import './PalettePicker.css';
 
@@ -12,11 +14,18 @@ interface SwatchProps {
 }
 
 function PaletteSwatches({ primary, container, accent }: SwatchProps) {
+  const primaryTooltip = useTooltip<HTMLSpanElement>({ label: 'Primary Accent' });
+  const containerTooltip = useTooltip<HTMLSpanElement>({ label: 'Container Tint' });
+  const accentTooltip = useTooltip<HTMLSpanElement>({ label: 'Secondary Accent' });
+
   return (
     <div className="palette-swatches">
-      <span className="palette-swatch-dot" style={{ backgroundColor: primary }} title="Primary Accent" />
-      <span className="palette-swatch-dot" style={{ backgroundColor: container }} title="Container Tint" />
-      <span className="palette-swatch-dot" style={{ backgroundColor: accent }} title="Secondary Accent" />
+      <span className="palette-swatch-dot" style={{ backgroundColor: primary }} {...primaryTooltip.anchorProps} />
+      <span className="palette-swatch-dot" style={{ backgroundColor: container }} {...containerTooltip.anchorProps} />
+      <span className="palette-swatch-dot" style={{ backgroundColor: accent }} {...accentTooltip.anchorProps} />
+      <TooltipBubble {...primaryTooltip.tooltipProps} />
+      <TooltipBubble {...containerTooltip.tooltipProps} />
+      <TooltipBubble {...accentTooltip.tooltipProps} />
     </div>
   );
 }

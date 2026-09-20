@@ -54,5 +54,19 @@
       "geo.country"
     ],
     "defaultPageSize": 10
+  },
+  "exportJobs": {
+    "key": "exportJobs",
+    "name": "Click Export Jobs",
+    "endpoint": "/api/analytics/clicks/export/jobs",
+    "supportedFeatures": {
+      "pagination": true,
+      "search": false,
+      "sorting": true,
+      "archiving": false,
+      "analytics": false
+    },
+    "searchFields": [],
+    "defaultPageSize": 20
   }
 }

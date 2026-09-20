@@ -43,6 +43,20 @@ export const FEATURE_CONFIG: FeatureConfigMap = {
     searchFields: ['slug', 'ip', 'referer', 'userAgent', 'geo.city', 'geo.country'],
     defaultPageSize: 10,
   },
+  exportJobs: {
+    key: 'exportJobs',
+    name: 'Click Export Jobs',
+    endpoint: '/api/analytics/clicks/export/jobs',
+    supportedFeatures: {
+      pagination: true,
+      search: false,
+      sorting: true,
+      archiving: false,
+      analytics: false,
+    },
+    searchFields: [],
+    defaultPageSize: 20,
+  },
 };
 
 export function getFeatureDefinition(featureKey: string): FeatureDefinition | undefined {

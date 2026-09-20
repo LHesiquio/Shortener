@@ -17,6 +17,8 @@ export interface ExportResult {
   buffer: Buffer | string;
   contentType: string;
   filename: string;
+  /** Number of click records included in the export. */
+  recordCount?: number;
 }
 
 export interface ExportContext {

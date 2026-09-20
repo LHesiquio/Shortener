@@ -1,3 +1,5 @@
+import { TooltipBubble } from '@/components/atoms/Tooltip/TooltipBubble';
+import { useTooltip } from '@/components/atoms/Tooltip/useTooltip';
 import type { StatusToggleProps } from './StatusToggle.types';
 import './StatusToggle.css';
 
@@ -13,19 +15,25 @@ export function StatusToggle({
   const activeClass = active ? 'status-toggle-root--active' : 'status-toggle-root--inactive';
   const sizeClass = size === 'sm' ? 'status-toggle-root--sm' : '';
   const label = active ? activeLabel : inactiveLabel;
+  const tooltip = useTooltip<HTMLButtonElement>({
+    label: `Status: ${label}. Click to switch to ${active ? inactiveLabel : activeLabel}`,
+  });
 
   return (
-    <button
-      type="button"
-      className={`status-toggle-root ${activeClass} ${sizeClass} ${className}`.trim()}
-      onClick={onToggle}
-      disabled={disabled}
-      role="switch"
-      aria-checked={active}
-      title={`Status: ${label}. Click to switch to ${active ? inactiveLabel : activeLabel}`}
-    >
-      <span className="status-toggle-indicator" aria-hidden="true" />
-      <span>{label}</span>
-    </button>
+    <>
+      <button
+        type="button"
+        className={`status-toggle-root ${activeClass} ${sizeClass} ${className}`.trim()}
+        onClick={onToggle}
+        disabled={disabled}
+        role="switch"
+        aria-checked={active}
+        {...tooltip.anchorProps}
+      >
+        <span className="status-toggle-indicator" aria-hidden="true" />
+        <span>{label}</span>
+      </button>
+      <TooltipBubble {...tooltip.tooltipProps} />
+    </>
   );
 }

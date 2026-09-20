@@ -4,5 +4,6 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
   icon: string;
   variant?: 'default' | 'primary' | 'danger' | 'success' | 'danger-active';
   title?: string;
+  /** Preferred side; the tooltip flips automatically when it would overflow. */
   tooltipPosition?: 'top' | 'bottom';
 }

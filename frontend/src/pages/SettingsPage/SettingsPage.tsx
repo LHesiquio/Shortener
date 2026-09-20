@@ -1,9 +1,7 @@
-import { Checkbox } from '@/components/atoms/Checkbox/Checkbox';
 import { SidebarNav } from '@/components/organisms/SidebarNav/SidebarNav';
 import { MobileBottomNav } from '@/components/organisms/MobileBottomNav/MobileBottomNav';
 import { TopAppBar } from '@/components/organisms/TopAppBar/TopAppBar';
 import { Icon } from '@/components/atoms/Icon/Icon';
-import { ReleaseBadge } from '@/components/atoms/ReleaseBadge/ReleaseBadge';
 import { Skeleton } from '@/components/atoms/Skeleton/Skeleton';
 import { SelectInput } from '@/components/atoms/SelectInput/SelectInput';
 import { DeactivateModal } from '@/components/molecules/DeactivateModal/DeactivateModal';
@@ -13,6 +11,8 @@ import { TwoFactorSetupModal } from '@/components/organisms/TwoFactorSetupModal/
 import { TwoFactorDisableModal } from '@/components/organisms/TwoFactorDisableModal/TwoFactorDisableModal';
 import { TwoFactorBackupCodesModal } from '@/components/organisms/TwoFactorBackupCodesModal/TwoFactorBackupCodesModal';
 import { APP_CONFIG } from '@/config/app.config';
+import { TooltipBubble } from '@/components/atoms/Tooltip/TooltipBubble';
+import { useTooltip } from '@/components/atoms/Tooltip/useTooltip';
 import { useSettingsPage } from './useSettingsPage';
 import { TIMEZONE_OPTIONS } from './SettingsPage.types';
 import './SettingsPage.css';
@@ -53,6 +53,8 @@ export function SettingsPage() {
     setShowTwoFactorBackupCodesModal,
     handleToggleTwoFactor,
   } = useSettingsPage();
+
+  const emailTooltip = useTooltip<HTMLDivElement>({ label: 'Email address cannot be changed' });
 
   return (
     <div className="dashboard-layout">
@@ -146,7 +148,7 @@ export function SettingsPage() {
                     />
                   </div>
 
-                  <div className="settings-field-group">
+                  <div className="settings-field-group" {...emailTooltip.anchorProps}>
                     <label className="settings-label">Email Address</label>
                     <input
                       type="email"
@@ -154,9 +156,9 @@ export function SettingsPage() {
                       value={profileForm.email}
                       disabled
                       readOnly
-                      title="Email address cannot be changed"
                       style={{ cursor: 'not-allowed', opacity: 0.7, backgroundColor: 'var(--color-surface-container-highest, #e3e3dc)' }}
                     />
+                    <TooltipBubble {...emailTooltip.tooltipProps} />
                   </div>
 
                   <div className="settings-field-group" style={{ gridColumn: '1 / -1' }}>
@@ -343,39 +345,6 @@ export function SettingsPage() {
                 <PalettePicker
                   selectedPalette={preferencesData.palette}
                   onSelectPalette={handlePaletteChange}
-                />
-              </div>
-            </section>
-
-            {/* Notifications Section (Alpha disabled) */}
-            <section className="settings-section-card settings-disabled-card">
-              <div className="settings-section-header">
-                <div className="settings-section-header-info">
-                  <div className="settings-icon-badge" style={{ background: 'var(--color-surface-container-highest, #e3e3dc)', color: 'var(--color-on-surface-variant, #49473c)' }}>
-                    <Icon name="notifications" />
-                  </div>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <h3 className="settings-section-title">Notifications</h3>
-                      <ReleaseBadge size="xs" variant="subtle" />
-                    </div>
-                    <p className="settings-section-subtitle">Configure email and security notification preferences (Coming Soon).</p>
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <Checkbox
-                  label="Weekly Analytics Summary"
-                  description="Receive a weekly performance report of your shortlinks"
-                  checked={preferencesData.weeklyReport}
-                  disabled
-                />
-                <Checkbox
-                  label="Security Alerts & Logins"
-                  description="Get notified about new sign-ins from unrecognized devices"
-                  checked={preferencesData.securityAlerts}
-                  disabled
                 />
               </div>
             </section>

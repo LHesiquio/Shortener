@@ -1,6 +1,8 @@
 import { memo } from 'react';
 import { Icon } from '@/components/atoms/Icon/Icon';
 import { TableRow, TableCell } from '@/components/atoms/Table';
+import { TooltipBubble } from '@/components/atoms/Tooltip/TooltipBubble';
+import { useTooltip } from '@/components/atoms/Tooltip/useTooltip';
 import { formatLocalizedTooltip } from '@/utils/date.utils';
 import type { ClickLogEntry } from '@/types/shortlink.types';
 import { getClicksDeviceIcon, getRefererBadgeInfo } from './ClicksPage.utils';
@@ -66,12 +68,15 @@ function DeviceCell({ device }: { device: ClickLogEntry['device'] }) {
 
 function RefererCell({ referer }: { referer?: string }) {
   const info = getRefererBadgeInfo(referer);
+  const refererTooltip = useTooltip<HTMLSpanElement>({ label: referer || 'Direct' });
+
   return (
     <TableCell className="clicks-td-referer">
-      <span className={`clicks-referer-badge clicks-referer-badge--${info.variant}`} title={referer || 'Direct'}>
+      <span className={`clicks-referer-badge clicks-referer-badge--${info.variant}`} {...refererTooltip.anchorProps}>
         <Icon name={info.icon} size={12} />
         <span>{info.label}</span>
       </span>
+      <TooltipBubble {...refererTooltip.tooltipProps} />
     </TableCell>
   );
 }

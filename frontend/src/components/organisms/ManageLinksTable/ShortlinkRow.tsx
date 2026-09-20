@@ -3,6 +3,8 @@ import { Icon } from '@/components/atoms/Icon/Icon';
 import { IconButton } from '@/components/atoms/IconButton/IconButton';
 import { StatusToggle } from '@/components/atoms/StatusToggle/StatusToggle';
 import { TableRow, TableCell } from '@/components/atoms/Table';
+import { TooltipBubble } from '@/components/atoms/Tooltip/TooltipBubble';
+import { useTooltip } from '@/components/atoms/Tooltip/useTooltip';
 import { formatLocalizedDate } from '@/utils/date.utils';
 import type { PublicShortlink } from '@/types/shortlink.types';
 
@@ -30,53 +32,65 @@ function ProjectCell({ project }: { project?: { name: string } | string }) {
 }
 
 function DestinationUrlCell({ url, title }: { url: string; title?: string }) {
+  const urlTooltip = useTooltip<HTMLAnchorElement>({ label: url });
+  const titleTooltip = useTooltip<HTMLSpanElement>({ label: title || '' });
+
   return (
     <TableCell className="sl-col-url">
       <div className="sl-url-container">
         <div className="sl-favicon-wrap">
           <Icon name="globe" size={16} />
         </div>
-        <a href={url} target="_blank" rel="noopener noreferrer" className="sl-url-link" title={url}>
+        <a href={url} target="_blank" rel="noopener noreferrer" className="sl-url-link" {...urlTooltip.anchorProps}>
           {url}
         </a>
         {title && title !== url && (
-          <span className="sl-url-title-badge" title={title}>
+          <span className="sl-url-title-badge" {...titleTooltip.anchorProps}>
             {title}
           </span>
         )}
       </div>
+      <TooltipBubble {...urlTooltip.tooltipProps} />
+      <TooltipBubble {...titleTooltip.tooltipProps} />
     </TableCell>
   );
 }
 
 function SlugCell({ slug, isCopied, onCopy }: { slug: string; isCopied: boolean; onCopy: () => void }) {
+  const tooltip = useTooltip<HTMLButtonElement>({
+    label: isCopied ? 'Copied!' : 'Click to copy shortlink',
+  });
+
   return (
     <TableCell className="sl-col-slug">
       <button
         type="button"
         className={`sl-slug-text-btn ${isCopied ? 'copied' : ''}`}
         onClick={onCopy}
-        title={isCopied ? 'Copied!' : 'Click to copy shortlink'}
+        {...tooltip.anchorProps}
       >
         <span className="sl-slug-name">{slug}</span>
         <Icon name={isCopied ? 'check' : 'copy'} size={15} className="sl-copy-icon" />
       </button>
+      <TooltipBubble {...tooltip.tooltipProps} />
     </TableCell>
   );
 }
 
 function ClicksCell({ count, onClick }: { count: number; onClick?: () => void }) {
+  const tooltip = useTooltip<HTMLButtonElement>({ label: 'View clicks history' });
   return (
     <TableCell className="sl-col-clicks">
       <button
         type="button"
         className="sl-clicks-pill-btn"
         onClick={onClick}
-        title="View clicks history"
+        {...tooltip.anchorProps}
       >
         <Icon name="ads_click" size={14} className="sl-clicks-icon" />
         <span className="sl-clicks-count">{count}</span>
       </button>
+      <TooltipBubble {...tooltip.tooltipProps} />
     </TableCell>
   );
 }

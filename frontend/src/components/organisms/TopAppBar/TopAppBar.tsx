@@ -4,6 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Icon } from '@/components/atoms/Icon/Icon';
 import { ReleaseBadge } from '@/components/atoms/ReleaseBadge/ReleaseBadge';
 import { CommandPalette } from '@/components/molecules/CommandPalette/CommandPalette';
+import { NotificationCenter } from '@/components/organisms/NotificationCenter/NotificationCenter';
 import type { TopAppBarProps } from './TopAppBar.types';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 import './TopAppBar.css';
@@ -159,6 +160,7 @@ export function TopAppBar({ onLogout = () => {}, onOpenCreateLink }: TopAppBarPr
       <MobileBrandHeader />
       <SearchBar onOpenCmd={() => setCmdOpen(true)} />
       <div className="topbar-actions">
+        <NotificationCenter />
         <ProfileMenu onLogout={onLogout} />
       </div>
       {cmdOpen && (

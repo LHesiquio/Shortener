@@ -6,6 +6,8 @@ import { PublicOnlyRoute } from '@/components/guards/PublicOnlyRoute/PublicOnlyR
 import { PageTransition } from '@/components/atoms/PageTransition/PageTransition';
 import { ToastContext, useToastState } from '@/context/ToastContext';
 import { ToastContainer } from '@/components/atoms/ToastContainer/ToastContainer';
+import { NotificationProvider } from '@/context/NotificationContext';
+import { ExportJobsProvider } from '@/context/ExportJobsContext';
 import { UserProfileProvider } from '@/context/UserProfileContext';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { NewLinkDrawerProvider } from '@/context/NewLinkDrawerContext';
@@ -66,19 +68,23 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <ToastContext.Provider value={toast}>
-          <NetworkProvider>
-            <UserProfileProvider>
-              <NewLinkDrawerProvider>
-                <BrowserRouter>
-                  <OfflineBanner />
-                  <PageTransition>
-                    <AppRoutes />
-                  </PageTransition>
-                  <ToastContainer toasts={toast.toasts} onDismiss={toast.dismiss} />
-                </BrowserRouter>
-              </NewLinkDrawerProvider>
-            </UserProfileProvider>
-          </NetworkProvider>
+          <NotificationProvider>
+            <NetworkProvider>
+              <UserProfileProvider>
+                <ExportJobsProvider>
+                  <NewLinkDrawerProvider>
+                    <BrowserRouter>
+                      <OfflineBanner />
+                      <PageTransition>
+                        <AppRoutes />
+                      </PageTransition>
+                      <ToastContainer toasts={toast.toasts} onDismiss={toast.dismiss} />
+                    </BrowserRouter>
+                  </NewLinkDrawerProvider>
+                </ExportJobsProvider>
+              </UserProfileProvider>
+            </NetworkProvider>
+          </NotificationProvider>
         </ToastContext.Provider>
       </ThemeProvider>
     </QueryClientProvider>

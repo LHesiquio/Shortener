@@ -1,4 +1,7 @@
 import { Icon } from '@/components/atoms/Icon/Icon';
+import { TooltipBubble } from '@/components/atoms/Tooltip/TooltipBubble';
+import { useTooltip } from '@/components/atoms/Tooltip/useTooltip';
+import { resolveVariantClass } from './IconButton.utils';
 import type { IconButtonProps } from './IconButton.types';
 import './IconButton.css';
 
@@ -10,23 +13,24 @@ export function IconButton({
   tooltipPosition = 'top',
   ...props
 }: IconButtonProps) {
-  const variantClass = variant === 'default' ? '' : `icon-btn-${variant}`;
+  const variantClass = resolveVariantClass(variant);
+  const { anchorProps, tooltipProps } = useTooltip<HTMLButtonElement>({
+    label: title ?? '',
+    preferred: tooltipPosition,
+  });
 
   return (
-    <div className="icon-btn-wrapper">
+    <>
       <button
         type="button"
         className={`icon-btn-root ${variantClass} ${className}`}
         aria-label={title || props['aria-label']}
+        {...anchorProps}
         {...props}
       >
         <Icon name={icon} />
       </button>
-      {title && (
-        <span className={`icon-btn-tooltip icon-btn-tooltip-${tooltipPosition}`} role="tooltip">
-          {title}
-        </span>
-      )}
-    </div>
+      {title && <TooltipBubble {...tooltipProps} />}
+    </>
   );
 }

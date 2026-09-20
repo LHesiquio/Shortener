@@ -53,7 +53,7 @@ export class ClicksExportManager {
       fields,
     };
 
-    return delegateExportByFormat(format, context);
+    return { ...(await delegateExportByFormat(format, context)), recordCount: clickDocs.length };
   }
 }
 
