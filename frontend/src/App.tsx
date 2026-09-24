@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ProtectedRoute } from '@/components/guards/ProtectedRoute/ProtectedRoute';
 import { PublicOnlyRoute } from '@/components/guards/PublicOnlyRoute/PublicOnlyRoute';
-import { DashboardLayout } from '@/components/templates/DashboardLayout/DashboardLayout';
+import { DashboardLayout } from '@/components/organisms/DashboardLayout/DashboardLayout';
 import { PageTransition } from '@/components/atoms/PageTransition/PageTransition';
 import { ToastContext, useToastState } from '@/context/ToastContext';
 import { ToastContainer } from '@/components/atoms/ToastContainer/ToastContainer';
