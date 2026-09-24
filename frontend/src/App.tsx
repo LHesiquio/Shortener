@@ -1,8 +1,9 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, type ReactNode } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ProtectedRoute } from '@/components/guards/ProtectedRoute/ProtectedRoute';
 import { PublicOnlyRoute } from '@/components/guards/PublicOnlyRoute/PublicOnlyRoute';
+import { DashboardLayout } from '@/components/templates/DashboardLayout/DashboardLayout';
 import { PageTransition } from '@/components/atoms/PageTransition/PageTransition';
 import { ToastContext, useToastState } from '@/context/ToastContext';
 import { ToastContainer } from '@/components/atoms/ToastContainer/ToastContainer';
@@ -39,21 +40,30 @@ const queryClient = new QueryClient({
   },
 });
 
+function PublicPage({ children }: { children: ReactNode }) {
+  return <PageTransition>{children}</PageTransition>;
+}
+
 function AppRoutes() {
   return (
     <Suspense fallback={<div className="page-route-fallback" />}>
       <Routes>
-        <Route path="/login" element={<PublicOnlyRoute><LoginPage /></PublicOnlyRoute>} />
-        <Route path="/register" element={<PublicOnlyRoute><RegisterPage /></PublicOnlyRoute>} />
-        <Route path="/verify-email" element={<VerifyEmailPage />} />
-        <Route path="/reset-password" element={<PublicOnlyRoute><ResetPasswordPage /></PublicOnlyRoute>} />
+        <Route path="/login" element={<PublicOnlyRoute><PublicPage><LoginPage /></PublicPage></PublicOnlyRoute>} />
+        <Route path="/register" element={<PublicOnlyRoute><PublicPage><RegisterPage /></PublicPage></PublicOnlyRoute>} />
+        <Route path="/verify-email" element={<PublicPage><VerifyEmailPage /></PublicPage>} />
+        <Route path="/reset-password" element={<PublicOnlyRoute><PublicPage><ResetPasswordPage /></PublicPage></PublicOnlyRoute>} />
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-        <Route path="/projects" element={<ProtectedRoute><ProjectsPage /></ProtectedRoute>} />
-        <Route path="/projects/:projectId" element={<ProtectedRoute><ProjectDetailPage /></ProtectedRoute>} />
-        <Route path="/analytics" element={<ProtectedRoute><AnalyticsPage /></ProtectedRoute>} />
-        <Route path="/clicks" element={<ProtectedRoute><ClicksPage /></ProtectedRoute>} />
-        <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+
+        {/* Persistent authenticated shell: sidebar, top bar and mobile nav stay mounted. */}
+        <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
+          <Route path="/analytics" element={<AnalyticsPage />} />
+          <Route path="/clicks" element={<ClicksPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+        </Route>
+
         <Route path="/r/:slug" element={<RedirectPage />} />
         <Route path="/:slug" element={<RedirectPage />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
@@ -75,9 +85,7 @@ function App() {
                   <NewLinkDrawerProvider>
                     <BrowserRouter>
                       <OfflineBanner />
-                      <PageTransition>
-                        <AppRoutes />
-                      </PageTransition>
+                      <AppRoutes />
                       <ToastContainer toasts={toast.toasts} onDismiss={toast.dismiss} />
                     </BrowserRouter>
                   </NewLinkDrawerProvider>

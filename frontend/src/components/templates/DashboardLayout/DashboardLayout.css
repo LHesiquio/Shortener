@@ -1,0 +1,17 @@
+/* ==========================================================================
+   DASHBOARD LAYOUT (Persistent Application Shell)
+   The sidebar, top app bar and mobile navigation stay mounted across route
+   changes. Only the routed content inside this transition container remounts.
+   ========================================================================== */
+
+.page-transition-container.dashboard-content-transition {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Keep the routed content skeleton flush with the persistent shell. */
+.dashboard-content-transition .page-skeleton-canvas {
+  flex: 1 1 auto;
+}

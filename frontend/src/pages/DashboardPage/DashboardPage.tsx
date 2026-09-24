@@ -1,8 +1,5 @@
 import { useState } from 'react';
 import { useDashboard } from '@/hooks/useDashboard';
-import { SidebarNav } from '@/components/organisms/SidebarNav/SidebarNav';
-import { MobileBottomNav } from '@/components/organisms/MobileBottomNav/MobileBottomNav';
-import { TopAppBar } from '@/components/organisms/TopAppBar/TopAppBar';
 import { QuickStatsHeader } from '@/components/organisms/QuickStatsHeader/QuickStatsHeader';
 import { ManageLinksTable } from '@/components/organisms/ManageLinksTable/ManageLinksTable';
 import { NewLinkDrawer } from '@/components/organisms/NewLinkDrawer/NewLinkDrawer';
@@ -97,23 +94,13 @@ export function DashboardPage() {
   };
 
   return (
-    <div className="dashboard-layout">
-      <SidebarNav onAddLink={() => dash.openAddDrawer()} />
-      <main className="dashboard-main">
-        <TopAppBar
-          search={dash.search}
-          onSearchChange={dash.setSearch}
-          onLogout={dash.handleLogout}
-          onOpenCreateLink={() => dash.openAddDrawer()}
-        />
-        <DashboardCanvas dash={dash} onOpenClicksLog={handleOpenClicksLog} />
-      </main>
-      <MobileBottomNav onAddLink={() => dash.openAddDrawer()} />
+    <>
+      <DashboardCanvas dash={dash} onOpenClicksLog={handleOpenClicksLog} />
       <DashboardDrawers
         dash={dash}
         clicksLogState={clicksLogState}
         onCloseClicksLog={() => setClicksLogState((p) => ({ ...p, isOpen: false }))}
       />
-    </div>
+    </>
   );
 }

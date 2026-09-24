@@ -1,6 +1,3 @@
-import { SidebarNav } from '@/components/organisms/SidebarNav/SidebarNav';
-import { MobileBottomNav } from '@/components/organisms/MobileBottomNav/MobileBottomNav';
-import { TopAppBar } from '@/components/organisms/TopAppBar/TopAppBar';
 import { Icon } from '@/components/atoms/Icon/Icon';
 import { Skeleton } from '@/components/atoms/Skeleton/Skeleton';
 import { SelectInput } from '@/components/atoms/SelectInput/SelectInput';
@@ -57,14 +54,9 @@ export function SettingsPage() {
   const emailTooltip = useTooltip<HTMLDivElement>({ label: 'Email address cannot be changed' });
 
   return (
-    <div className="dashboard-layout">
-      <SidebarNav />
-
-      <main className="dashboard-main">
-        <TopAppBar />
-
-        <div className="dashboard-canvas">
-          <div className="settings-page-container">
+    <>
+      <div className="dashboard-canvas">
+        <div className="settings-page-container">
             {/* Header */}
             <div className="settings-header">
               <h2 className="settings-title">Settings</h2>
@@ -364,9 +356,6 @@ export function SettingsPage() {
             </div>
           </div>
         </div>
-      </main>
-
-      <MobileBottomNav />
 
       {/* Change Password Modal */}
       <ChangePasswordModal
@@ -399,6 +388,6 @@ export function SettingsPage() {
         isOpen={showTwoFactorBackupCodesModal}
         onClose={() => setShowTwoFactorBackupCodesModal(false)}
       />
-    </div>
+    </>
   );
 }

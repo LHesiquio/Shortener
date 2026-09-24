@@ -1,7 +1,4 @@
 import { Icon } from '@/components/atoms/Icon/Icon';
-import { SidebarNav } from '@/components/organisms/SidebarNav/SidebarNav';
-import { MobileBottomNav } from '@/components/organisms/MobileBottomNav/MobileBottomNav';
-import { TopAppBar } from '@/components/organisms/TopAppBar/TopAppBar';
 import { ExportLogsModal } from '@/components/organisms/ExportLogsModal/ExportLogsModal';
 import {
   TableSection,
@@ -195,19 +192,14 @@ export function ClicksPage() {
   const page = useClicksPage();
 
   return (
-    <div className="dashboard-layout">
-      <SidebarNav />
-      <main className="dashboard-main">
-        <TopAppBar onLogout={page.handleLogout} />
-        <div className="dashboard-canvas">
-          <ClicksPageContent page={page} />
-        </div>
-      </main>
-      <MobileBottomNav />
+    <>
+      <div className="dashboard-canvas">
+        <ClicksPageContent page={page} />
+      </div>
       <ExportLogsModal
         isOpen={page.isExportModalOpen}
         onClose={page.handleCloseExportModal}
       />
-    </div>
+    </>
   );
 }

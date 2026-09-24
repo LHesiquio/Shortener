@@ -1,6 +1,3 @@
-import { SidebarNav } from '@/components/organisms/SidebarNav/SidebarNav';
-import { MobileBottomNav } from '@/components/organisms/MobileBottomNav/MobileBottomNav';
-import { TopAppBar } from '@/components/organisms/TopAppBar/TopAppBar';
 import { ProjectCard } from '@/components/molecules/ProjectCard/ProjectCard';
 import { CreateProjectDrawer } from '@/components/molecules/CreateProjectDrawer/CreateProjectDrawer';
 import { DeleteProjectModal } from '@/components/molecules/DeleteProjectModal/DeleteProjectModal';
@@ -137,18 +134,13 @@ export function ProjectsPage() {
   const page = useProjectsPage();
 
   return (
-    <div className="dashboard-layout">
-      <SidebarNav />
-      <main className="dashboard-main">
-        <TopAppBar search={page.search} onSearchChange={page.setSearch} onLogout={page.handleLogout} />
-        <div className="dashboard-canvas">
-          <ProjectsHeaderSection onOpenCreate={() => page.setIsCreateModalOpen(true)} />
-          <ProjectsFilterTabs tab={page.tab} setTab={page.setTab} />
-          <ProjectsPageContent page={page} />
-        </div>
-      </main>
-      <MobileBottomNav />
+    <>
+      <div className="dashboard-canvas">
+        <ProjectsHeaderSection onOpenCreate={() => page.setIsCreateModalOpen(true)} />
+        <ProjectsFilterTabs tab={page.tab} setTab={page.setTab} />
+        <ProjectsPageContent page={page} />
+      </div>
       <ProjectsModals page={page} />
-    </div>
+    </>
   );
 }

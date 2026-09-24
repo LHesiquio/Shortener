@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { useAnalyticsPage } from './useAnalyticsPage';
 import { useUserProfile } from '@/context/UserProfileContext';
-import { SidebarNav } from '@/components/organisms/SidebarNav/SidebarNav';
-import { MobileBottomNav } from '@/components/organisms/MobileBottomNav/MobileBottomNav';
-import { TopAppBar } from '@/components/organisms/TopAppBar/TopAppBar';
 import { StatsCard } from '@/components/molecules/StatsCard/StatsCard';
 import { ClicksLogDrawer } from '@/components/organisms/ClicksLogDrawer/ClicksLogDrawer';
 import { TimelineChart } from './TimelineChart';
@@ -42,33 +39,27 @@ function BreakdownsSection({ summary, loading }: { summary?: AnalyticsSummary; l
 export function AnalyticsPage() {
   const pageState = useAnalyticsPage();
   const { userTimezone } = useUserProfile();
-  const [search, setSearch] = useState('');
   const [clicksDrawerOpen, setClicksDrawerOpen] = useState(false);
 
   return (
-    <div className="dashboard-layout">
-      <SidebarNav onAddLink={() => {}} />
-      <main className="dashboard-main">
-        <TopAppBar search={search} onSearchChange={setSearch} onLogout={pageState.handleLogout} />
-        <div className="dashboard-canvas">
-          <AnalyticsHeader
-            userTimezone={userTimezone}
-            selectedRange={pageState.selectedRange}
-            onSelectRange={pageState.setSelectedRange}
-            onOpenClicksDrawer={() => setClicksDrawerOpen(true)}
-          />
-          <QuickStatsSection summary={pageState.summary} loading={pageState.isLoading} />
-          <TimelineChart
-            entries={pageState.summary?.clicksTimeline ?? []}
-            range={pageState.selectedRange}
-            userTimezone={userTimezone}
-            loading={pageState.isLoading}
-          />
-          <BreakdownsSection summary={pageState.summary} loading={pageState.isLoading} />
-        </div>
-      </main>
-      <MobileBottomNav />
+    <>
+      <div className="dashboard-canvas">
+        <AnalyticsHeader
+          userTimezone={userTimezone}
+          selectedRange={pageState.selectedRange}
+          onSelectRange={pageState.setSelectedRange}
+          onOpenClicksDrawer={() => setClicksDrawerOpen(true)}
+        />
+        <QuickStatsSection summary={pageState.summary} loading={pageState.isLoading} />
+        <TimelineChart
+          entries={pageState.summary?.clicksTimeline ?? []}
+          range={pageState.selectedRange}
+          userTimezone={userTimezone}
+          loading={pageState.isLoading}
+        />
+        <BreakdownsSection summary={pageState.summary} loading={pageState.isLoading} />
+      </div>
       <ClicksLogDrawer isOpen={clicksDrawerOpen} onClose={() => setClicksDrawerOpen(false)} />
-    </div>
+    </>
   );
 }

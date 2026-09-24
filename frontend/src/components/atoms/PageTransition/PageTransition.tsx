@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from 'react';
 import type { PageTransitionProps } from './PageTransition.types';
 import './PageTransition.css';
 
-export function PageTransition({ children }: PageTransitionProps) {
+export function PageTransition({ children, className = '' }: PageTransitionProps) {
   const location = useLocation();
   const navigationType = useNavigationType();
   const [transitionDirection, setTransitionDirection] = useState<'forward' | 'back' | 'fade'>('fade');
@@ -26,7 +26,7 @@ export function PageTransition({ children }: PageTransitionProps) {
   return (
     <div
       key={location.pathname}
-      className={`page-transition-container page-transition-${transitionDirection}`}
+      className={`page-transition-container page-transition-${transitionDirection} ${className}`.trim()}
     >
       {children}
     </div>

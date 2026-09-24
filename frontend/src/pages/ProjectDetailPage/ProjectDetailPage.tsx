@@ -1,7 +1,4 @@
 import { useState } from 'react';
-import { SidebarNav } from '@/components/organisms/SidebarNav/SidebarNav';
-import { MobileBottomNav } from '@/components/organisms/MobileBottomNav/MobileBottomNav';
-import { TopAppBar } from '@/components/organisms/TopAppBar/TopAppBar';
 import { ProjectHeader } from '@/components/organisms/ProjectHeader/ProjectHeader';
 import { ManageLinksTable } from '@/components/organisms/ManageLinksTable/ManageLinksTable';
 import { ClicksLogDrawer } from '@/components/organisms/ClicksLogDrawer/ClicksLogDrawer';
@@ -116,22 +113,13 @@ export function ProjectDetailPage() {
   };
 
   return (
-    <div className="dashboard-layout">
-      <SidebarNav />
-      <main className="dashboard-main">
-        <TopAppBar
-          search={page.search}
-          onSearchChange={page.setSearch}
-          onLogout={page.handleLogout}
-        />
-        <ProjectDetailCanvas page={page} onOpenClicksLog={handleOpenClicksLog} />
-      </main>
-      <MobileBottomNav onAddLink={() => page.openAddDrawer()} />
+    <>
+      <ProjectDetailCanvas page={page} onOpenClicksLog={handleOpenClicksLog} />
       <ProjectDetailModals
         page={page}
         clicksLogState={clicksLogState}
         onCloseClicksLog={() => setClicksLogState((prev) => ({ ...prev, isOpen: false }))}
       />
-    </div>
+    </>
   );
 }
