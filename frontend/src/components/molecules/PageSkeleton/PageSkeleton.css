@@ -10,13 +10,30 @@
   width: 100%;
   max-width: 400px;
   padding: 2rem;
-  border-radius: 1rem;
+  border-radius: 1.5rem;
   border: 1px solid var(--color-outline-variant, #cac6b8);
   background-color: var(--color-surface-container-lowest, #ffffff);
   display: flex;
   flex-direction: column;
   gap: 1rem;
   box-sizing: border-box;
+}
+
+.page-skeleton-auth-avatar {
+  margin: 0 auto;
+}
+
+.page-skeleton-auth-field {
+  margin-top: 1rem;
+}
+
+.page-skeleton-auth-submit {
+  margin-top: 0.5rem;
+}
+
+.page-skeleton-centered {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .page-skeleton-layout {
@@ -33,6 +50,12 @@
   flex-direction: column;
   gap: 1.5rem;
   background-color: var(--color-surface-container-lowest, #ffffff);
+}
+
+.page-skeleton-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .page-skeleton-sidebar-nav {
@@ -64,6 +87,12 @@
   background-color: var(--color-surface-container-lowest, #ffffff);
 }
 
+.page-skeleton-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .page-skeleton-canvas {
   flex: 1;
   padding: 2rem;
@@ -76,6 +105,12 @@
   box-sizing: border-box;
 }
 
+.page-skeleton-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
 .page-skeleton-grid-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -84,7 +119,7 @@
 
 .page-skeleton-card {
   padding: 1.5rem;
-  border-radius: 1rem;
+  border-radius: 1.5rem;
   border: 1px solid var(--color-outline-variant, #cac6b8);
   background-color: var(--color-surface-container-lowest, #ffffff);
   display: flex;
@@ -92,14 +127,28 @@
   gap: 1rem;
 }
 
+.page-skeleton-card-body {
+  flex: 1;
+}
+
+.page-skeleton-card-value {
+  margin-top: 0.4rem;
+}
+
 .page-skeleton-table-card {
   padding: 1.5rem;
-  border-radius: 1rem;
+  border-radius: 1.5rem;
   border: 1px solid var(--color-outline-variant, #cac6b8);
   background-color: var(--color-surface-container-lowest, #ffffff);
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.page-skeleton-table-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .page-skeleton-table-row {
